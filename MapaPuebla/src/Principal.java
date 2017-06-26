@@ -48,7 +48,7 @@ public class Principal {
   	  Menu menu = new Menu();
 	EventoMapa eventoMapa = new EventoMapa();
     window = new JFrame();
-    window.setSize(1200, 700);
+    window.setSize(1430, 850);
     window.setLocationRelativeTo(null); // center on screen
     window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     window.getContentPane().setLayout(new BorderLayout(0, 0));
@@ -67,7 +67,7 @@ public class Principal {
    
     Border borderMapa = BorderFactory.createLineBorder(Color.BLACK, 1);
     panelMapa.setBorder(borderMapa); 
-    panelMapa.setPreferredSize(new Dimension(1005, 200));
+    panelMapa.setPreferredSize(new Dimension(1114, 200));
     panelMapa.setBackground(Color.WHITE); 
     
     window.addWindowListener(new WindowAdapter() {
