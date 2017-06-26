@@ -88,7 +88,7 @@ public class Principal {
     
     
     
-    menu.crearMenu(panelMenu); 
+    menu.crearMenu(panelMenu, map); 
     eventoMapa.crearLayers(map, panelMenuCapas);  
     
     panelMapa.add(map, -1);

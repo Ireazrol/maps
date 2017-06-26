@@ -5,6 +5,8 @@ import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -18,21 +20,22 @@ import javax.swing.KeyStroke;
 import javax.swing.ToolTipManager;
 import javax.swing.border.LineBorder;
 
-import com.esri.client.toolkit.overlays.DrawingOverlay.DrawingMode;
 import com.esri.core.map.Graphic;
 import com.esri.core.symbol.SimpleFillSymbol;
 import com.esri.core.symbol.SimpleLineSymbol;
 import com.esri.core.symbol.SimpleMarkerSymbol;
 import com.esri.core.symbol.SimpleMarkerSymbol.Style;
+import com.esri.map.GraphicsLayer;
 import com.esri.map.JMap;
 import com.esri.toolkit.legend.JLegend;
 import com.esri.toolkit.overlays.DrawingCompleteEvent;
 import com.esri.toolkit.overlays.DrawingCompleteListener;
 import com.esri.toolkit.overlays.DrawingOverlay;
+import com.esri.toolkit.overlays.DrawingOverlay.DrawingMode;
 
 public class Menu {
 	
-	public void crearMenu (JPanel panelMenu){
+	public void crearMenu (JPanel panelMenu, JMap map){
 		JPanel jpanelHerramientas = new JPanel(new BorderLayout());
 		jpanelHerramientas.setBackground(Color.white);
 		jpanelHerramientas.setPreferredSize(new Dimension(1200, 20));
@@ -54,9 +57,11 @@ public class Menu {
         menuItemArchivo.getAccessibleContext().setAccessibleDescription("Guardar mapa");
         menuArchivo.add(menuItemArchivo);
 		
+        GraphicsLayer graphicsLayer = new GraphicsLayer();
+        map.getLayers().add(graphicsLayer);
         
         final DrawingOverlay drawingOverlay = new DrawingOverlay();
-        //map.addMapOverlay(drawingOverlay);
+        map.addMapOverlay(drawingOverlay);
         drawingOverlay.setActive(true);
         
         drawingOverlay.addDrawingCompleteListener(new DrawingCompleteListener() {
@@ -64,11 +69,21 @@ public class Menu {
             @Override
             public void drawingCompleted(DrawingCompleteEvent arg0) {
               // gets the graphic and clears it from the overlay
-             // graphicsLayer.addGraphic((Graphic) drawingOverlay.getAndClearFeature());
+              graphicsLayer.addGraphic((Graphic) drawingOverlay.getAndClearFeature());
             }
           });
         
-        JToolBar toolBar = new JToolBar();
+        JToolBar toolBar = createToolBar(drawingOverlay);
+        toolBar.setBackground(Color.white);
+        toolBar.setPreferredSize(new Dimension(300, 80));
+        
+        jpanelHerramientas.add(menuBar);
+        panelMenu.add(jpanelHerramientas, BorderLayout.NORTH);
+        panelMenu.add(toolBar, BorderLayout.CENTER);
+	}
+	
+	public JToolBar createToolBar(DrawingOverlay drawingOverlay) {
+		JToolBar toolBar = new JToolBar();
         toolBar.setLayout(new FlowLayout(FlowLayout.CENTER));
         ToolTipManager.sharedInstance().setInitialDelay(100);
         
@@ -78,10 +93,9 @@ public class Menu {
             rectangleButton.addActionListener(new ActionListener() {
               @Override
               public void actionPerformed(ActionEvent e) {
-//                drawingOverlay.setUp(
-//                    DrawingMode.POLYGON_RECTANGLE,
-//                    new SimpleFillSymbol(new Color(200, 0, 0, 120), new SimpleLineSymbol(new Color(200, 0, 0), 3)),
-//                    null);
+            	  Map<String, Object> attributes = new HashMap<String, Object>();
+            	  drawingOverlay.setUp(DrawingMode.POLYGON_RECTANGLE,
+            			  new SimpleFillSymbol(new Color(200, 0, 0, 120), new SimpleLineSymbol(new Color(200, 0, 0), 3)), attributes);
               }
             });
             toolBar.add(rectangleButton);
@@ -92,10 +106,10 @@ public class Menu {
         polylineButton.addActionListener(new ActionListener() {
           @Override
           public void actionPerformed(ActionEvent e) {
-//            drawingOverlay.setUp(
-//                DrawingMode.POLYLINE,
-//                new SimpleLineSymbol(Color.BLUE, 3),
-//                null);
+            drawingOverlay.setUp(
+                DrawingMode.POLYLINE,
+                new SimpleLineSymbol(Color.BLUE, 3),
+                null);
           }
         });
         toolBar.add(polylineButton);
@@ -106,10 +120,10 @@ public class Menu {
         freehandLineButton.addActionListener(new ActionListener() {
           @Override
           public void actionPerformed(ActionEvent e) {
-//            drawingOverlay.setUp(
-//                DrawingMode.POLYLINE_FREEHAND,
-//                new SimpleLineSymbol(Color.RED, 2),
-//                null);
+            drawingOverlay.setUp(
+                DrawingMode.POLYLINE_FREEHAND,
+                new SimpleLineSymbol(Color.RED, 2),
+                null);
           }
         });
         toolBar.add(freehandLineButton);
@@ -120,10 +134,10 @@ public class Menu {
         pointButton.addActionListener(new ActionListener() {
           @Override
           public void actionPerformed(ActionEvent e) {
-//            drawingOverlay.setUp(
-//                DrawingMode.POINT,
-//                new SimpleMarkerSymbol(Color.GREEN, 20, Style.CIRCLE),
-//                null);
+            drawingOverlay.setUp(
+                DrawingMode.POINT,
+                new SimpleMarkerSymbol(Color.GREEN, 20, Style.CIRCLE),
+                null);
           }
         });
         toolBar.add(pointButton);
@@ -134,10 +148,10 @@ public class Menu {
         multipointButton.addActionListener(new ActionListener() {
           @Override
           public void actionPerformed(ActionEvent e) {
-//            drawingOverlay.setUp(
-//                DrawingMode.MULTIPOINT,
-//                new SimpleMarkerSymbol(Color.DARK_GRAY, 20, Style.CIRCLE),
-//                null);
+            drawingOverlay.setUp(
+                DrawingMode.MULTIPOINT,
+                new SimpleMarkerSymbol(Color.DARK_GRAY, 20, Style.CIRCLE),
+                null);
           }
         });
         toolBar.add(multipointButton);
@@ -150,17 +164,15 @@ public class Menu {
         polygonButton.addActionListener(new ActionListener() {
           @Override
           public void actionPerformed(ActionEvent e) {
-//            drawingOverlay.setUp(
-//                DrawingMode.POLYGON,
-//                new SimpleFillSymbol(new Color(0, 0, 0, 80), dottedLine),
-//                null);
+            drawingOverlay.setUp(
+                DrawingMode.POLYGON,
+                new SimpleFillSymbol(new Color(0, 0, 0, 80), dottedLine),
+                null);
           }
         });
         toolBar.add(polygonButton);
-        
-        jpanelHerramientas.add(menuBar);
-        panelMenu.add(jpanelHerramientas, BorderLayout.NORTH);
-		//panelMenu.add(menuBar); 
+		
+		return toolBar;
 	}
 	
 	public void crearMenuCapas (JMap map, JPanel panelMenuCapas) {
