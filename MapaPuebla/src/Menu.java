@@ -38,6 +38,7 @@ import com.esri.toolkit.overlays.DrawingOverlay.DrawingMode;
 import javafx.scene.layout.Border;
 
 public class Menu {
+	EventoCombos eventoCombos = new EventoCombos();
 	
 	public void crearMenu (JPanel panelMenu, JMap map) {
 		JPanel jpanelHerramientas = new JPanel(new BorderLayout());
@@ -266,7 +267,7 @@ public class Menu {
         toolBar.setBackground(Color.white);
         toolBar.setPreferredSize(new Dimension(300, 20));
         
-        JToolBar toolBarGuardar = crearToolBarGuardar(drawingOverlay);
+        JToolBar toolBarGuardar = crearToolBarGuardar(drawingOverlay, map);
         toolBarGuardar.setBackground(Color.white);
         toolBarGuardar.setPreferredSize(new Dimension(800, 20));
          
@@ -295,7 +296,7 @@ public class Menu {
         return toolBar;
 	}
 	
-	public JToolBar crearToolBarGuardar (DrawingOverlay drawingOverlay) {
+	public JToolBar crearToolBarGuardar (DrawingOverlay drawingOverlay, JMap map) {
 		JToolBar toolBar = new JToolBar();  
 //		javax.swing.border.Border border= BorderFactory.createLineBorder(Color.RED, 1);
 //		toolBar.setBorder(border);		
@@ -413,7 +414,7 @@ public class Menu {
         toolBar.add(btnSiguiente);
         
         JButton btnAgregarData = new JButton(new ImageIcon(getClass().getResource("/imagenes/img/add_Data.png")));
-        btnAgregarData.setToolTipText("Add Data");
+        btnAgregarData.setToolTipText("Agregar capa");
         btnAgregarData.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -435,6 +436,7 @@ public class Menu {
         cmbScala.addItem("1:1.000.000");
         cmbScala.addItem("1:3.000.000");
         cmbScala.addItem("1:10.000.000");
+        eventoCombos.eventoCmbScala(cmbScala, map); 
         toolBar.add(cmbScala);
         
         JButton btnEditor = new JButton(new ImageIcon(getClass().getResource("/imagenes/img/edit.png")));
