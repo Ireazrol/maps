@@ -56,8 +56,8 @@ public class Menu {
 		jpanelIconosD.setBackground(Color.white);
 		jpanelIconosD.setPreferredSize(new Dimension(1200, 10));
 		
-		 GraphicsLayer graphicsLayer = new GraphicsLayer();
-	     map.getLayers().add(graphicsLayer);
+//		 GraphicsLayer graphicsLayer = new GraphicsLayer();
+//	     map.getLayers().add(graphicsLayer);
 		
 		JMenuBar menuBar = new JMenuBar();
 		menuBar.setBackground(Color.WHITE);
@@ -250,29 +250,16 @@ public class Menu {
         menuVentanas.add(agregarCaracteristicasItem(menuItemVentanas, "", "Tabla de contenido", "Tabla de contenido"));
         menuVentanas.add(agregarCaracteristicasItem(menuItemVentanas, "", "Catálogo", "Catálogo"));
         menuVentanas.add(agregarCaracteristicasItem(menuItemVentanas, "", "Buscar", "Buscar"));
-        
-        final DrawingOverlay drawingOverlay = new DrawingOverlay();
-        map.addMapOverlay(drawingOverlay);
-        drawingOverlay.setActive(true);
-        
-        drawingOverlay.addDrawingCompleteListener(new DrawingCompleteListener() {
-
-            @Override
-            public void drawingCompleted(DrawingCompleteEvent arg0) {
-              // gets the graphic and clears it from the overlay
-              graphicsLayer.addGraphic((Graphic) drawingOverlay.getAndClearFeature());
-            }
-          });
                 
-        JToolBar toolBar = createToolBar(drawingOverlay);
+        JToolBar toolBar = createToolBar(map);
         toolBar.setBackground(Color.white);
         toolBar.setPreferredSize(new Dimension(300, 20));
         
-        JToolBar toolBarGuardar = crearToolBarGuardar(drawingOverlay, map);
+        JToolBar toolBarGuardar = crearToolBarGuardar( map);
         toolBarGuardar.setBackground(Color.white);
         toolBarGuardar.setPreferredSize(new Dimension(800, 20));
          
-        JToolBar toolBarZoom = crearToolBarZoom(drawingOverlay);
+        JToolBar toolBarZoom = crearToolBarZoom();
         toolBarZoom.setBackground(Color.white);
         toolBarZoom.setPreferredSize(new Dimension(200, 20));
         
@@ -288,7 +275,7 @@ public class Menu {
 
 	}
 	
-	public JToolBar crearToolBarZoom (DrawingOverlay drawingOverlay) {
+	public JToolBar crearToolBarZoom () {
 		JToolBar toolBar = new JToolBar();  	
         toolBar.setLayout(new FlowLayout(FlowLayout.CENTER));
         ToolTipManager.sharedInstance().setInitialDelay(100); 
@@ -297,7 +284,7 @@ public class Menu {
         return toolBar;
 	}
 	
-	public JToolBar crearToolBarGuardar (DrawingOverlay drawingOverlay, JMap map) {
+	public JToolBar crearToolBarGuardar (JMap map) {
 		JToolBar toolBar = new JToolBar();  
 //		javax.swing.border.Border border= BorderFactory.createLineBorder(Color.RED, 1);
 //		toolBar.setBorder(border);		
@@ -497,7 +484,12 @@ public class Menu {
         return toolBar;
 	}
 	
-	public JToolBar createToolBar(DrawingOverlay drawingOverlay) {
+	public JToolBar createToolBar(JMap map) {
+		final DrawingOverlay drawingOverlayu = new DrawingOverlay();
+        map.addMapOverlay(drawingOverlayu);
+        drawingOverlayu.setActive(true);
+		
+        
 		JToolBar toolBar = new JToolBar();
         toolBar.setLayout(new FlowLayout(FlowLayout.CENTER));
         ToolTipManager.sharedInstance().setInitialDelay(100); 
@@ -508,10 +500,14 @@ public class Menu {
           public void actionPerformed(ActionEvent e) {
         	  System.out.println("Aquí llegué");
         	  Map<String, Object> attributes = new HashMap<String, Object>();
-        	  drawingOverlay.setUp(DrawingMode.POLYGON_RECTANGLE, new SimpleFillSymbol(new Color(200, 0, 0, 180), new SimpleLineSymbol(new Color(200, 0, 0), 3)), attributes);
+        	  drawingOverlayu.setUp(DrawingMode.POLYGON_RECTANGLE, new SimpleFillSymbol(new Color(200, 0, 0, 180), new SimpleLineSymbol(new Color(200, 0, 0), 3)), attributes);
           }
         });
         toolBar.add(rectangleButton);
+        
+        final DrawingOverlay drawingOverlaya = new DrawingOverlay();
+        map.addMapOverlay(drawingOverlaya);
+        drawingOverlaya.setActive(true);
         
         JButton polylineButton = new JButton(new ImageIcon(getClass().getResource(
             "/com/esri/client/toolkit/images/EditingLineTool16.png")));
@@ -519,7 +515,7 @@ public class Menu {
         polylineButton.addActionListener(new ActionListener() {
           @Override
           public void actionPerformed(ActionEvent e) {
-            drawingOverlay.setUp(
+        	  drawingOverlaya.setUp(
                 DrawingMode.POLYLINE,
                 new SimpleLineSymbol(Color.BLUE, 3),
                 null);
@@ -533,7 +529,7 @@ public class Menu {
         freehandLineButton.addActionListener(new ActionListener() {
           @Override
           public void actionPerformed(ActionEvent e) {
-            drawingOverlay.setUp(
+        	  drawingOverlayu.setUp(
                 DrawingMode.POLYLINE_FREEHAND,
                 new SimpleLineSymbol(Color.GREEN, 2),
                 null);
@@ -547,7 +543,7 @@ public class Menu {
         pointButton.addActionListener(new ActionListener() {
           @Override
           public void actionPerformed(ActionEvent e) {
-            drawingOverlay.setUp(
+        	  drawingOverlayu.setUp(
                 DrawingMode.POINT,
                 new SimpleMarkerSymbol(Color.cyan, 20, Style.CIRCLE),
                 null);
@@ -561,7 +557,7 @@ public class Menu {
         multipointButton.addActionListener(new ActionListener() {
           @Override
           public void actionPerformed(ActionEvent e) {
-            drawingOverlay.setUp(
+        	  drawingOverlayu.setUp(
                 DrawingMode.MULTIPOINT,
                 new SimpleMarkerSymbol(Color.DARK_GRAY, 20, Style.CIRCLE),
                 null);
@@ -577,7 +573,7 @@ public class Menu {
         polygonButton.addActionListener(new ActionListener() {
           @Override
           public void actionPerformed(ActionEvent e) {
-            drawingOverlay.setUp(
+        	  drawingOverlayu.setUp(
                 DrawingMode.POLYGON,
                 new SimpleFillSymbol(new Color(0, 0, 0, 80), dottedLine),
                 null);

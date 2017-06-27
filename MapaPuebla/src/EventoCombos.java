@@ -11,8 +11,13 @@ public class EventoCombos {
 		cmbScala.addActionListener(new ActionListener() {
 	            @Override
 	            public void actionPerformed(ActionEvent e) { 
-	             	
-	            }
+	            	 String cad1=(String)cmbScala.getSelectedItem();
+	            	 cad1 = cad1.substring(2);
+	            	 String scala = cad1.replace(".", "");   
+	            	 System.out.println("scala " + scala);
+	            	 map.setScale(Double.parseDouble(scala));
+	            	 //map.setScale(100000);
+	            } 
 	        });
 	}
 
