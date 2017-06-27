@@ -1,4 +1,3 @@
-
 import java.awt.EventQueue;
 import java.awt.Graphics;
 import java.awt.GridLayout;
@@ -37,16 +36,20 @@ public class Principal {
 
   private JFrame window;
   private JMap map;
-  ArcGISTiledMapServiceLayer tiledLayer = new ArcGISTiledMapServiceLayer(
-		  "http://services.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer");
   
-  public Principal() {
+  public Principal() throws Exception {
 	  JPanel panelPrincipal =new JPanel(new BorderLayout()); 
   	  JPanel panelMenu = new JPanel(new BorderLayout());
   	  JPanel panelMenuCapas = new JPanel(new BorderLayout());
   	  JPanel panelMapa = new JPanel(new BorderLayout());
   	  Menu menu = new Menu();
 	EventoMapa eventoMapa = new EventoMapa();
+	
+	 for(int i=0; i<=5; i++){
+	    	System.out.println("Realizo la iteración número "+i);
+	    	map = eventoMapa.createMap(i, panelMenuCapas);
+	    }
+	
     window = new JFrame();
     window.setSize(1430, 850);
     window.setLocationRelativeTo(null); // center on screen
@@ -78,19 +81,23 @@ public class Principal {
       }
     });
 
-    MapOptions mapOptions = new MapOptions(MapType.TOPO);
-    map = new JMap(mapOptions);
-    map.getLayers().add(tiledLayer);
-    map.setExtent(new Envelope(-10943738.01, 2152726.77, -10912321.29, 2170862.64));
-    GraphicsLayer graphicsLayer = new GraphicsLayer();
-    graphicsLayer.setName("Marker graphics");
-    map.getLayers().add(graphicsLayer);
     
-    
-    
+//    MapOptions mapOptions = new MapOptions(MapType.TOPO);
+//    map = new JMap(mapOptions);
+//    map.getLayers().add(tiledLayer);
+//    map.setExtent(new Envelope(-10943738.01, 2152726.77, -10912321.29, 2170862.64));
+//    GraphicsLayer graphicsLayer = new GraphicsLayer();
+//    graphicsLayer.setName("Marker graphics");
+//    map.getLayers().add(graphicsLayer);
+//    System.out.println("Antes del for MAp= "+map);
+//    for(int i=0; i<=5; i++){
+//    	System.out.println("Realizo la iteración número "+i);
+//    	map =eventoMapa.addLayers(map, i+1, panelMenuCapas);
+//    }
+//    System.out.println("MAp= "+map);
+    menu.crearMenuCapas(map, panelMenuCapas);
     menu.crearMenu(panelMenu, map); 
-   eventoMapa.crearLayers(map, panelMenuCapas);  
-    
+//    eventoMapa.crearLayers(map, panelMenuCapas);  
     panelMapa.add(map, -1);
     panelPrincipal.add(panelMenu, BorderLayout.NORTH); 
     panelPrincipal.add(panelMenuCapas, BorderLayout.LINE_START);

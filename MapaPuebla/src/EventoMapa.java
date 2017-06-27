@@ -1,15 +1,16 @@
+import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.List;
 import java.awt.event.ContainerEvent;
 import java.awt.event.ContainerListener;
 import java.text.DecimalFormat;
-
 import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
 
 import com.esri.client.toolkit.overlays.NavigatorOverlay;
 import com.esri.core.geometry.Envelope;
-import com.esri.core.geometry.Geometry;
-import com.esri.core.geometry.GeometryEngine;
 import com.esri.core.geometry.Point;
 import com.esri.core.geometry.Polyline;
 import com.esri.core.geometry.SpatialReference;
@@ -17,15 +18,29 @@ import com.esri.core.map.Graphic;
 import com.esri.core.symbol.SimpleLineSymbol;
 import com.esri.core.symbol.SimpleMarkerSymbol;
 import com.esri.core.symbol.SimpleMarkerSymbol.Style;
+import com.esri.map.ArcGISDynamicMapServiceLayer;
+import com.esri.map.ArcGISFeatureLayer;
+import com.esri.map.ArcGISTiledMapServiceLayer;
 import com.esri.map.GraphicsLayer;
 import com.esri.map.JMap;
+import com.esri.map.Layer;
+import com.esri.map.LayerInitializeCompleteEvent;
+import com.esri.map.LayerInitializeCompleteListener;
+import com.esri.map.LayerList;
 import com.esri.map.MapEvent;
 import com.esri.map.MapEventListener;
 import com.esri.map.MapEventListenerAdapter;
 import com.esri.toolkit.JLayerTree;
+import com.esri.toolkit.overlays.InfoPopupOverlay;
 
 public class EventoMapa {
-	
+//	  private JLayerTree jLayerTree;
+	  private JPanel jPanel;
+//	  private LayerList layers;
+	  Menu menu = new Menu();
+	  private String URL = "http://services.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer";
+	  final  ArcGISTiledMapServiceLayer tiledLayer = new ArcGISTiledMapServiceLayer(URL);
+	  
 	public void eventoMapa (JMap map) {
 		map.addMapEventListener(new MapEventListener() {
 			
@@ -47,7 +62,7 @@ public class EventoMapa {
 		
 	}
 
-	public void crearGrafico (JMap map) { 
+	/*public void crearGrafico (JMap map) { 
 		try {
 			SimpleMarkerSymbol simpleMarker = new SimpleMarkerSymbol(java.awt.Color.BLUE,12,Style.CIRCLE);
 			Point pointGeometry = new Point(-10882400, 2156094);
@@ -58,7 +73,7 @@ public class EventoMapa {
 		} catch (Exception e) {
 		}
 		
-	}
+	}*/
 	
 	
 	public void crearLinea (JMap map) {
@@ -126,7 +141,43 @@ public class EventoMapa {
 	}
 	
 	public void crearLayers (JMap map, JPanel panelMenuCapas) {
-		JLayerTree jLayerTree = new JLayerTree(map);
-		panelMenuCapas.add(jLayerTree);
+//		JLayerTree jLayerTree = new JLayerTree(map);
+//		panelMenuCapas.add(jLayerTree);
 	}
+	
+	public LayerList addLayers(JMap map, int numLayer, JPanel panelMenuCapas,LayerList layers){
+		ArcGISTiledMapServiceLayer newLayer = new ArcGISTiledMapServiceLayer(URL);
+		String nameLayer= "Capa"+numLayer;
+		map.setExtent(new Envelope(-10943738.01, 2152726.77, -10912321.29, 2170862.64));
+		newLayer.setName(nameLayer);
+		layers.add(newLayer);
+		
+		System.out.println("Layers List: "+ layers);
+		
+		return layers;
+	}
+	
+	 @SuppressWarnings("unused")
+	private void addInfopopupOverlay(JMap jMap, ArcGISFeatureLayer earthquakesLayer) {
+		    final InfoPopupOverlay infoPopupOverlay =
+		        new InfoPopupOverlay();
+		    infoPopupOverlay.setPopupTitle("Prueba");
+		    infoPopupOverlay.setItemTitle("Name: {Name}");
+		    infoPopupOverlay.addLayer(earthquakesLayer);
+		    jMap.addMapOverlay(infoPopupOverlay);
+		  }
+
+	 public JMap createMap(int numLayer,JPanel panelMenuCapas) throws Exception {
+		 final JMap map = new JMap();
+		 // Base Layer
+		 final ArcGISTiledMapServiceLayer baseLayer = new ArcGISTiledMapServiceLayer(URL);
+		 map.setExtent(new Envelope(-10943738.01, 2152726.77, -10912321.29, 2170862.64));
+		 LayerList layers = map.getLayers();
+		 layers.add(baseLayer);
+		    
+		 addLayers(map, numLayer, panelMenuCapas,layers);
+
+		 return map;
+	 }
 }
+
