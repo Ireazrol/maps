@@ -40,6 +40,8 @@ public class Menu {
 		jpanelHerramientas.setBackground(Color.white);
 		jpanelHerramientas.setPreferredSize(new Dimension(1200, 20));
 		
+		 GraphicsLayer graphicsLayer = new GraphicsLayer();
+	     map.getLayers().add(graphicsLayer);
 		
 		JMenuBar menuBar = new JMenuBar();
 		menuBar.setBackground(Color.WHITE);
@@ -47,18 +49,192 @@ public class Menu {
 		JMenu subMenuArchivo = new JMenu("");
 		
         JMenu menuArchivo = new JMenu("Archivo");
-        menuArchivo.setMnemonic(KeyEvent.VK_F);
-        menuArchivo.getAccessibleContext().setAccessibleDescription("Dealing with Files");
+        agregarCaracteristicasMenu(menuArchivo, "Archivo");
         menuBar.add(menuArchivo);
         
         JMenuItem menuItemArchivo = new JMenuItem();
-        menuItemArchivo.setBackground(Color.WHITE);
-        menuItemArchivo = new JMenuItem("Guardar mapa", new ImageIcon(""));
-        menuItemArchivo.getAccessibleContext().setAccessibleDescription("Guardar mapa");
-        menuArchivo.add(menuItemArchivo);
-		
-        GraphicsLayer graphicsLayer = new GraphicsLayer();
-        map.getLayers().add(graphicsLayer);
+        menuArchivo.add(agregarCaracteristicasItem(menuItemArchivo, "", "Guardar mapa", "Guardar mapa"));
+        menuArchivo.addSeparator();
+        menuArchivo.add(agregarCaracteristicasItem(menuItemArchivo, "", "Configurar impresión", "Configurar impresión"));
+        menuArchivo.add(agregarCaracteristicasItem(menuItemArchivo, "", "Imprimir mapa", "Imprimir mapa"));
+        menuArchivo.add(agregarCaracteristicasItem(menuItemArchivo, "", "Exportar mapa", "Exportar mapa"));
+        menuArchivo.addSeparator();
+        menuArchivo.add(agregarCaracteristicasItem(menuItemArchivo, "", "Salir del sistema", "Salir sistema"));
+        
+        /*Inicia menu de vista*/
+        JMenu menuVista = new JMenu("Vista");
+        agregarCaracteristicasMenu(menuVista, "Vista");
+        menuBar.add(menuVista);
+        
+        JMenuItem menuItemVista = new JMenuItem();
+        menuVista.add(agregarCaracteristicasItem(menuItemVista, "", "Vista grafíca", "Vista grafíca"));
+        menuVista.add(agregarCaracteristicasItem(menuItemVista, "", "Vista diseño", "Vista diseño"));
+        menuVista.addSeparator();
+        menuVista.add(agregarCaracteristicasItem(menuItemVista, "", "Rota la vista del documento actual", "Rota vista"));
+        menuVista.add(agregarCaracteristicasItem(menuItemVista, "", "Termina Herramienta Rotar", "Termina Rotar"));
+        
+        /* inicia menu de Edición */
+        JMenu menuEdicion = new JMenu("Edición");
+        agregarCaracteristicasMenu(menuEdicion, "Edición");
+        menuBar.add(menuEdicion);
+        
+        JMenuItem menuItemEdicion = new JMenuItem();
+        menuEdicion.add(agregarCaracteristicasItem(menuItemEdicion, "", "Deshacer", "Deshacer"));
+        menuEdicion.add(agregarCaracteristicasItem(menuItemEdicion, "", "Rehacer", "Rehacer"));
+        menuEdicion.addSeparator();
+        menuEdicion.add(agregarCaracteristicasItem(menuItemEdicion, "", "Copiar", "Copiar"));
+        menuEdicion.add(agregarCaracteristicasItem(menuItemEdicion, "", "Pegar", "Pegar"));
+        menuEdicion.add(agregarCaracteristicasItem(menuItemEdicion, "", "Cortar", "Cortar"));
+        menuEdicion.add(agregarCaracteristicasItem(menuItemEdicion, "", "Eliminar", "Eliminar"));
+        menuEdicion.addSeparator();
+        menuEdicion.add(agregarCaracteristicasItem(menuItemEdicion, "", "Herramienta Avanzada de edición", "Herramienta Avanzada"));
+        menuEdicion.add(agregarCaracteristicasItem(menuItemEdicion, "", "Barra de versiones", "Barra versiones"));
+        menuEdicion.addSeparator();
+        menuEdicion.add(agregarCaracteristicasItem(menuItemEdicion, "", "Edición activa", "Edicion activa"));
+        
+        
+        /*Inicia menu de Insertar*/
+        JMenu menuInsertar = new JMenu("Insertar");
+        agregarCaracteristicasMenu(menuInsertar, "Insertar");
+        menuBar.add(menuInsertar);
+        
+        JMenuItem menuItemInsertar = new JMenuItem();
+        menuInsertar.add(agregarCaracteristicasItem(menuItemInsertar, "", "Insertar titúlo", "Insertar titulo"));
+        menuInsertar.add(agregarCaracteristicasItem(menuItemInsertar, "", "Insertar Texto", "Insertar Texto"));
+        menuInsertar.addSeparator();
+        menuInsertar.add(agregarCaracteristicasItem(menuItemInsertar, "", "Insertar leyenda", "Insertar leyenda"));
+        menuInsertar.add(agregarCaracteristicasItem(menuItemInsertar, "", "Norte en el mapa", "Norte mapa"));
+        menuInsertar.add(agregarCaracteristicasItem(menuItemInsertar, "", "Escala en el mapa", "Escala mapa"));
+        menuInsertar.add(agregarCaracteristicasItem(menuItemInsertar, "", "Texto de escala en el mapa", "Texto escala"));
+        menuInsertar.addSeparator();
+        menuInsertar.add(agregarCaracteristicasItem(menuItemInsertar, "", "Imagen en el mapa", "Imagen mapa"));
+        
+        /*Inicia menu de seleccion*/
+        JMenu menuSeleccion = new JMenu("Selección");
+        agregarCaracteristicasMenu(menuSeleccion, "Seleccion");
+        menuBar.add(menuSeleccion);
+        
+        JMenuItem menuItemSeleccion = new JMenuItem();
+        menuSeleccion.add(agregarCaracteristicasItem(menuItemSeleccion, "", "Selección normal", "Selección normal"));
+        menuSeleccion.addSeparator();
+        menuSeleccion.add(agregarCaracteristicasItem(menuItemSeleccion, "", "Selección por ubicación", "Seleccion ubicacion")); 
+        menuSeleccion.add(agregarCaracteristicasItem(menuItemSeleccion, "", "Selección por atributos", "Seleccion atributos"));
+        
+        /*Inicia menu de herramientas*/
+        JMenu menuHerramientas = new JMenu("Herramientas");
+        agregarCaracteristicasMenu(menuHerramientas, "Herramientas");
+        menuBar.add(menuHerramientas);
+         
+        JMenuItem menuItemHerramientas = new JMenuItem();
+        menuHerramientas.add(agregarCaracteristicasItem(menuItemHerramientas, "", "Herramientas estándar", "Herramientas estandar"));
+        menuHerramientas.add(agregarCaracteristicasItem(menuItemHerramientas, "", "Herramientas Vista Layout", "Herramientas vista"));
+        menuHerramientas.add(agregarCaracteristicasItem(menuItemHerramientas, "", "Herramientas Vista Layout", "Herramientas vista"));
+        menuHerramientas.add(agregarCaracteristicasItem(menuItemHerramientas, "", "Herramientas de dibujo en vista Layout", "Herramientas dibujo"));
+        menuHerramientas.addSeparator();
+        menuHerramientas.add(agregarCaracteristicasItem(menuItemHerramientas, "", "Croquis de localización", "Croquis de localización"));
+        menuHerramientas.add(agregarCaracteristicasItem(menuItemHerramientas, "", "Localizar sector", "Localizar sector"));
+        menuHerramientas.addSeparator();
+        menuHerramientas.add(agregarCaracteristicasItem(menuItemHerramientas, "", "Street View", "Street View"));
+        menuHerramientas.addSeparator();
+        menuHerramientas.add(agregarCaracteristicasItem(menuItemHerramientas, "", "Creación features", "Creación features"));
+        menuHerramientas.add(agregarCaracteristicasItem(menuItemHerramientas, "", "Cálculo de fondo y frente", "Calculo de fondo y frente"));
+        menuHerramientas.add(agregarCaracteristicasItem(menuItemHerramientas, "", "Validaciones anexas", "Validaciones anexas"));
+        menuHerramientas.add(agregarCaracteristicasItem(menuItemHerramientas, "", "Centroides", "Centroides"));
+        menuHerramientas.add(agregarCaracteristicasItem(menuItemHerramientas, "", "Colindantes", "Colindantes"));
+        menuHerramientas.add(agregarCaracteristicasItem(menuItemHerramientas, "", "Herramientas Auxiliar", "Herramientas Auxiliar"));
+        menuHerramientas.add(agregarCaracteristicasItem(menuItemHerramientas, "", "Números exteriores", "Números exteriores"));
+        
+        /*Inicia menu de versiones */
+        JMenu menuVersiones = new JMenu("Versiones");
+        agregarCaracteristicasMenu(menuVersiones, "Versiones");
+        menuBar.add(menuVersiones);
+        
+        JMenuItem menuItemVersiones = new JMenuItem();
+        menuVersiones.add(agregarCaracteristicasItem(menuItemVersiones, "", "Cambia Versión", "Cambia Versión"));
+        menuVersiones.add(agregarCaracteristicasItem(menuItemVersiones, "", "Conciliación y posteo", "Conciliación y posteo"));
+        
+        
+        /*Inicia menu de proceso catastral*/
+        JMenu menuProcesoC = new JMenu("Proceso Catastral");
+        agregarCaracteristicasMenu(menuProcesoC, "ProcesoC");
+        menuBar.add(menuProcesoC);
+        
+        JMenuItem menuItemProcesoC = new JMenuItem();
+        menuProcesoC.add(agregarCaracteristicasItem(menuItemProcesoC, "", "Predios privativos", "Predios privativos"));
+        menuProcesoC.add(agregarCaracteristicasItem(menuItemProcesoC, "", "Predios Condominios", "Predios Condominios"));
+        
+        /*Inicia menu de tramite Catastral*/
+        JMenu menuTramiteC = new JMenu("Trámite Catasral");
+        agregarCaracteristicasMenu(menuTramiteC, "TramiteC"); 
+        menuBar.add(menuTramiteC);
+        
+        JMenuItem menuItemTramiteC = new JMenuItem();
+        menuTramiteC.add(agregarCaracteristicasItem(menuItemTramiteC, "", "Bandeja de tramites", "Bandeja de tramites"));
+        menuTramiteC.addSeparator();
+        menuTramiteC.add(agregarCaracteristicasItem(menuItemTramiteC, "", "Fusión de predios", "Fusión de predios"));
+        menuTramiteC.add(agregarCaracteristicasItem(menuItemTramiteC, "", "División de predios", "División de predios"));
+        menuTramiteC.addSeparator();
+        menuTramiteC.add(agregarCaracteristicasItem(menuItemTramiteC, "", "Tramite de fraccionamientos y condominios", "Tramite de fraccionamientos y condominios"));
+        
+        /*Inicia menu de validacion cartografia*/
+        JMenu menuValidacionC = new JMenu("Validación Cartografíca");
+        agregarCaracteristicasMenu(menuValidacionC, "ValidacionC");
+        menuBar.add(menuValidacionC);
+        
+        JMenuItem menuItemValidacionC = new JMenuItem();
+        menuValidacionC.add(agregarCaracteristicasItem(menuItemValidacionC, "", "Fraccionamientos y condominios", "Fraccionamientos y condominios"));
+        
+        /*Inicia menu de Consulta informacion*/
+        JMenu menuConsultaI = new JMenu("Consulta información");
+        agregarCaracteristicasMenu(menuConsultaI, "ConsultaI");
+        menuBar.add(menuConsultaI);
+        
+        JMenuItem menuItemConsultaI = new JMenuItem();
+        menuConsultaI.add(agregarCaracteristicasItem(menuItemConsultaI, "", "Consulta de información", "Consulta de información"));
+                
+        /*Inicia Menu de Historial*/
+        JMenu menuHistorial = new JMenu("Historial");
+        agregarCaracteristicasMenu(menuHistorial, "Historial");
+        menuBar.add(menuHistorial);
+        
+        JMenuItem menuItemHistorial = new JMenuItem();
+        menuHistorial.add(agregarCaracteristicasItem(menuItemHistorial, "", "Histórico de predios", "Histórico de predios"));
+        
+        /*Inicia menu de Actualiza Cartografia*/
+        JMenu menuActualizaC = new JMenu("Actualiza Cartografía");
+        agregarCaracteristicasMenu(menuActualizaC, "ActualizaC");
+        menuBar.add(menuActualizaC);
+        
+        JMenuItem menuItemActualizaC = new JMenuItem();
+        menuActualizaC.add(agregarCaracteristicasItem(menuItemActualizaC, "", "Región Catastral", "Región Catastral"));
+        menuActualizaC.add(agregarCaracteristicasItem(menuItemActualizaC, "", "Zona catastral", "Zona catastral"));
+        menuActualizaC.add(agregarCaracteristicasItem(menuItemActualizaC, "", "Sector catastral", "Sector catastral"));
+        menuActualizaC.add(agregarCaracteristicasItem(menuItemActualizaC, "", "Asentamientos", "Asentamientos"));
+        menuActualizaC.add(agregarCaracteristicasItem(menuItemActualizaC, "", "Manzanas", "Manzanas"));
+        menuActualizaC.add(agregarCaracteristicasItem(menuItemActualizaC, "", "Vialidades", "Vialidades"));
+        menuActualizaC.add(agregarCaracteristicasItem(menuItemActualizaC, "", "Zonas Homogéneas", "Zonas Homogéneas"));
+        menuActualizaC.add(agregarCaracteristicasItem(menuItemActualizaC, "", "Bandas de valor", "Bandas de valor"));
+        
+        /*Inicia menu de Planos*/
+        JMenu menuPlanos = new JMenu("Planos");
+        agregarCaracteristicasMenu(menuPlanos, "Planos");
+        menuBar.add(menuPlanos);
+        
+        JMenuItem menuItemPlanos = new JMenuItem();
+        menuPlanos.add(agregarCaracteristicasItem(menuItemPlanos, "", "Planos catastrales", "Planos catastrales"));
+        
+        /*Inicia menu de ventanas*/
+        JMenu menuVentanas = new JMenu("Ventanas");
+        agregarCaracteristicasMenu(menuVentanas, "Ventanas");
+        menuBar.add(menuVentanas);
+        
+        JMenuItem menuItemVentanas = new JMenuItem();
+        menuVentanas.add(agregarCaracteristicasItem(menuItemVentanas, "", "Ventana contenedora", "Ventana contenedora"));
+        menuVentanas.addSeparator();
+        menuVentanas.add(agregarCaracteristicasItem(menuItemVentanas, "", "Visor de mapas", "Visor de mapas"));
+        menuVentanas.add(agregarCaracteristicasItem(menuItemVentanas, "", "Tabla de contenido", "Tabla de contenido"));
+        menuVentanas.add(agregarCaracteristicasItem(menuItemVentanas, "", "Catálogo", "Catálogo"));
+        menuVentanas.add(agregarCaracteristicasItem(menuItemVentanas, "", "Buscar", "Buscar"));
         
         final DrawingOverlay drawingOverlay = new DrawingOverlay();
         map.addMapOverlay(drawingOverlay);
@@ -76,11 +252,13 @@ public class Menu {
         JToolBar toolBar = createToolBar(drawingOverlay);
         toolBar.setBackground(Color.white);
         toolBar.setPreferredSize(new Dimension(300, 80));
+        toolBar.setSize(300, 80); 
         
         jpanelHerramientas.add(menuBar);
         panelMenu.add(jpanelHerramientas, BorderLayout.NORTH);
         panelMenu.add(toolBar, BorderLayout.CENTER);
 	}
+	
 	
 	public JToolBar createToolBar(DrawingOverlay drawingOverlay) {
 		JToolBar toolBar = new JToolBar();
@@ -95,7 +273,7 @@ public class Menu {
               public void actionPerformed(ActionEvent e) {
             	  Map<String, Object> attributes = new HashMap<String, Object>();
             	  drawingOverlay.setUp(DrawingMode.POLYGON_RECTANGLE,
-            			  new SimpleFillSymbol(new Color(200, 0, 0, 120), new SimpleLineSymbol(new Color(200, 0, 0), 3)), attributes);
+            			  new SimpleFillSymbol(new Color(200, 0, 0, 180), new SimpleLineSymbol(new Color(200, 0, 0), 3)), attributes);
               }
             });
             toolBar.add(rectangleButton);
@@ -122,7 +300,7 @@ public class Menu {
           public void actionPerformed(ActionEvent e) {
             drawingOverlay.setUp(
                 DrawingMode.POLYLINE_FREEHAND,
-                new SimpleLineSymbol(Color.RED, 2),
+                new SimpleLineSymbol(Color.GREEN, 2),
                 null);
           }
         });
@@ -136,7 +314,7 @@ public class Menu {
           public void actionPerformed(ActionEvent e) {
             drawingOverlay.setUp(
                 DrawingMode.POINT,
-                new SimpleMarkerSymbol(Color.GREEN, 20, Style.CIRCLE),
+                new SimpleMarkerSymbol(Color.cyan, 20, Style.CIRCLE),
                 null);
           }
         });
@@ -180,6 +358,19 @@ public class Menu {
 	    legend.setPreferredSize(new Dimension(250, 700));
 	    legend.setBorder(new LineBorder(new Color(205, 205, 255), 3));
 	    panelMenuCapas.add(legend);
+	}
+	
+	
+	public JMenuItem agregarCaracteristicasItem (JMenuItem menuItem, String Imagen, String nombreItem, String decripcion) {
+		menuItem = new JMenuItem(nombreItem, new ImageIcon(Imagen));
+		menuItem.setBackground(Color.WHITE);
+		menuItem.getAccessibleContext().setAccessibleDescription(decripcion);
+		return menuItem;
+	}
+	
+	public void agregarCaracteristicasMenu (JMenu menu, String decripcion) {
+		menu.setMnemonic(KeyEvent.VK_F);
+		menu.getAccessibleContext().setAccessibleDescription(decripcion);
 	}
 }
 
