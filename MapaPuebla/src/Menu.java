@@ -8,8 +8,10 @@ import java.awt.event.KeyEvent;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -33,12 +35,24 @@ import com.esri.toolkit.overlays.DrawingCompleteListener;
 import com.esri.toolkit.overlays.DrawingOverlay;
 import com.esri.toolkit.overlays.DrawingOverlay.DrawingMode;
 
+import javafx.scene.layout.Border;
+
 public class Menu {
 	
-	public void crearMenu (JPanel panelMenu, JMap map){
+	public void crearMenu (JPanel panelMenu, JMap map) {
 		JPanel jpanelHerramientas = new JPanel(new BorderLayout());
 		jpanelHerramientas.setBackground(Color.white);
 		jpanelHerramientas.setPreferredSize(new Dimension(1200, 20));
+		
+		JPanel jpanelIconos = new JPanel(new BorderLayout()); 
+		//jpanelIconos.setBorder(BorderFactory.createLineBorder(Color.RED, 2)); 
+		jpanelIconos.setBackground(Color.white);
+		jpanelIconos.setPreferredSize(new Dimension(1200, 10));
+		
+		JPanel jpanelIconosD = new JPanel(new BorderLayout()); 
+		//jpanelIconosD.setBorder(BorderFactory.createLineBorder(Color.BLUE, 2)); 
+		jpanelIconosD.setBackground(Color.white);
+		jpanelIconosD.setPreferredSize(new Dimension(1200, 10));
 		
 		 GraphicsLayer graphicsLayer = new GraphicsLayer();
 	     map.getLayers().add(graphicsLayer);
@@ -152,8 +166,7 @@ public class Menu {
         JMenuItem menuItemVersiones = new JMenuItem();
         menuVersiones.add(agregarCaracteristicasItem(menuItemVersiones, "", "Cambia Versión", "Cambia Versión"));
         menuVersiones.add(agregarCaracteristicasItem(menuItemVersiones, "", "Conciliación y posteo", "Conciliación y posteo"));
-        
-        
+                
         /*Inicia menu de proceso catastral*/
         JMenu menuProcesoC = new JMenu("Proceso Catastral");
         agregarCaracteristicasMenu(menuProcesoC, "ProcesoC");
@@ -248,35 +261,266 @@ public class Menu {
               graphicsLayer.addGraphic((Graphic) drawingOverlay.getAndClearFeature());
             }
           });
-        
+                
         JToolBar toolBar = createToolBar(drawingOverlay);
         toolBar.setBackground(Color.white);
-        toolBar.setPreferredSize(new Dimension(300, 80));
-        toolBar.setSize(300, 80); 
+        toolBar.setPreferredSize(new Dimension(300, 20));
+        
+        JToolBar toolBarGuardar = crearToolBarGuardar(drawingOverlay);
+        toolBarGuardar.setBackground(Color.white);
+        toolBarGuardar.setPreferredSize(new Dimension(800, 20));
+         
+        JToolBar toolBarZoom = crearToolBarZoom(drawingOverlay);
+        toolBarZoom.setBackground(Color.white);
+        toolBarZoom.setPreferredSize(new Dimension(200, 20));
         
         jpanelHerramientas.add(menuBar);
         panelMenu.add(jpanelHerramientas, BorderLayout.NORTH);
-        panelMenu.add(toolBar, BorderLayout.CENTER);
+        
+        jpanelIconos.add(toolBarGuardar, BorderLayout.LINE_START);
+        jpanelIconos.add(toolBar, BorderLayout.CENTER);
+        jpanelIconos.add(toolBarZoom, BorderLayout.LINE_END);
+        panelMenu.add(jpanelIconos, BorderLayout.CENTER);
+        
+        panelMenu.add(jpanelIconosD, BorderLayout.SOUTH);
+
 	}
 	
+	public JToolBar crearToolBarZoom (DrawingOverlay drawingOverlay) {
+		JToolBar toolBar = new JToolBar();  	
+        toolBar.setLayout(new FlowLayout(FlowLayout.CENTER));
+        ToolTipManager.sharedInstance().setInitialDelay(100); 
+
+        
+        return toolBar;
+	}
+	
+	public JToolBar crearToolBarGuardar (DrawingOverlay drawingOverlay) {
+		JToolBar toolBar = new JToolBar();  
+//		javax.swing.border.Border border= BorderFactory.createLineBorder(Color.RED, 1);
+//		toolBar.setBorder(border);		
+        toolBar.setLayout(new FlowLayout(FlowLayout.CENTER));
+        ToolTipManager.sharedInstance().setInitialDelay(100); 
+        
+        JButton btnNuevo = new JButton(new ImageIcon(getClass().getResource("/imagenes/img/new.png")));
+        btnNuevo.setToolTipText("Nuevo");
+        btnNuevo.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+//          	  	Map<String, Object> attributes = new HashMap<String, Object>();
+//          	    drawingOverlay.setUp(DrawingMode.POLYGON_RECTANGLE, new SimpleFillSymbol(new Color(200, 0, 0, 180), new SimpleLineSymbol(new Color(200, 0, 0), 3)), attributes);
+            }
+        });
+        toolBar.add(btnNuevo);
+        
+        JButton btnAbrir = new JButton(new ImageIcon(getClass().getResource("/imagenes/img/open.png")));
+        btnAbrir.setToolTipText("Abrir");
+        btnAbrir.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+//          	  	Map<String, Object> attributes = new HashMap<String, Object>();
+//          	    drawingOverlay.setUp(DrawingMode.POLYGON_RECTANGLE, new SimpleFillSymbol(new Color(200, 0, 0, 180), new SimpleLineSymbol(new Color(200, 0, 0), 3)), attributes);
+            }
+        });
+        toolBar.add(btnAbrir);
+        
+        JButton btnGuardar = new JButton(new ImageIcon(getClass().getResource("/imagenes/img/save.png")));
+        btnGuardar.setToolTipText("Guardar");
+        btnGuardar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+//          	  	Map<String, Object> attributes = new HashMap<String, Object>();
+//          	    drawingOverlay.setUp(DrawingMode.POLYGON_RECTANGLE, new SimpleFillSymbol(new Color(200, 0, 0, 180), new SimpleLineSymbol(new Color(200, 0, 0), 3)), attributes);
+            }
+        });
+        toolBar.add(btnGuardar);
+        
+        JButton btnImprimir = new JButton(new ImageIcon(getClass().getResource("/imagenes/img/print.png")));
+        btnImprimir.setToolTipText("Imprimir");
+        btnImprimir.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+//          	  	Map<String, Object> attributes = new HashMap<String, Object>();
+//          	    drawingOverlay.setUp(DrawingMode.POLYGON_RECTANGLE, new SimpleFillSymbol(new Color(200, 0, 0, 180), new SimpleLineSymbol(new Color(200, 0, 0), 3)), attributes);
+            }
+        });
+        toolBar.add(btnImprimir);
+        
+        JButton btnCortar = new JButton(new ImageIcon(getClass().getResource("/imagenes/img/cut.png")));
+        btnCortar.setToolTipText("Cortar");
+        btnCortar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+//          	  	Map<String, Object> attributes = new HashMap<String, Object>();
+//          	    drawingOverlay.setUp(DrawingMode.POLYGON_RECTANGLE, new SimpleFillSymbol(new Color(200, 0, 0, 180), new SimpleLineSymbol(new Color(200, 0, 0), 3)), attributes);
+            }
+        });
+        toolBar.add(btnCortar);
+        
+        JButton btnCopiar = new JButton(new ImageIcon(getClass().getResource("/imagenes/img/copy.png")));
+        btnCopiar.setToolTipText("Copiar");
+        btnCopiar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+//          	  	Map<String, Object> attributes = new HashMap<String, Object>();
+//          	    drawingOverlay.setUp(DrawingMode.POLYGON_RECTANGLE, new SimpleFillSymbol(new Color(200, 0, 0, 180), new SimpleLineSymbol(new Color(200, 0, 0), 3)), attributes);
+            }
+        });
+        toolBar.add(btnCopiar);
+        
+        JButton btnPegar = new JButton(new ImageIcon(getClass().getResource("/imagenes/img/paste.png")));
+        btnPegar.setToolTipText("Pegar");
+        btnPegar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+//          	  	Map<String, Object> attributes = new HashMap<String, Object>();
+//          	    drawingOverlay.setUp(DrawingMode.POLYGON_RECTANGLE, new SimpleFillSymbol(new Color(200, 0, 0, 180), new SimpleLineSymbol(new Color(200, 0, 0), 3)), attributes);
+            }
+        });
+        toolBar.add(btnPegar);
+        
+        JButton btnEliminar = new JButton(new ImageIcon(getClass().getResource("/imagenes/img/delete.png")));
+        btnEliminar.setToolTipText("Eliminar");
+        btnEliminar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+//          	  	Map<String, Object> attributes = new HashMap<String, Object>();
+//          	    drawingOverlay.setUp(DrawingMode.POLYGON_RECTANGLE, new SimpleFillSymbol(new Color(200, 0, 0, 180), new SimpleLineSymbol(new Color(200, 0, 0), 3)), attributes);
+            }
+        });
+        toolBar.add(btnEliminar);
+        
+        JButton btnDeshacer = new JButton(new ImageIcon(getClass().getResource("/imagenes/img/undo.png")));
+        btnDeshacer.setToolTipText("Deshacer");
+        btnDeshacer.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+//          	  	Map<String, Object> attributes = new HashMap<String, Object>();
+//          	    drawingOverlay.setUp(DrawingMode.POLYGON_RECTANGLE, new SimpleFillSymbol(new Color(200, 0, 0, 180), new SimpleLineSymbol(new Color(200, 0, 0), 3)), attributes);
+            }
+        });
+        toolBar.add(btnDeshacer);
+        
+        JButton btnSiguiente = new JButton(new ImageIcon(getClass().getResource("/imagenes/img/redo.png")));
+        btnSiguiente.setToolTipText("Siguiente");
+        btnSiguiente.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+//          	  	Map<String, Object> attributes = new HashMap<String, Object>();
+//          	    drawingOverlay.setUp(DrawingMode.POLYGON_RECTANGLE, new SimpleFillSymbol(new Color(200, 0, 0, 180), new SimpleLineSymbol(new Color(200, 0, 0), 3)), attributes);
+            }
+        });
+        toolBar.add(btnSiguiente);
+        
+        JButton btnAgregarData = new JButton(new ImageIcon(getClass().getResource("/imagenes/img/add_Data.png")));
+        btnAgregarData.setToolTipText("Add Data");
+        btnAgregarData.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+//          	  	Map<String, Object> attributes = new HashMap<String, Object>();
+//          	    drawingOverlay.setUp(DrawingMode.POLYGON_RECTANGLE, new SimpleFillSymbol(new Color(200, 0, 0, 180), new SimpleLineSymbol(new Color(200, 0, 0), 3)), attributes);
+            }
+        });
+        toolBar.add(btnAgregarData);
+        
+        JComboBox cmbScala = new JComboBox();
+        cmbScala.setBounds(10,10,150,20);
+        cmbScala.addItem("1:1.000");
+        cmbScala.addItem("1:10.000");
+        cmbScala.addItem("1:24.000");
+        cmbScala.addItem("1:100.000");
+        cmbScala.addItem("1:250.000");
+        cmbScala.addItem("1:500.000");
+        cmbScala.addItem("1:750.000");
+        cmbScala.addItem("1:1.000.000");
+        cmbScala.addItem("1:3.000.000");
+        cmbScala.addItem("1:10.000.000");
+        toolBar.add(cmbScala);
+        
+        JButton btnEditor = new JButton(new ImageIcon(getClass().getResource("/imagenes/img/edit.png")));
+        btnEditor.setToolTipText("Editor");
+        btnEditor.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+//          	  	Map<String, Object> attributes = new HashMap<String, Object>();
+//          	    drawingOverlay.setUp(DrawingMode.POLYGON_RECTANGLE, new SimpleFillSymbol(new Color(200, 0, 0, 180), new SimpleLineSymbol(new Color(200, 0, 0), 3)), attributes);
+            }
+        });
+        toolBar.add(btnEditor);
+        
+        JButton btnTable = new JButton(new ImageIcon(getClass().getResource("/imagenes/img/table.png")));
+        btnTable.setToolTipText("Tabla de contenido");
+        btnTable.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+//          	  	Map<String, Object> attributes = new HashMap<String, Object>();
+//          	    drawingOverlay.setUp(DrawingMode.POLYGON_RECTANGLE, new SimpleFillSymbol(new Color(200, 0, 0, 180), new SimpleLineSymbol(new Color(200, 0, 0), 3)), attributes);
+            }
+        });
+        toolBar.add(btnTable);
+        
+        JButton btnCatalogo = new JButton(new ImageIcon(getClass().getResource("/imagenes/img/catalogo.png")));
+        btnCatalogo.setToolTipText("Editor");
+        btnCatalogo.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+//          	  	Map<String, Object> attributes = new HashMap<String, Object>();
+//          	    drawingOverlay.setUp(DrawingMode.POLYGON_RECTANGLE, new SimpleFillSymbol(new Color(200, 0, 0, 180), new SimpleLineSymbol(new Color(200, 0, 0), 3)), attributes);
+            }
+        });
+        toolBar.add(btnCatalogo);
+        
+        JButton btnBuscar = new JButton(new ImageIcon(getClass().getResource("/imagenes/img/search.png")));
+        btnBuscar.setToolTipText("Buscar");
+        btnBuscar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+//          	  	Map<String, Object> attributes = new HashMap<String, Object>();
+//          	    drawingOverlay.setUp(DrawingMode.POLYGON_RECTANGLE, new SimpleFillSymbol(new Color(200, 0, 0, 180), new SimpleLineSymbol(new Color(200, 0, 0), 3)), attributes);
+            }
+        });
+        toolBar.add(btnBuscar);
+        
+        JButton btnHerramientas = new JButton(new ImageIcon(getClass().getResource("/imagenes/img/tools.png")));
+        btnHerramientas.setToolTipText("Herramientas");
+        btnHerramientas.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+//          	  	Map<String, Object> attributes = new HashMap<String, Object>();
+//          	    drawingOverlay.setUp(DrawingMode.POLYGON_RECTANGLE, new SimpleFillSymbol(new Color(200, 0, 0, 180), new SimpleLineSymbol(new Color(200, 0, 0), 3)), attributes);
+            }
+        });
+        toolBar.add(btnHerramientas);
+        
+        JButton btnBuilder = new JButton(new ImageIcon(getClass().getResource("/imagenes/img/grafico.png")));
+        btnBuilder.setToolTipText("Builder");
+        btnBuilder.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+//          	  	Map<String, Object> attributes = new HashMap<String, Object>();
+//          	    drawingOverlay.setUp(DrawingMode.POLYGON_RECTANGLE, new SimpleFillSymbol(new Color(200, 0, 0, 180), new SimpleLineSymbol(new Color(200, 0, 0), 3)), attributes);
+            }
+        });
+        toolBar.add(btnBuilder);
+        
+        
+        return toolBar;
+	}
 	
 	public JToolBar createToolBar(DrawingOverlay drawingOverlay) {
 		JToolBar toolBar = new JToolBar();
         toolBar.setLayout(new FlowLayout(FlowLayout.CENTER));
-        ToolTipManager.sharedInstance().setInitialDelay(100);
-        
-        JButton rectangleButton = new JButton(new ImageIcon(getClass().getResource(
-                "/com/esri/client/toolkit/images/EditingRectangleTool16.png")));
-            rectangleButton.setToolTipText("Rectangle tool");
-            rectangleButton.addActionListener(new ActionListener() {
-              @Override
-              public void actionPerformed(ActionEvent e) {
-            	  Map<String, Object> attributes = new HashMap<String, Object>();
-            	  drawingOverlay.setUp(DrawingMode.POLYGON_RECTANGLE,
-            			  new SimpleFillSymbol(new Color(200, 0, 0, 180), new SimpleLineSymbol(new Color(200, 0, 0), 3)), attributes);
-              }
-            });
-            toolBar.add(rectangleButton);
+        ToolTipManager.sharedInstance().setInitialDelay(100); 
+        JButton rectangleButton = new JButton(new ImageIcon(getClass().getResource("/com/esri/client/toolkit/images/EditingRectangleTool16.png")));
+        rectangleButton.setToolTipText("Rectangle tool");
+        rectangleButton.addActionListener(new ActionListener() {
+          @Override
+          public void actionPerformed(ActionEvent e) {
+        	  Map<String, Object> attributes = new HashMap<String, Object>();
+        	  drawingOverlay.setUp(DrawingMode.POLYGON_RECTANGLE, new SimpleFillSymbol(new Color(200, 0, 0, 180), new SimpleLineSymbol(new Color(200, 0, 0), 3)), attributes);
+          }
+        });
+        toolBar.add(rectangleButton);
         
         JButton polylineButton = new JButton(new ImageIcon(getClass().getResource(
             "/com/esri/client/toolkit/images/EditingLineTool16.png")));
@@ -355,6 +599,7 @@ public class Menu {
 	
 	public void crearMenuCapas (JMap map, JPanel panelMenuCapas) {
 		JLegend legend = new JLegend(map);
+		
 	    legend.setPreferredSize(new Dimension(250, 700));
 	    legend.setBorder(new LineBorder(new Color(205, 205, 255), 3));
 	    panelMenuCapas.add(legend);
@@ -372,5 +617,6 @@ public class Menu {
 		menu.setMnemonic(KeyEvent.VK_F);
 		menu.getAccessibleContext().setAccessibleDescription(decripcion);
 	}
+	
 }
 
