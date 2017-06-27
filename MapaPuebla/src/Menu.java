@@ -39,6 +39,7 @@ import javafx.scene.layout.Border;
 
 public class Menu {
 	EventoCombos eventoCombos = new EventoCombos();
+	Botones botones = new Botones();
 	
 	public void crearMenu (JPanel panelMenu, JMap map) {
 		JPanel jpanelHerramientas = new JPanel(new BorderLayout());
@@ -415,13 +416,7 @@ public class Menu {
         
         JButton btnAgregarData = new JButton(new ImageIcon(getClass().getResource("/imagenes/img/add_Data.png")));
         btnAgregarData.setToolTipText("Agregar capa");
-        btnAgregarData.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-//          	  	Map<String, Object> attributes = new HashMap<String, Object>();
-//          	    drawingOverlay.setUp(DrawingMode.POLYGON_RECTANGLE, new SimpleFillSymbol(new Color(200, 0, 0, 180), new SimpleLineSymbol(new Color(200, 0, 0), 3)), attributes);
-            }
-        });
+        botones.BtnAgregarCapa(btnAgregarData, map);
         toolBar.add(btnAgregarData);
         
         JComboBox cmbScala = new JComboBox();
@@ -441,13 +436,6 @@ public class Menu {
         
         JButton btnEditor = new JButton(new ImageIcon(getClass().getResource("/imagenes/img/edit.png")));
         btnEditor.setToolTipText("Editor");
-        btnEditor.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-//          	  	Map<String, Object> attributes = new HashMap<String, Object>();
-//          	    drawingOverlay.setUp(DrawingMode.POLYGON_RECTANGLE, new SimpleFillSymbol(new Color(200, 0, 0, 180), new SimpleLineSymbol(new Color(200, 0, 0), 3)), attributes);
-            }
-        });
         toolBar.add(btnEditor);
         
         JButton btnTable = new JButton(new ImageIcon(getClass().getResource("/imagenes/img/table.png")));
@@ -518,6 +506,7 @@ public class Menu {
         rectangleButton.addActionListener(new ActionListener() {
           @Override
           public void actionPerformed(ActionEvent e) {
+        	  System.out.println("Aquí llegué");
         	  Map<String, Object> attributes = new HashMap<String, Object>();
         	  drawingOverlay.setUp(DrawingMode.POLYGON_RECTANGLE, new SimpleFillSymbol(new Color(200, 0, 0, 180), new SimpleLineSymbol(new Color(200, 0, 0), 3)), attributes);
           }
@@ -601,7 +590,6 @@ public class Menu {
 	
 	public void crearMenuCapas (JMap map, JPanel panelMenuCapas) {
 		JLegend legend = new JLegend(map);
-		
 	    legend.setPreferredSize(new Dimension(250, 700));
 	    legend.setBorder(new LineBorder(new Color(205, 205, 255), 3));
 	    panelMenuCapas.add(legend);

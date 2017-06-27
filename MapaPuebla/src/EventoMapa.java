@@ -34,9 +34,7 @@ import com.esri.toolkit.JLayerTree;
 import com.esri.toolkit.overlays.InfoPopupOverlay;
 
 public class EventoMapa {
-//	  private JLayerTree jLayerTree;
 	  private JPanel jPanel;
-//	  private LayerList layers;
 	  Menu menu = new Menu();
 	  private String URL = "http://services.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer";
 	  final  ArcGISTiledMapServiceLayer tiledLayer = new ArcGISTiledMapServiceLayer(URL);
@@ -139,44 +137,29 @@ public class EventoMapa {
 	        }
 	      });
 	}
+
 	
-	public void crearLayers (JMap map, JPanel panelMenuCapas) {
-//		JLayerTree jLayerTree = new JLayerTree(map);
-//		panelMenuCapas.add(jLayerTree);
-	}
-	
-	public LayerList addLayers(JMap map, int numLayer, JPanel panelMenuCapas,LayerList layers){
+	public LayerList addLayers(JMap map, int numLayer){
+		LayerList layers = map.getLayers();
 		ArcGISTiledMapServiceLayer newLayer = new ArcGISTiledMapServiceLayer(URL);
 		String nameLayer= "Capa"+numLayer;
-		map.setExtent(new Envelope(-10943738.01, 2152726.77, -10912321.29, 2170862.64));
 		newLayer.setName(nameLayer);
+//		newLayer.addLayerInitializeCompleteListener(listener);
 		layers.add(newLayer);
 		
 		System.out.println("Layers List: "+ layers);
 		
 		return layers;
 	}
-	
-	 @SuppressWarnings("unused")
-	private void addInfopopupOverlay(JMap jMap, ArcGISFeatureLayer earthquakesLayer) {
-		    final InfoPopupOverlay infoPopupOverlay =
-		        new InfoPopupOverlay();
-		    infoPopupOverlay.setPopupTitle("Prueba");
-		    infoPopupOverlay.setItemTitle("Name: {Name}");
-		    infoPopupOverlay.addLayer(earthquakesLayer);
-		    jMap.addMapOverlay(infoPopupOverlay);
-		  }
 
-	 public JMap createMap(int numLayer,JPanel panelMenuCapas) throws Exception {
+	 public JMap createMap() throws Exception {
 		 final JMap map = new JMap();
-		 // Base Layer
 		 final ArcGISTiledMapServiceLayer baseLayer = new ArcGISTiledMapServiceLayer(URL);
 		 map.setExtent(new Envelope(-10943738.01, 2152726.77, -10912321.29, 2170862.64));
 		 LayerList layers = map.getLayers();
+		 baseLayer.setName("Mapa Base");
 		 layers.add(baseLayer);
-		    
-		 addLayers(map, numLayer, panelMenuCapas,layers);
-
+		 
 		 return map;
 	 }
 }
