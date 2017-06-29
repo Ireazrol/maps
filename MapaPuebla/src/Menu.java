@@ -5,20 +5,15 @@ import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
-import java.util.HashMap;
-import java.util.Map;
 
-import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
-import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JToolBar;
-import javax.swing.KeyStroke;
 import javax.swing.ToolTipManager;
 import javax.swing.border.LineBorder;
 
@@ -35,11 +30,16 @@ import com.esri.toolkit.overlays.DrawingCompleteListener;
 import com.esri.toolkit.overlays.DrawingOverlay;
 import com.esri.toolkit.overlays.DrawingOverlay.DrawingMode;
 
-import javafx.scene.layout.Border;
-
 public class Menu {
 	EventoCombos eventoCombos = new EventoCombos();
 	Botones botones = new Botones();
+	EventoMapa eventoMapa =  new EventoMapa();
+	GraphicsLayer graphicsLayer = new GraphicsLayer();
+	GraphicsLayer graphicsLayer1 = new GraphicsLayer();
+	GraphicsLayer graphicsLayer2 = new GraphicsLayer();
+	GraphicsLayer graphicsLayer3 = new GraphicsLayer();
+	GraphicsLayer graphicsLayer4 = new GraphicsLayer();
+	GraphicsLayer graphicsLayer5 = new GraphicsLayer();
 	
 	public void crearMenu (JPanel panelMenu, JMap map) {
 		JPanel jpanelHerramientas = new JPanel(new BorderLayout());
@@ -280,7 +280,6 @@ public class Menu {
         toolBar.setLayout(new FlowLayout(FlowLayout.CENTER));
         ToolTipManager.sharedInstance().setInitialDelay(100); 
 
-        
         return toolBar;
 	}
 	
@@ -403,7 +402,7 @@ public class Menu {
         
         JButton btnAgregarData = new JButton(new ImageIcon(getClass().getResource("/imagenes/img/add_Data.png")));
         btnAgregarData.setToolTipText("Agregar capa");
-        botones.BtnAgregarCapa(btnAgregarData, map);
+        botones.BtnAddLayer(btnAgregarData, map);
         toolBar.add(btnAgregarData);
         
         JComboBox cmbScala = new JComboBox();
@@ -485,102 +484,174 @@ public class Menu {
 	}
 	
 	public JToolBar createToolBar(JMap map) {
+		//Tool Rectangle
+//		GraphicsLayer graphicsLayer = new GraphicsLayer();
 		final DrawingOverlay drawingOverlayu = new DrawingOverlay();
         map.addMapOverlay(drawingOverlayu);
         drawingOverlayu.setActive(true);
-		
+        map.getLayers().add(graphicsLayer);
+		map.getLayers().get(2).setName("Capa 1 (Rectangulo)");
+//		botones.graphicLayer(drawingOverlayu, graphicsLayer);
+		drawingOverlayu.addDrawingCompleteListener(new DrawingCompleteListener() {
+			 @Override
+			 public void drawingCompleted(DrawingCompleteEvent arg0) {
+		        graphicsLayer.addGraphic((Graphic) drawingOverlayu.getAndClearFeature());
+		      }
+		 });
         
+		//ToolBar
 		JToolBar toolBar = new JToolBar();
         toolBar.setLayout(new FlowLayout(FlowLayout.CENTER));
         ToolTipManager.sharedInstance().setInitialDelay(100); 
+        
+        //Rectangle Button
         JButton rectangleButton = new JButton(new ImageIcon(getClass().getResource("/com/esri/client/toolkit/images/EditingRectangleTool16.png")));
-        rectangleButton.setToolTipText("Rectangle tool");
+        rectangleButton.setToolTipText("Herramienta Rectangulo");
+//        botones.BtnRectangle(drawingOverlayu, rectangleButton);
         rectangleButton.addActionListener(new ActionListener() {
-          @Override
-          public void actionPerformed(ActionEvent e) {
-        	  System.out.println("Aquí llegué");
-        	  Map<String, Object> attributes = new HashMap<String, Object>();
-        	  drawingOverlayu.setUp(DrawingMode.POLYGON_RECTANGLE, new SimpleFillSymbol(new Color(200, 0, 0, 180), new SimpleLineSymbol(new Color(200, 0, 0), 3)), attributes);
-          }
-        });
+        	@Override
+        	public void actionPerformed(ActionEvent e) {
+        		System.out.println("Pintaré un rectangulo");
+        		drawingOverlayu.setUp(DrawingMode.POLYGON_RECTANGLE,
+        				new SimpleFillSymbol(new Color(200, 0, 0, 180), new SimpleLineSymbol(new Color(200, 0, 0), 3)),null);
+	          }
+	    });
         toolBar.add(rectangleButton);
         
+        //Tool Polyline
+//        GraphicsLayer graphicsLayer1 = new GraphicsLayer();
         final DrawingOverlay drawingOverlaya = new DrawingOverlay();
         map.addMapOverlay(drawingOverlaya);
         drawingOverlaya.setActive(true);
+        map.getLayers().add(graphicsLayer1);
+		map.getLayers().get(4).setName("Capa 2 (Polilínea)");
+//		botones.graphicLayer(drawingOverlaya, graphicsLayer1);
+		drawingOverlaya.addDrawingCompleteListener(new DrawingCompleteListener() {
+			 @Override
+			 public void drawingCompleted(DrawingCompleteEvent arg0) {
+		        graphicsLayer1.addGraphic((Graphic) drawingOverlaya.getAndClearFeature());
+		      }
+		 });
         
-        JButton polylineButton = new JButton(new ImageIcon(getClass().getResource(
-            "/com/esri/client/toolkit/images/EditingLineTool16.png")));
-        polylineButton.setToolTipText("Polyline tool");
+        JButton polylineButton = new JButton(new ImageIcon(getClass().getResource("/com/esri/client/toolkit/images/EditingLineTool16.png")));
+        polylineButton.setToolTipText("Herramienta Polilínea");
+//		botones.BtnPolyline(drawingOverlaya, polylineButton);
         polylineButton.addActionListener(new ActionListener() {
-          @Override
-          public void actionPerformed(ActionEvent e) {
-        	  drawingOverlaya.setUp(
-                DrawingMode.POLYLINE,
-                new SimpleLineSymbol(Color.BLUE, 3),
-                null);
-          }
-        });
+	          @Override
+	          public void actionPerformed(ActionEvent e) {
+	        	  System.out.println("Pintaré una polilínea");
+	        	  drawingOverlaya.setUp(DrawingMode.POLYLINE,new SimpleLineSymbol(Color.BLUE, 3),null);
+	          }
+	    });
         toolBar.add(polylineButton);
         
-        JButton freehandLineButton = new JButton(new ImageIcon(getClass().getResource(
-            "/com/esri/client/toolkit/images/EditingFreehandTool16.png")));
-        freehandLineButton.setToolTipText("Freehand line tool");
+        //Tool FreeHandLine
+//        GraphicsLayer graphicsLayer2 = new GraphicsLayer();
+        final DrawingOverlay drawingOverFreehand = new DrawingOverlay();
+        map.addMapOverlay(drawingOverFreehand);
+        drawingOverFreehand.setActive(true);
+        map.getLayers().add(graphicsLayer2);
+		map.getLayers().get(6).setName("Capa 3 (Mano Alzada)");
+//		botones.graphicLayer(drawingOverFreehand, graphicsLayer2);
+		drawingOverFreehand.addDrawingCompleteListener(new DrawingCompleteListener() {
+			 @Override
+			 public void drawingCompleted(DrawingCompleteEvent arg0) {
+		        graphicsLayer2.addGraphic((Graphic) drawingOverFreehand.getAndClearFeature());
+		      }
+		 });
+        
+        JButton freehandLineButton = new JButton(new ImageIcon(getClass().getResource("/com/esri/client/toolkit/images/EditingFreehandTool16.png")));
+        freehandLineButton.setToolTipText("Herramienta Mano Alzada");
+//        botones.BtnFreehandLine(drawingOverFreehand, freehandLineButton);
         freehandLineButton.addActionListener(new ActionListener() {
-          @Override
-          public void actionPerformed(ActionEvent e) {
-        	  drawingOverlayu.setUp(
-                DrawingMode.POLYLINE_FREEHAND,
-                new SimpleLineSymbol(Color.GREEN, 2),
-                null);
-          }
-        });
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				drawingOverFreehand.setUp(DrawingMode.POLYLINE_FREEHAND,new SimpleLineSymbol(Color.GREEN, 2), null);
+			}
+		});
         toolBar.add(freehandLineButton);
         
-        JButton pointButton = new JButton(new ImageIcon(getClass().getResource(
-            "/com/esri/client/toolkit/images/EditingPointTool16.png")));
-        pointButton.setToolTipText("Point tool");
+        //Tool Point
+//        GraphicsLayer graphicsLayer3 = new GraphicsLayer();
+        final DrawingOverlay drawingOverPoint = new DrawingOverlay();
+        map.addMapOverlay(drawingOverPoint);
+        drawingOverPoint.setActive(true);
+        map.getLayers().add(graphicsLayer3);
+		map.getLayers().get(8).setName("Capa 4 (Punto)");
+//		botones.graphicLayer(drawingOverPoint, graphicsLayer3);
+		drawingOverPoint.addDrawingCompleteListener(new DrawingCompleteListener() {
+			 @Override
+			 public void drawingCompleted(DrawingCompleteEvent arg0) {
+		        graphicsLayer3.addGraphic((Graphic) drawingOverPoint.getAndClearFeature());
+		      }
+		 });
+        
+        JButton pointButton = new JButton(new ImageIcon(getClass().getResource("/com/esri/client/toolkit/images/EditingPointTool16.png")));
+        pointButton.setToolTipText("Herramienta Punto");
+//        botones.BtnPoint(drawingOverPoint, pointButton);
         pointButton.addActionListener(new ActionListener() {
-          @Override
-          public void actionPerformed(ActionEvent e) {
-        	  drawingOverlayu.setUp(
-                DrawingMode.POINT,
-                new SimpleMarkerSymbol(Color.cyan, 20, Style.CIRCLE),
-                null);
-          }
-        });
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				drawingOverPoint.setUp(DrawingMode.POINT,new SimpleMarkerSymbol(Color.cyan, 20, Style.CIRCLE), null);
+			}
+		});
         toolBar.add(pointButton);
         
-        JButton multipointButton = new JButton(new ImageIcon(getClass().getResource(
-            "/com/esri/client/toolkit/images/EditingMultiPointTool16.png")));
-        multipointButton.setToolTipText("Multipoint tool");
+        //Tool MultiPoint
+//        GraphicsLayer graphicsLayer4 = new GraphicsLayer();
+        final DrawingOverlay drawingOverMultipoint = new DrawingOverlay();
+        map.addMapOverlay(drawingOverMultipoint);
+        drawingOverMultipoint.setActive(true);
+        map.getLayers().add(graphicsLayer4);
+		map.getLayers().get(10).setName("Capa 5 (Multipunto)");
+//		botones.graphicLayer(drawingOverMultipoint, graphicsLayer4);
+		drawingOverMultipoint.addDrawingCompleteListener(new DrawingCompleteListener() {
+			 @Override
+			 public void drawingCompleted(DrawingCompleteEvent arg0) {
+		        graphicsLayer4.addGraphic((Graphic) drawingOverMultipoint.getAndClearFeature());
+		      }
+		 });
+        
+        JButton multipointButton = new JButton(new ImageIcon(getClass().getResource("/com/esri/client/toolkit/images/EditingMultiPointTool16.png")));
+        multipointButton.setToolTipText("Herramienta Multipunto");
+//        botones.BtnMultipoint(drawingOverMultipoint, multipointButton);
         multipointButton.addActionListener(new ActionListener() {
-          @Override
-          public void actionPerformed(ActionEvent e) {
-        	  drawingOverlayu.setUp(
-                DrawingMode.MULTIPOINT,
-                new SimpleMarkerSymbol(Color.DARK_GRAY, 20, Style.CIRCLE),
-                null);
-          }
-        });
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				drawingOverMultipoint.setUp(DrawingMode.MULTIPOINT, new SimpleMarkerSymbol(Color.DARK_GRAY, 20, Style.CIRCLE), null);
+			}
+		});
         toolBar.add(multipointButton);
+        
+        //Tool Polygone
+//        GraphicsLayer graphicsLayer5 = new GraphicsLayer();
+        final DrawingOverlay drawingOverPolygon = new DrawingOverlay();
+        map.addMapOverlay(drawingOverPolygon);
+        drawingOverPolygon.setActive(true);
+        map.getLayers().add(graphicsLayer5);
+		map.getLayers().get(12).setName("Capa 6 (Polígono)");
+//		botones.graphicLayer(drawingOverPolygon, graphicsLayer5);
+		drawingOverPolygon.addDrawingCompleteListener(new DrawingCompleteListener() {
+			 @Override
+			 public void drawingCompleted(DrawingCompleteEvent arg0) {
+		        graphicsLayer5.addGraphic((Graphic) drawingOverPolygon.getAndClearFeature());
+		      }
+		 });
         
         final SimpleLineSymbol dottedLine = new SimpleLineSymbol(Color.BLACK, 2);
         dottedLine.setStyle(SimpleLineSymbol.Style.DASH);
-        JButton polygonButton = new JButton(new ImageIcon(getClass().getResource(
-            "/com/esri/client/toolkit/images/EditingPolygonTool16.png")));
-        polygonButton.setToolTipText("Polygon tool");
+        JButton polygonButton = new JButton(new ImageIcon(getClass().getResource("/com/esri/client/toolkit/images/EditingPolygonTool16.png")));
+        polygonButton.setToolTipText("Herramienta Polígono");
+//        botones.BtnPolygon(drawingOverPolygon, polygonButton, dottedLine);
         polygonButton.addActionListener(new ActionListener() {
-          @Override
-          public void actionPerformed(ActionEvent e) {
-        	  drawingOverlayu.setUp(
-                DrawingMode.POLYGON,
-                new SimpleFillSymbol(new Color(0, 0, 0, 80), dottedLine),
-                null);
-          }
-        });
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				drawingOverPolygon.setUp(DrawingMode.POLYGON, new SimpleFillSymbol(new Color(0, 0, 0, 80), dottedLine), null);
+			}
+		});
         toolBar.add(polygonButton);
-		
+
+		System.out.println("Map.getLayers()=====>"+map.getLayers());
 		return toolBar;
 	}
 	

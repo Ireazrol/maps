@@ -1,36 +1,36 @@
 import java.awt.EventQueue;
-import java.awt.Graphics;
-import java.awt.GridLayout;
-import java.awt.Insets;
-import java.awt.Panel;
+//import java.awt.Graphics;
+//import java.awt.GridLayout;
+//import java.awt.Insets;
+//import java.awt.Panel;
 
 import javax.swing.BorderFactory;
-import javax.swing.JDialog;
+//import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Component;
+//import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.text.DecimalFormat;
+//import java.text.DecimalFormat;
 
-import com.esri.runtime.ArcGISRuntime;
+//import com.esri.runtime.ArcGISRuntime;
 
-import javafx.scene.layout.BorderPane;
-
-import com.esri.core.geometry.Envelope;
-import com.esri.core.geometry.Point;
-import com.esri.map.ArcGISTiledMapServiceLayer;
-import com.esri.map.GraphicsLayer;
+//import javafx.scene.layout.BorderPane;
+//
+//import com.esri.core.geometry.Envelope;
+//import com.esri.core.geometry.Point;
+//import com.esri.map.ArcGISTiledMapServiceLayer;
+//import com.esri.map.GraphicsLayer;
 import com.esri.map.JMap;
-import com.esri.map.MapEvent;
-import com.esri.map.MapEventListenerAdapter;
-import com.esri.map.MapOptions;
-import com.esri.map.MapOptions.MapType;
+//import com.esri.map.MapEvent;
+//import com.esri.map.MapEventListenerAdapter;
+//import com.esri.map.MapOptions;
+//import com.esri.map.MapOptions.MapType;
 
 public class Principal {
 
@@ -45,6 +45,7 @@ public class Principal {
   	  Menu menu = new Menu();
 	EventoMapa eventoMapa = new EventoMapa();
 	map = eventoMapa.createMap();
+	
 	
     window = new JFrame();
     window.setSize(1430, 850);
@@ -63,7 +64,6 @@ public class Principal {
     panelMenuCapas.setBorder(borderCapas); 
     panelMenuCapas.setBackground(Color.white);
     
-   
     Border borderMapa = BorderFactory.createLineBorder(Color.BLACK, 1);
     panelMapa.setBorder(borderMapa); 
     panelMapa.setPreferredSize(new Dimension(1114, 200));
