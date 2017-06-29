@@ -40,8 +40,10 @@ public class Menu {
 	GraphicsLayer graphicsLayer3 = new GraphicsLayer();
 	GraphicsLayer graphicsLayer4 = new GraphicsLayer();
 	GraphicsLayer graphicsLayer5 = new GraphicsLayer();
+	PintarPredios pintarPredios = new PintarPredios();
 	
 	public void crearMenu (JPanel panelMenu, JMap map) {
+		pintarPredios.pintarPoligonos(map); 
 		JPanel jpanelHerramientas = new JPanel(new BorderLayout());
 		jpanelHerramientas.setBackground(Color.white);
 		jpanelHerramientas.setPreferredSize(new Dimension(1200, 20));
@@ -440,8 +442,7 @@ public class Menu {
         btnCatalogo.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-//          	  	Map<String, Object> attributes = new HashMap<String, Object>();
-//          	    drawingOverlay.setUp(DrawingMode.POLYGON_RECTANGLE, new SimpleFillSymbol(new Color(200, 0, 0, 180), new SimpleLineSymbol(new Color(200, 0, 0), 3)), attributes);
+            	pintarPredios.editar(map); 
             }
         });
         toolBar.add(btnCatalogo);
@@ -462,8 +463,7 @@ public class Menu {
         btnHerramientas.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-//          	  	Map<String, Object> attributes = new HashMap<String, Object>();
-//          	    drawingOverlay.setUp(DrawingMode.POLYGON_RECTANGLE, new SimpleFillSymbol(new Color(200, 0, 0, 180), new SimpleLineSymbol(new Color(200, 0, 0), 3)), attributes);
+            	pintarPredios.unionPredio(map); 
             }
         });
         toolBar.add(btnHerramientas);
