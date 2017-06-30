@@ -73,7 +73,7 @@ public class Menu {
         JMenuItem menuItemArchivo = new JMenuItem();
         menuArchivo.add(agregarCaracteristicasItem(menuItemArchivo, "", "Guardar mapa", "Guardar mapa"));
         menuArchivo.addSeparator();
-        menuArchivo.add(agregarCaracteristicasItem(menuItemArchivo, "", "Configurar impresión", "Configurar impresión"));
+        menuArchivo.add(agregarCaracteristicasItem(menuItemArchivo, "", "Configurar impresiï¿½n", "Configurar impresiï¿½n"));
         menuArchivo.add(agregarCaracteristicasItem(menuItemArchivo, "", "Imprimir mapa", "Imprimir mapa"));
         menuArchivo.add(agregarCaracteristicasItem(menuItemArchivo, "", "Exportar mapa", "Exportar mapa"));
         menuArchivo.addSeparator();
@@ -85,15 +85,15 @@ public class Menu {
         menuBar.add(menuVista);
         
         JMenuItem menuItemVista = new JMenuItem();
-        menuVista.add(agregarCaracteristicasItem(menuItemVista, "", "Vista grafíca", "Vista grafíca"));
-        menuVista.add(agregarCaracteristicasItem(menuItemVista, "", "Vista diseño", "Vista diseño"));
+        menuVista.add(agregarCaracteristicasItem(menuItemVista, "", "Vista grafï¿½ca", "Vista grafï¿½ca"));
+        menuVista.add(agregarCaracteristicasItem(menuItemVista, "", "Vista diseï¿½o", "Vista diseï¿½o"));
         menuVista.addSeparator();
         menuVista.add(agregarCaracteristicasItem(menuItemVista, "", "Rota la vista del documento actual", "Rota vista"));
         menuVista.add(agregarCaracteristicasItem(menuItemVista, "", "Termina Herramienta Rotar", "Termina Rotar"));
         
-        /* inicia menu de Edición */
-        JMenu menuEdicion = new JMenu("Edición");
-        agregarCaracteristicasMenu(menuEdicion, "Edición");
+        /* inicia menu de Ediciï¿½n */
+        JMenu menuEdicion = new JMenu("Ediciï¿½n");
+        agregarCaracteristicasMenu(menuEdicion, "Ediciï¿½n");
         menuBar.add(menuEdicion);
         
         JMenuItem menuItemEdicion = new JMenuItem();
@@ -105,10 +105,10 @@ public class Menu {
         menuEdicion.add(agregarCaracteristicasItem(menuItemEdicion, "", "Cortar", "Cortar"));
         menuEdicion.add(agregarCaracteristicasItem(menuItemEdicion, "", "Eliminar", "Eliminar"));
         menuEdicion.addSeparator();
-        menuEdicion.add(agregarCaracteristicasItem(menuItemEdicion, "", "Herramienta Avanzada de edición", "Herramienta Avanzada"));
+        menuEdicion.add(agregarCaracteristicasItem(menuItemEdicion, "", "Herramienta Avanzada de ediciï¿½n", "Herramienta Avanzada"));
         menuEdicion.add(agregarCaracteristicasItem(menuItemEdicion, "", "Barra de versiones", "Barra versiones"));
         menuEdicion.addSeparator();
-        menuEdicion.add(agregarCaracteristicasItem(menuItemEdicion, "", "Edición activa", "Edicion activa"));
+        menuEdicion.add(agregarCaracteristicasItem(menuItemEdicion, "", "Ediciï¿½n activa", "Edicion activa"));
         
         
         /*Inicia menu de Insertar*/
@@ -117,7 +117,7 @@ public class Menu {
         menuBar.add(menuInsertar);
         
         JMenuItem menuItemInsertar = new JMenuItem();
-        menuInsertar.add(agregarCaracteristicasItem(menuItemInsertar, "", "Insertar titúlo", "Insertar titulo"));
+        menuInsertar.add(agregarCaracteristicasItem(menuItemInsertar, "", "Insertar titï¿½lo", "Insertar titulo"));
         menuInsertar.add(agregarCaracteristicasItem(menuItemInsertar, "", "Insertar Texto", "Insertar Texto"));
         menuInsertar.addSeparator();
         menuInsertar.add(agregarCaracteristicasItem(menuItemInsertar, "", "Insertar leyenda", "Insertar leyenda"));
@@ -128,15 +128,15 @@ public class Menu {
         menuInsertar.add(agregarCaracteristicasItem(menuItemInsertar, "", "Imagen en el mapa", "Imagen mapa"));
         
         /*Inicia menu de seleccion*/
-        JMenu menuSeleccion = new JMenu("Selección");
+        JMenu menuSeleccion = new JMenu("Selecciï¿½n");
         agregarCaracteristicasMenu(menuSeleccion, "Seleccion");
         menuBar.add(menuSeleccion);
         
         JMenuItem menuItemSeleccion = new JMenuItem();
-        menuSeleccion.add(agregarCaracteristicasItem(menuItemSeleccion, "", "Selección normal", "Selección normal"));
+        menuSeleccion.add(agregarCaracteristicasItem(menuItemSeleccion, "", "Selecciï¿½n normal", "Selecciï¿½n normal"));
         menuSeleccion.addSeparator();
-        menuSeleccion.add(agregarCaracteristicasItem(menuItemSeleccion, "", "Selección por ubicación", "Seleccion ubicacion")); 
-        menuSeleccion.add(agregarCaracteristicasItem(menuItemSeleccion, "", "Selección por atributos", "Seleccion atributos"));
+        menuSeleccion.add(agregarCaracteristicasItem(menuItemSeleccion, "", "Selecciï¿½n por ubicaciï¿½n", "Seleccion ubicacion")); 
+        menuSeleccion.add(agregarCaracteristicasItem(menuItemSeleccion, "", "Selecciï¿½n por atributos", "Seleccion atributos"));
         
         /*Inicia menu de herramientas*/
         JMenu menuHerramientas = new JMenu("Herramientas");
@@ -144,23 +144,23 @@ public class Menu {
         menuBar.add(menuHerramientas);
          
         JMenuItem menuItemHerramientas = new JMenuItem();
-        menuHerramientas.add(agregarCaracteristicasItem(menuItemHerramientas, "", "Herramientas estándar", "Herramientas estandar"));
+        menuHerramientas.add(agregarCaracteristicasItem(menuItemHerramientas, "", "Herramientas estï¿½ndar", "Herramientas estandar"));
         menuHerramientas.add(agregarCaracteristicasItem(menuItemHerramientas, "", "Herramientas Vista Layout", "Herramientas vista"));
         menuHerramientas.add(agregarCaracteristicasItem(menuItemHerramientas, "", "Herramientas Vista Layout", "Herramientas vista"));
         menuHerramientas.add(agregarCaracteristicasItem(menuItemHerramientas, "", "Herramientas de dibujo en vista Layout", "Herramientas dibujo"));
         menuHerramientas.addSeparator();
-        menuHerramientas.add(agregarCaracteristicasItem(menuItemHerramientas, "", "Croquis de localización", "Croquis de localización"));
+        menuHerramientas.add(agregarCaracteristicasItem(menuItemHerramientas, "", "Croquis de localizaciï¿½n", "Croquis de localizaciï¿½n"));
         menuHerramientas.add(agregarCaracteristicasItem(menuItemHerramientas, "", "Localizar sector", "Localizar sector"));
         menuHerramientas.addSeparator();
         menuHerramientas.add(agregarCaracteristicasItem(menuItemHerramientas, "", "Street View", "Street View"));
         menuHerramientas.addSeparator();
-        menuHerramientas.add(agregarCaracteristicasItem(menuItemHerramientas, "", "Creación features", "Creación features"));
-        menuHerramientas.add(agregarCaracteristicasItem(menuItemHerramientas, "", "Cálculo de fondo y frente", "Calculo de fondo y frente"));
+        menuHerramientas.add(agregarCaracteristicasItem(menuItemHerramientas, "", "Creaciï¿½n features", "Creaciï¿½n features"));
+        menuHerramientas.add(agregarCaracteristicasItem(menuItemHerramientas, "", "Cï¿½lculo de fondo y frente", "Calculo de fondo y frente"));
         menuHerramientas.add(agregarCaracteristicasItem(menuItemHerramientas, "", "Validaciones anexas", "Validaciones anexas"));
         menuHerramientas.add(agregarCaracteristicasItem(menuItemHerramientas, "", "Centroides", "Centroides"));
         menuHerramientas.add(agregarCaracteristicasItem(menuItemHerramientas, "", "Colindantes", "Colindantes"));
         menuHerramientas.add(agregarCaracteristicasItem(menuItemHerramientas, "", "Herramientas Auxiliar", "Herramientas Auxiliar"));
-        menuHerramientas.add(agregarCaracteristicasItem(menuItemHerramientas, "", "Números exteriores", "Números exteriores"));
+        menuHerramientas.add(agregarCaracteristicasItem(menuItemHerramientas, "", "Nï¿½meros exteriores", "Nï¿½meros exteriores"));
         
         /*Inicia menu de versiones */
         JMenu menuVersiones = new JMenu("Versiones");
@@ -168,8 +168,8 @@ public class Menu {
         menuBar.add(menuVersiones);
         
         JMenuItem menuItemVersiones = new JMenuItem();
-        menuVersiones.add(agregarCaracteristicasItem(menuItemVersiones, "", "Cambia Versión", "Cambia Versión"));
-        menuVersiones.add(agregarCaracteristicasItem(menuItemVersiones, "", "Conciliación y posteo", "Conciliación y posteo"));
+        menuVersiones.add(agregarCaracteristicasItem(menuItemVersiones, "", "Cambia Versiï¿½n", "Cambia Versiï¿½n"));
+        menuVersiones.add(agregarCaracteristicasItem(menuItemVersiones, "", "Conciliaciï¿½n y posteo", "Conciliaciï¿½n y posteo"));
                 
         /*Inicia menu de proceso catastral*/
         JMenu menuProcesoC = new JMenu("Proceso Catastral");
@@ -181,20 +181,20 @@ public class Menu {
         menuProcesoC.add(agregarCaracteristicasItem(menuItemProcesoC, "", "Predios Condominios", "Predios Condominios"));
         
         /*Inicia menu de tramite Catastral*/
-        JMenu menuTramiteC = new JMenu("Trámite Catasral");
+        JMenu menuTramiteC = new JMenu("Trï¿½mite Catasral");
         agregarCaracteristicasMenu(menuTramiteC, "TramiteC"); 
         menuBar.add(menuTramiteC);
         
         JMenuItem menuItemTramiteC = new JMenuItem();
         menuTramiteC.add(agregarCaracteristicasItem(menuItemTramiteC, "", "Bandeja de tramites", "Bandeja de tramites"));
         menuTramiteC.addSeparator();
-        menuTramiteC.add(agregarCaracteristicasItem(menuItemTramiteC, "", "Fusión de predios", "Fusión de predios"));
-        menuTramiteC.add(agregarCaracteristicasItem(menuItemTramiteC, "", "División de predios", "División de predios"));
+        menuTramiteC.add(agregarCaracteristicasItem(menuItemTramiteC, "", "Fusiï¿½n de predios", "Fusiï¿½n de predios"));
+        menuTramiteC.add(agregarCaracteristicasItem(menuItemTramiteC, "", "Divisiï¿½n de predios", "Divisiï¿½n de predios"));
         menuTramiteC.addSeparator();
         menuTramiteC.add(agregarCaracteristicasItem(menuItemTramiteC, "", "Tramite de fraccionamientos y condominios", "Tramite de fraccionamientos y condominios"));
         
         /*Inicia menu de validacion cartografia*/
-        JMenu menuValidacionC = new JMenu("Validación Cartografíca");
+        JMenu menuValidacionC = new JMenu("Validaciï¿½n Cartografï¿½ca");
         agregarCaracteristicasMenu(menuValidacionC, "ValidacionC");
         menuBar.add(menuValidacionC);
         
@@ -202,12 +202,12 @@ public class Menu {
         menuValidacionC.add(agregarCaracteristicasItem(menuItemValidacionC, "", "Fraccionamientos y condominios", "Fraccionamientos y condominios"));
         
         /*Inicia menu de Consulta informacion*/
-        JMenu menuConsultaI = new JMenu("Consulta información");
+        JMenu menuConsultaI = new JMenu("Consulta informaciï¿½n");
         agregarCaracteristicasMenu(menuConsultaI, "ConsultaI");
         menuBar.add(menuConsultaI);
         
         JMenuItem menuItemConsultaI = new JMenuItem();
-        menuConsultaI.add(agregarCaracteristicasItem(menuItemConsultaI, "", "Consulta de información", "Consulta de información"));
+        menuConsultaI.add(agregarCaracteristicasItem(menuItemConsultaI, "", "Consulta de informaciï¿½n", "Consulta de informaciï¿½n"));
                 
         /*Inicia Menu de Historial*/
         JMenu menuHistorial = new JMenu("Historial");
@@ -215,21 +215,21 @@ public class Menu {
         menuBar.add(menuHistorial);
         
         JMenuItem menuItemHistorial = new JMenuItem();
-        menuHistorial.add(agregarCaracteristicasItem(menuItemHistorial, "", "Histórico de predios", "Histórico de predios"));
+        menuHistorial.add(agregarCaracteristicasItem(menuItemHistorial, "", "Histï¿½rico de predios", "Histï¿½rico de predios"));
         
         /*Inicia menu de Actualiza Cartografia*/
-        JMenu menuActualizaC = new JMenu("Actualiza Cartografía");
+        JMenu menuActualizaC = new JMenu("Actualiza Cartografï¿½a");
         agregarCaracteristicasMenu(menuActualizaC, "ActualizaC");
         menuBar.add(menuActualizaC);
         
         JMenuItem menuItemActualizaC = new JMenuItem();
-        menuActualizaC.add(agregarCaracteristicasItem(menuItemActualizaC, "", "Región Catastral", "Región Catastral"));
+        menuActualizaC.add(agregarCaracteristicasItem(menuItemActualizaC, "", "Regiï¿½n Catastral", "Regiï¿½n Catastral"));
         menuActualizaC.add(agregarCaracteristicasItem(menuItemActualizaC, "", "Zona catastral", "Zona catastral"));
         menuActualizaC.add(agregarCaracteristicasItem(menuItemActualizaC, "", "Sector catastral", "Sector catastral"));
         menuActualizaC.add(agregarCaracteristicasItem(menuItemActualizaC, "", "Asentamientos", "Asentamientos"));
         menuActualizaC.add(agregarCaracteristicasItem(menuItemActualizaC, "", "Manzanas", "Manzanas"));
         menuActualizaC.add(agregarCaracteristicasItem(menuItemActualizaC, "", "Vialidades", "Vialidades"));
-        menuActualizaC.add(agregarCaracteristicasItem(menuItemActualizaC, "", "Zonas Homogéneas", "Zonas Homogéneas"));
+        menuActualizaC.add(agregarCaracteristicasItem(menuItemActualizaC, "", "Zonas Homogï¿½neas", "Zonas Homogï¿½neas"));
         menuActualizaC.add(agregarCaracteristicasItem(menuItemActualizaC, "", "Bandas de valor", "Bandas de valor"));
         
         /*Inicia menu de Planos*/
@@ -250,7 +250,7 @@ public class Menu {
         menuVentanas.addSeparator();
         menuVentanas.add(agregarCaracteristicasItem(menuItemVentanas, "", "Visor de mapas", "Visor de mapas"));
         menuVentanas.add(agregarCaracteristicasItem(menuItemVentanas, "", "Tabla de contenido", "Tabla de contenido"));
-        menuVentanas.add(agregarCaracteristicasItem(menuItemVentanas, "", "Catálogo", "Catálogo"));
+        menuVentanas.add(agregarCaracteristicasItem(menuItemVentanas, "", "Catï¿½logo", "Catï¿½logo"));
         menuVentanas.add(agregarCaracteristicasItem(menuItemVentanas, "", "Buscar", "Buscar"));
                 
         JToolBar toolBar = createToolBar(map);
@@ -442,7 +442,7 @@ public class Menu {
         btnCatalogo.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-            	pintarPredios.editar(map); 
+				pintarPredios.editarUno(map);
             }
         });
         toolBar.add(btnCatalogo);
@@ -511,7 +511,7 @@ public class Menu {
         rectangleButton.addActionListener(new ActionListener() {
         	@Override
         	public void actionPerformed(ActionEvent e) {
-        		System.out.println("Pintaré un rectangulo");
+        		System.out.println("Pintarï¿½ un rectangulo");
         		drawingOverlayu.setUp(DrawingMode.POLYGON_RECTANGLE,
         				new SimpleFillSymbol(new Color(200, 0, 0, 180), new SimpleLineSymbol(new Color(200, 0, 0), 3)),null);
 	          }
@@ -524,7 +524,7 @@ public class Menu {
         map.addMapOverlay(drawingOverlaya);
         drawingOverlaya.setActive(true);
         map.getLayers().add(graphicsLayer1);
-		map.getLayers().get(4).setName("Capa 2 (Polilínea)");
+		map.getLayers().get(4).setName("Capa 2 (Polilï¿½nea)");
 //		botones.graphicLayer(drawingOverlaya, graphicsLayer1);
 		drawingOverlaya.addDrawingCompleteListener(new DrawingCompleteListener() {
 			 @Override
@@ -534,12 +534,12 @@ public class Menu {
 		 });
         
         JButton polylineButton = new JButton(new ImageIcon(getClass().getResource("/com/esri/client/toolkit/images/EditingLineTool16.png")));
-        polylineButton.setToolTipText("Herramienta Polilínea");
+        polylineButton.setToolTipText("Herramienta Polilï¿½nea");
 //		botones.BtnPolyline(drawingOverlaya, polylineButton);
         polylineButton.addActionListener(new ActionListener() {
 	          @Override
 	          public void actionPerformed(ActionEvent e) {
-	        	  System.out.println("Pintaré una polilínea");
+	        	  System.out.println("Pintarï¿½ una polilï¿½nea");
 	        	  drawingOverlaya.setUp(DrawingMode.POLYLINE,new SimpleLineSymbol(Color.BLUE, 3),null);
 	          }
 	    });
@@ -629,7 +629,7 @@ public class Menu {
         map.addMapOverlay(drawingOverPolygon);
         drawingOverPolygon.setActive(true);
         map.getLayers().add(graphicsLayer5);
-		map.getLayers().get(12).setName("Capa 6 (Polígono)");
+		map.getLayers().get(12).setName("Capa 6 (Polï¿½gono)");
 //		botones.graphicLayer(drawingOverPolygon, graphicsLayer5);
 		drawingOverPolygon.addDrawingCompleteListener(new DrawingCompleteListener() {
 			 @Override
@@ -641,7 +641,7 @@ public class Menu {
         final SimpleLineSymbol dottedLine = new SimpleLineSymbol(Color.BLACK, 2);
         dottedLine.setStyle(SimpleLineSymbol.Style.DASH);
         JButton polygonButton = new JButton(new ImageIcon(getClass().getResource("/com/esri/client/toolkit/images/EditingPolygonTool16.png")));
-        polygonButton.setToolTipText("Herramienta Polígono");
+        polygonButton.setToolTipText("Herramienta Polï¿½gono");
 //        botones.BtnPolygon(drawingOverPolygon, polygonButton, dottedLine);
         polygonButton.addActionListener(new ActionListener() {
 			@Override

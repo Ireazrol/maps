@@ -1,17 +1,9 @@
 import java.awt.Color;
-import java.awt.Event;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.ContainerEvent;
-import java.awt.event.ContainerListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
-
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.event.AncestorEvent;
-import javax.swing.event.AncestorListener;
 
 import com.esri.core.geometry.Envelope;
 import com.esri.core.geometry.Geometry;
@@ -19,17 +11,12 @@ import com.esri.core.geometry.GeometryEngine;
 import com.esri.core.geometry.Point;
 import com.esri.core.geometry.Polygon;
 import com.esri.core.geometry.Polyline;
-import com.esri.core.geometry.SegmentIterator;
+import com.esri.core.geometry.Transformation2D;
 import com.esri.core.map.Feature;
-import com.esri.core.map.FeatureResult;
 import com.esri.core.map.Graphic;
 import com.esri.core.symbol.SimpleFillSymbol;
 import com.esri.core.symbol.SimpleLineSymbol;
-import com.esri.core.symbol.SimpleMarkerSymbol;
-import com.esri.core.symbol.SimpleMarkerSymbol.Style;
 import com.esri.core.tasks.query.QueryParameters;
-import com.esri.core.tasks.query.QueryTask;
-import com.esri.map.ArcGISFeatureLayer.EditCapabilities;
 import com.esri.map.GraphicsLayer;
 import com.esri.map.JMap;
 import com.esri.map.LayerList;
@@ -38,11 +25,10 @@ import com.esri.map.MapEventListenerAdapter;
 import com.esri.toolkit.overlays.DrawingCompleteEvent;
 import com.esri.toolkit.overlays.DrawingCompleteListener;
 import com.esri.toolkit.overlays.DrawingOverlay;
+import com.esri.toolkit.overlays.DrawingOverlay.DrawingMode;
 import com.esri.toolkit.overlays.HitTestEvent;
 import com.esri.toolkit.overlays.HitTestListener;
 import com.esri.toolkit.overlays.HitTestOverlay;
-import com.esri.toolkit.overlays.DrawingOverlay.DrawingMode;
-
 
 public class PintarPredios {
 	SimpleLineSymbol SYM_PARCEL_BORDER = new SimpleLineSymbol(Color.RED, 5);
@@ -70,7 +56,30 @@ public class PintarPredios {
 				
 			}
 		});
-		 
+		List<Polygon> listaPolygo = new ArrayList<Polygon>();
+		map.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				System.out.println(
+						"point " + arg0.getPoint() + " arg0.getX() " + arg0.getX() + " arg0.getY() " + arg0.getY());
+				int[] selectedIDs = graphicsLayer.getSelectionIDs();
+				if (selectedIDs.length == 1) {
+					System.out.println("solo se selecciono un predio ");
+					if (arg0.getButton() == MouseEvent.BUTTON1) {
+						Point clickedPoint = map.toMapPoint(arg0.getX(), arg0.getY());
+						addPoint(map, listaPolygo, clickedPoint, selectedIDs);
+
+					}
+
+				}
+				// if (arg0.getButton() != MouseEvent.BUTTON1) {
+				// Point clickedPoint = map.toMapPoint(arg0.getX(),
+				// arg0.getY());
+				// createLine(clickedPoint, lineAngle);
+				// }
+			}
+		});
+
 		//earPredios(map, graphicsLayer);
 		System.out.println("graphicsLayer " + graphicsLayer);
 		HitTestListener listener = evenToTest();
@@ -78,6 +87,40 @@ public class PintarPredios {
 		map.addMapOverlay(selectionOverlay);
 		 
 	 }
+
+	public void addPoint(JMap map, List<Polygon> listaPolygo, Point clickedPoint, int[] selectedIDs) {
+		int i = 0;
+		System.out.println(" listaPolygo " + listaPolygo.size());
+		Geometry[] selectedGeometries = new Geometry[selectedIDs.length];
+		Polygon polygon = new Polygon();
+		for (int id : selectedIDs) {
+			Geometry geometry = graphicsLayer.getGraphic(id).getGeometry();
+			polygon = (Polygon) geometry;
+			polygon.lineTo(clickedPoint);
+			polygon.closeAllPaths();
+			selectedGeometries[i] = polygon;
+			// graphicsLayer.updateGraphic(id, polygon);
+			graphicsLayer.movePointGraphic(id, clickedPoint);
+			// Geometry unionGeometry = GeometryEngine.union(selectedGeometries,
+			// map.getSpatialReference());
+			// SimpleLineSymbol lineSymbol = new SimpleLineSymbol(Color.red, 3,
+			// SimpleLineSymbol.Style.SOLID);
+			// Graphic unionGraphic = new Graphic(unionGeometry, lineSymbol);
+			// graphicsLayer.addGraphic(unionGraphic);
+
+			// graphicsLayer.movePointGraphic(id, clickedPoint);
+			// Point point;
+			// System.out.println("clickedPoint " + clickedPoint + "
+			// point.getX() " + clickedPoint.getX());
+			// for (int x = 0; x < polygon.getPointCount(); x++) {
+			// point = polygon.getPoint(x);
+			// System.out.println("point " + point);
+			// }
+			i++;
+		}
+
+
+	}
 	 
 	 public void crearPredios (JMap map, GraphicsLayer graphicsLayer) {
 		 final DrawingOverlay drawingOverlaya = new DrawingOverlay();
@@ -602,12 +645,14 @@ public class PintarPredios {
 	}
 	
 	public HitTestListener evenToTest () {
+		System.out.println("entro al evento eventTest ");
 		HitTestListener listener = new HitTestListener() {
 			@Override
 			public void featureHit(HitTestEvent event) {
 				 HitTestOverlay overlay = (HitTestOverlay) event.getSource();
 			      List<Feature> hitFeatures = overlay.getHitFeatures();
 			      GraphicsLayer graphicsLayer = (GraphicsLayer) overlay.getLayer();
+				System.out.println("entro al evento eventTest " + hitFeatures);
 			      //select or de-select each hit graphic
 			      for (Feature feature : hitFeatures) {
 			        if (graphicsLayer.isGraphicSelected((int) feature.getId())) {
@@ -647,24 +692,75 @@ public class PintarPredios {
 	    }
 	}
 	
-	public void editar (JMap map) {
-		int[] selectedIDs = graphicsLayer.getSelectionIDs(); 
-		System.out.println("ss " + selectedIDs.length);
-		if (selectedIDs.length < 1) {
-			return;
+	public void editarUno(JMap map) {
+		System.out.println(" graphicsLayer.getSelectionIDs() " + graphicsLayer.getSelectionIDs());
+		int[] selectedIDs = graphicsLayer.getSelectionIDs();
+		for (int id : selectedIDs) {
+			// add it to the selected collection
+			SimpleLineSymbol lineSymbol = new SimpleLineSymbol(Color.red, 3, SimpleLineSymbol.Style.SOLID);
+			Graphic unionGraphic = new Graphic(graphicsLayer.getGraphic(id).getGeometry(), lineSymbol);
+			System.out.println(" unionGraphic " + unionGraphic);
+			graphicsLayer.updateGraphic(id, unionGraphic);
+			Transformation2D rotateTx = new Transformation2D();
+			// graphicsLayer.removeGraphic(id);
 		}
-		Geometry[] selectedGeometries = new Geometry[selectedIDs.length];
-		int i = 0;
-	    for (int id : selectedIDs) { 
-	      // add it to the selected collection 
-	    	System.out.println("editar " + graphicsLayer.getGraphic(id).getGeometry());
-	    	Polygon polygon = new Polygon();
-	    	polygon = (Polygon) graphicsLayer.getGraphic(id).getGeometry();
-	    	
-	      selectedGeometries[i] = graphicsLayer.getGraphic(id).getGeometry();
-	      i++;
-	    }
-	    
 	}
+
+	public void editar (JMap map) {
+		GraphicsLayer graphicsLayers = new GraphicsLayer();
+		int[] selectedIDs = graphicsLayer.getSelectionIDs(); 
+
+		DrawingOverlay drawingOverlaya = new DrawingOverlay();
+		map.addMapOverlay(drawingOverlaya);
+
+		drawingOverlaya.setActive(true);
+
+		// drawingOverlaya.setUp(DrawingMode.POLYLINE, new
+		// SimpleLineSymbol(Color.red, 2), null);
+		drawingOverlaya.addMouseListener(new MouseListener() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+			}
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				System.out.println("mouseEntered ..... ");
+				SimpleLineSymbol lineSymbol = new SimpleLineSymbol(Color.blue, 3, SimpleLineSymbol.Style.SOLID);
+				Graphic dispGraphic = new Graphic(drawingOverlaya.getFeature().getGeometry(), lineSymbol);
+				graphicsLayers.addGraphic(dispGraphic);
+				int[] selectedID = graphicsLayers.getSelectionIDs();
+				Geometry[] selectedGeometries = new Geometry[selectedID.length];
+				int i = 0;
+				for (int id : selectedID) {
+					graphicsLayers.addGraphic(graphicsLayer.getGraphic(id));
+					selectedGeometries[i] = graphicsLayer.getGraphic(id).getGeometry();
+					i++;
+				}
+				Geometry unionGeometry = GeometryEngine.union(selectedGeometries, map.getSpatialReference());
+				Graphic unionGraphic = new Graphic(unionGeometry, lineSymbol);
+				graphicsLayer.addGraphic(unionGraphic);
+				for (int id : selectedIDs) {
+					graphicsLayer.removeGraphic(id);
+				}
+				// graphicsLayer.addGraphic(dispGraphic);
+				System.out.println("grafic .............. ");
+
+			}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				System.out.println("mouseExited ..... ");
+			}
+			@Override
+			public void mousePressed(MouseEvent e) {
+				System.out.println("mousePressed ..... ");
+			}
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				System.out.println("mouseReleased ..... ");
+			}
+		});
+	}
+
+
+
 
 }
