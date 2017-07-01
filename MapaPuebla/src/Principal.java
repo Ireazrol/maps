@@ -1,22 +1,21 @@
+import java.awt.BorderLayout;
+import java.awt.Color;
+//import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.EventQueue;
 //import java.awt.Graphics;
 //import java.awt.GridLayout;
 //import java.awt.Insets;
 //import java.awt.Panel;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+//import java.text.DecimalFormat;
 
 import javax.swing.BorderFactory;
 //import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
-
-import java.awt.BorderLayout;
-import java.awt.Color;
-//import java.awt.Component;
-import java.awt.Dimension;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
-//import java.text.DecimalFormat;
 
 //import com.esri.runtime.ArcGISRuntime;
 
@@ -44,7 +43,7 @@ public class Principal {
   	  JPanel panelMapa = new JPanel(new BorderLayout());
   	  Menu menu = new Menu();
 	EventoMapa eventoMapa = new EventoMapa();
-	map = eventoMapa.createMap();
+		map = eventoMapa.crearMapaPuebla();
 	
 	
     window = new JFrame();
@@ -77,16 +76,13 @@ public class Principal {
       }
     });
 
-    menu.crearMenuCapas(map, panelMenuCapas);
-    menu.crearMenu(panelMenu, map);  
+		menu.crearMenuCapas(map, panelMenuCapas);
+		menu.crearMenu(panelMenu, map);
     panelMapa.add(map, -1);
     panelPrincipal.add(panelMenu, BorderLayout.NORTH); 
     panelPrincipal.add(panelMenuCapas, BorderLayout.LINE_START);
     panelPrincipal.add(panelMapa,BorderLayout.EAST);
     window.getContentPane().add(panelPrincipal);
-    
-    
-    
   }
 
   /**

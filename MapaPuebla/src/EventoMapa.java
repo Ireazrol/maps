@@ -1,18 +1,11 @@
 //import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.FlowLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 //import java.awt.Dimension;
 //import java.awt.List;
 //import java.awt.event.ContainerEvent;
 //import java.awt.event.ContainerListener;
 import java.text.DecimalFormat;
 
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JToolBar;
-import javax.swing.ToolTipManager;
+import javax.swing.SwingUtilities;
 
 //import javax.swing.JLayeredPane;
 //import javax.swing.JPanel;
@@ -20,14 +13,8 @@ import javax.swing.ToolTipManager;
 //
 //import com.esri.client.toolkit.overlays.NavigatorOverlay;
 import com.esri.core.geometry.Envelope;
-//import com.esri.core.geometry.Point;
-import com.esri.core.geometry.Polyline;
 import com.esri.core.geometry.SpatialReference;
-import com.esri.core.map.Graphic;
-import com.esri.core.symbol.SimpleFillSymbol;
-import com.esri.core.symbol.SimpleLineSymbol;
-import com.esri.core.symbol.SimpleMarkerSymbol;
-import com.esri.core.symbol.SimpleMarkerSymbol.Style;
+import com.esri.map.ArcGISDynamicMapServiceLayer;
 //import com.esri.core.symbol.SimpleMarkerSymbol;
 //import com.esri.core.symbol.SimpleMarkerSymbol.Style;
 //import com.esri.map.ArcGISDynamicMapServiceLayer;
@@ -35,6 +22,9 @@ import com.esri.core.symbol.SimpleMarkerSymbol.Style;
 import com.esri.map.ArcGISTiledMapServiceLayer;
 import com.esri.map.GraphicsLayer;
 import com.esri.map.JMap;
+import com.esri.map.Layer.LayerStatus;
+import com.esri.map.LayerInitializeCompleteEvent;
+import com.esri.map.LayerInitializeCompleteListener;
 //import com.esri.map.Layer;
 //import com.esri.map.LayerInitializeCompleteEvent;
 //import com.esri.map.LayerInitializeCompleteListener;
@@ -158,7 +148,8 @@ public class EventoMapa {
 
 	 public JMap createMap() throws Exception {
 		 final JMap map = new JMap();
-		 final ArcGISTiledMapServiceLayer baseLayer = new ArcGISTiledMapServiceLayer("http://services.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer");
+		final ArcGISTiledMapServiceLayer baseLayer = new ArcGISTiledMapServiceLayer(
+				"http://services.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer");
 		 map.setExtent(new Envelope(-10943738.01, 2152726.77, -10912321.29, 2170862.64));
 		 LayerList layers = map.getLayers();
 		 baseLayer.setName("Mapa Base");
@@ -166,5 +157,36 @@ public class EventoMapa {
 		 
 		 return map;
 	 }
-}
 
+	public JMap crearMapaPuebla() {
+		final JMap jMap = new JMap();
+		jMap.setShowingEsriLogo(true);
+		jMap.setWrapAroundEnabled(false);
+		ArcGISTiledMapServiceLayer baseLayer = new ArcGISTiledMapServiceLayer("https://services.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer");
+		LayerList layers = jMap.getLayers();
+		jMap.setExtent(new Envelope(-1.0940152431473859E7, 2141928.6030414305, -1.0920958975257503E7,2170993.7721374366));
+		baseLayer.setName("Mapa Base");
+		layers.add(baseLayer);
+		
+	    final ArcGISDynamicMapServiceLayer onlineDynamicLayer = new ArcGISDynamicMapServiceLayer(
+	            "http://192.168.116.124:6080/arcgis/rest/services/PueVect2013_jun/MapServer/");
+	    	jMap.getLayers().add(onlineDynamicLayer);
+	        onlineDynamicLayer.addLayerInitializeCompleteListener(new LayerInitializeCompleteListener() {
+	          @Override
+	          public void layerInitializeComplete(LayerInitializeCompleteEvent e) {
+	            if (onlineDynamicLayer.getStatus() == LayerStatus.INITIALIZED) {
+	              SwingUtilities.invokeLater(new Runnable() {
+	                @Override
+	                public void run() {
+	                 System.out.println(" onlineDynamicLayer " + onlineDynamicLayer);
+	                }
+	              });
+	            }
+	          }
+		});
+		
+		return jMap;
+	}
+
+
+}

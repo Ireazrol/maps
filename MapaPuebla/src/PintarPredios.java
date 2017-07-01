@@ -94,13 +94,21 @@ public class PintarPredios {
 		Geometry[] selectedGeometries = new Geometry[selectedIDs.length];
 		Polygon polygon = new Polygon();
 		for (int id : selectedIDs) {
+			System.out.println("id " + id);
 			Geometry geometry = graphicsLayer.getGraphic(id).getGeometry();
 			polygon = (Polygon) geometry;
 			polygon.lineTo(clickedPoint);
-			polygon.closeAllPaths();
-			selectedGeometries[i] = polygon;
-			// graphicsLayer.updateGraphic(id, polygon);
-			graphicsLayer.movePointGraphic(id, clickedPoint);
+//			polygon.closeAllPaths();
+//			selectedGeometries[i] = polygon;
+			graphicsLayer.updateGraphic(id, polygon);
+
+			if (GeometryEngine.intersects(geometry, clickedPoint, graphicsLayer.getSpatialReference()) == true) {
+				System.out.println("se realizo la intersection .......... ");
+			} else {
+				System.out.println("no se ah realizado ninguna intercetion ");
+			}
+
+			// graphicsLayer.updateGraphic(id, clickedPoint);
 			// Geometry unionGeometry = GeometryEngine.union(selectedGeometries,
 			// map.getSpatialReference());
 			// SimpleLineSymbol lineSymbol = new SimpleLineSymbol(Color.red, 3,
