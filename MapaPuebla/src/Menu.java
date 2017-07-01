@@ -108,7 +108,7 @@ public class Menu {
         menuEdicion.add(agregarCaracteristicasItem(menuItemEdicion, "", "Herramienta Avanzada de edici�n", "Herramienta Avanzada"));
         menuEdicion.add(agregarCaracteristicasItem(menuItemEdicion, "", "Barra de versiones", "Barra versiones"));
         menuEdicion.addSeparator();
-        menuEdicion.add(agregarCaracteristicasItem(menuItemEdicion, "", "Edici�n activa", "Edicion activa"));
+        menuEdicion.add(agregarCaracteristicasItem(menuItemEdicion, "", "Edición activa", "Edicion activa"));
         
         
         /*Inicia menu de Insertar*/
@@ -117,7 +117,7 @@ public class Menu {
         menuBar.add(menuInsertar);
         
         JMenuItem menuItemInsertar = new JMenuItem();
-        menuInsertar.add(agregarCaracteristicasItem(menuItemInsertar, "", "Insertar tit�lo", "Insertar titulo"));
+        menuInsertar.add(agregarCaracteristicasItem(menuItemInsertar, "", "Insertar título", "Insertar titulo"));
         menuInsertar.add(agregarCaracteristicasItem(menuItemInsertar, "", "Insertar Texto", "Insertar Texto"));
         menuInsertar.addSeparator();
         menuInsertar.add(agregarCaracteristicasItem(menuItemInsertar, "", "Insertar leyenda", "Insertar leyenda"));
@@ -128,15 +128,15 @@ public class Menu {
         menuInsertar.add(agregarCaracteristicasItem(menuItemInsertar, "", "Imagen en el mapa", "Imagen mapa"));
         
         /*Inicia menu de seleccion*/
-        JMenu menuSeleccion = new JMenu("Selecci�n");
+        JMenu menuSeleccion = new JMenu("Selección");
         agregarCaracteristicasMenu(menuSeleccion, "Seleccion");
         menuBar.add(menuSeleccion);
         
         JMenuItem menuItemSeleccion = new JMenuItem();
-        menuSeleccion.add(agregarCaracteristicasItem(menuItemSeleccion, "", "Selecci�n normal", "Selecci�n normal"));
+        menuSeleccion.add(agregarCaracteristicasItem(menuItemSeleccion, "", "Selección normal", "Selecci�n normal"));
         menuSeleccion.addSeparator();
-        menuSeleccion.add(agregarCaracteristicasItem(menuItemSeleccion, "", "Selecci�n por ubicaci�n", "Seleccion ubicacion")); 
-        menuSeleccion.add(agregarCaracteristicasItem(menuItemSeleccion, "", "Selecci�n por atributos", "Seleccion atributos"));
+        menuSeleccion.add(agregarCaracteristicasItem(menuItemSeleccion, "", "Selección por ubicación", "Seleccion ubicacion")); 
+        menuSeleccion.add(agregarCaracteristicasItem(menuItemSeleccion, "", "Selección por atributos", "Seleccion atributos"));
         
         /*Inicia menu de herramientas*/
         JMenu menuHerramientas = new JMenu("Herramientas");
@@ -144,23 +144,23 @@ public class Menu {
         menuBar.add(menuHerramientas);
          
         JMenuItem menuItemHerramientas = new JMenuItem();
-        menuHerramientas.add(agregarCaracteristicasItem(menuItemHerramientas, "", "Herramientas est�ndar", "Herramientas estandar"));
+        menuHerramientas.add(agregarCaracteristicasItem(menuItemHerramientas, "", "Herramientas estándar", "Herramientas estandar"));
         menuHerramientas.add(agregarCaracteristicasItem(menuItemHerramientas, "", "Herramientas Vista Layout", "Herramientas vista"));
         menuHerramientas.add(agregarCaracteristicasItem(menuItemHerramientas, "", "Herramientas Vista Layout", "Herramientas vista"));
         menuHerramientas.add(agregarCaracteristicasItem(menuItemHerramientas, "", "Herramientas de dibujo en vista Layout", "Herramientas dibujo"));
         menuHerramientas.addSeparator();
-        menuHerramientas.add(agregarCaracteristicasItem(menuItemHerramientas, "", "Croquis de localizaci�n", "Croquis de localizaci�n"));
+        menuHerramientas.add(agregarCaracteristicasItem(menuItemHerramientas, "", "Croquis de localización", "Croquis de localización"));
         menuHerramientas.add(agregarCaracteristicasItem(menuItemHerramientas, "", "Localizar sector", "Localizar sector"));
         menuHerramientas.addSeparator();
         menuHerramientas.add(agregarCaracteristicasItem(menuItemHerramientas, "", "Street View", "Street View"));
         menuHerramientas.addSeparator();
-        menuHerramientas.add(agregarCaracteristicasItem(menuItemHerramientas, "", "Creaci�n features", "Creaci�n features"));
-        menuHerramientas.add(agregarCaracteristicasItem(menuItemHerramientas, "", "C�lculo de fondo y frente", "Calculo de fondo y frente"));
+        menuHerramientas.add(agregarCaracteristicasItem(menuItemHerramientas, "", "Creación features", "Creación features"));
+        menuHerramientas.add(agregarCaracteristicasItem(menuItemHerramientas, "", "Cálculo de fondo y frente", "Cálculo de fondo y frente"));
         menuHerramientas.add(agregarCaracteristicasItem(menuItemHerramientas, "", "Validaciones anexas", "Validaciones anexas"));
         menuHerramientas.add(agregarCaracteristicasItem(menuItemHerramientas, "", "Centroides", "Centroides"));
         menuHerramientas.add(agregarCaracteristicasItem(menuItemHerramientas, "", "Colindantes", "Colindantes"));
         menuHerramientas.add(agregarCaracteristicasItem(menuItemHerramientas, "", "Herramientas Auxiliar", "Herramientas Auxiliar"));
-        menuHerramientas.add(agregarCaracteristicasItem(menuItemHerramientas, "", "N�meros exteriores", "N�meros exteriores"));
+        menuHerramientas.add(agregarCaracteristicasItem(menuItemHerramientas, "", "Números exteriores", "Números exteriores"));
         
         /*Inicia menu de versiones */
         JMenu menuVersiones = new JMenu("Versiones");
@@ -168,8 +168,8 @@ public class Menu {
         menuBar.add(menuVersiones);
         
         JMenuItem menuItemVersiones = new JMenuItem();
-        menuVersiones.add(agregarCaracteristicasItem(menuItemVersiones, "", "Cambia Versi�n", "Cambia Versi�n"));
-        menuVersiones.add(agregarCaracteristicasItem(menuItemVersiones, "", "Conciliaci�n y posteo", "Conciliaci�n y posteo"));
+        menuVersiones.add(agregarCaracteristicasItem(menuItemVersiones, "", "Cambia Versión", "Cambia Versión"));
+        menuVersiones.add(agregarCaracteristicasItem(menuItemVersiones, "", "Conciliación y posteo", "Conciliación y posteo"));
                 
         /*Inicia menu de proceso catastral*/
         JMenu menuProcesoC = new JMenu("Proceso Catastral");
@@ -188,13 +188,13 @@ public class Menu {
         JMenuItem menuItemTramiteC = new JMenuItem();
         menuTramiteC.add(agregarCaracteristicasItem(menuItemTramiteC, "", "Bandeja de tramites", "Bandeja de tramites"));
         menuTramiteC.addSeparator();
-        menuTramiteC.add(agregarCaracteristicasItem(menuItemTramiteC, "", "Fusi�n de predios", "Fusi�n de predios"));
-        menuTramiteC.add(agregarCaracteristicasItem(menuItemTramiteC, "", "Divisi�n de predios", "Divisi�n de predios"));
+        menuTramiteC.add(agregarCaracteristicasItem(menuItemTramiteC, "", "Fusión de predios", "Fusión de predios"));
+        menuTramiteC.add(agregarCaracteristicasItem(menuItemTramiteC, "", "División de predios", "División de predios"));
         menuTramiteC.addSeparator();
         menuTramiteC.add(agregarCaracteristicasItem(menuItemTramiteC, "", "Tramite de fraccionamientos y condominios", "Tramite de fraccionamientos y condominios"));
         
         /*Inicia menu de validacion cartografia*/
-        JMenu menuValidacionC = new JMenu("Validaci�n Cartograf�ca");
+        JMenu menuValidacionC = new JMenu("Validación Cartográfica");
         agregarCaracteristicasMenu(menuValidacionC, "ValidacionC");
         menuBar.add(menuValidacionC);
         
@@ -202,12 +202,12 @@ public class Menu {
         menuValidacionC.add(agregarCaracteristicasItem(menuItemValidacionC, "", "Fraccionamientos y condominios", "Fraccionamientos y condominios"));
         
         /*Inicia menu de Consulta informacion*/
-        JMenu menuConsultaI = new JMenu("Consulta informaci�n");
+        JMenu menuConsultaI = new JMenu("Consulta información");
         agregarCaracteristicasMenu(menuConsultaI, "ConsultaI");
         menuBar.add(menuConsultaI);
         
         JMenuItem menuItemConsultaI = new JMenuItem();
-        menuConsultaI.add(agregarCaracteristicasItem(menuItemConsultaI, "", "Consulta de informaci�n", "Consulta de informaci�n"));
+        menuConsultaI.add(agregarCaracteristicasItem(menuItemConsultaI, "", "Consulta de información", "Consulta de información"));
                 
         /*Inicia Menu de Historial*/
         JMenu menuHistorial = new JMenu("Historial");
@@ -215,21 +215,21 @@ public class Menu {
         menuBar.add(menuHistorial);
         
         JMenuItem menuItemHistorial = new JMenuItem();
-        menuHistorial.add(agregarCaracteristicasItem(menuItemHistorial, "", "Hist�rico de predios", "Hist�rico de predios"));
+        menuHistorial.add(agregarCaracteristicasItem(menuItemHistorial, "", "Histórico de predios", "Histórico de predios"));
         
         /*Inicia menu de Actualiza Cartografia*/
-        JMenu menuActualizaC = new JMenu("Actualiza Cartograf�a");
+        JMenu menuActualizaC = new JMenu("Actualiza Cartográfica");
         agregarCaracteristicasMenu(menuActualizaC, "ActualizaC");
         menuBar.add(menuActualizaC);
         
         JMenuItem menuItemActualizaC = new JMenuItem();
-        menuActualizaC.add(agregarCaracteristicasItem(menuItemActualizaC, "", "Regi�n Catastral", "Regi�n Catastral"));
+        menuActualizaC.add(agregarCaracteristicasItem(menuItemActualizaC, "", "Región Catastral", "Región Catastral"));
         menuActualizaC.add(agregarCaracteristicasItem(menuItemActualizaC, "", "Zona catastral", "Zona catastral"));
         menuActualizaC.add(agregarCaracteristicasItem(menuItemActualizaC, "", "Sector catastral", "Sector catastral"));
         menuActualizaC.add(agregarCaracteristicasItem(menuItemActualizaC, "", "Asentamientos", "Asentamientos"));
         menuActualizaC.add(agregarCaracteristicasItem(menuItemActualizaC, "", "Manzanas", "Manzanas"));
         menuActualizaC.add(agregarCaracteristicasItem(menuItemActualizaC, "", "Vialidades", "Vialidades"));
-        menuActualizaC.add(agregarCaracteristicasItem(menuItemActualizaC, "", "Zonas Homog�neas", "Zonas Homog�neas"));
+        menuActualizaC.add(agregarCaracteristicasItem(menuItemActualizaC, "", "Zonas Homogéneas", "Zonas Homogéneas"));
         menuActualizaC.add(agregarCaracteristicasItem(menuItemActualizaC, "", "Bandas de valor", "Bandas de valor"));
         
         /*Inicia menu de Planos*/
@@ -250,10 +250,11 @@ public class Menu {
         menuVentanas.addSeparator();
         menuVentanas.add(agregarCaracteristicasItem(menuItemVentanas, "", "Visor de mapas", "Visor de mapas"));
         menuVentanas.add(agregarCaracteristicasItem(menuItemVentanas, "", "Tabla de contenido", "Tabla de contenido"));
-        menuVentanas.add(agregarCaracteristicasItem(menuItemVentanas, "", "Cat�logo", "Cat�logo"));
+        menuVentanas.add(agregarCaracteristicasItem(menuItemVentanas, "", "Catálogo", "Catálogo"));
         menuVentanas.add(agregarCaracteristicasItem(menuItemVentanas, "", "Buscar", "Buscar"));
                 
-        JToolBar toolBar = createToolBar(map);
+//        JToolBar toolBar = createToolBar(map);
+        JToolBar toolBar = drawToolBar(map);
         toolBar.setBackground(Color.white);
         toolBar.setPreferredSize(new Dimension(300, 20));
         
@@ -482,179 +483,7 @@ public class Menu {
         
         return toolBar;
 	}
-	
-	public JToolBar createToolBar(JMap map) {
-		//Tool Rectangle
-//		GraphicsLayer graphicsLayer = new GraphicsLayer();
-		final DrawingOverlay drawingOverlayu = new DrawingOverlay();
-        map.addMapOverlay(drawingOverlayu);
-        drawingOverlayu.setActive(true);
-        map.getLayers().add(graphicsLayer);
-		map.getLayers().get(2).setName("Capa 1 (Rectangulo)");
-//		botones.graphicLayer(drawingOverlayu, graphicsLayer);
-		drawingOverlayu.addDrawingCompleteListener(new DrawingCompleteListener() {
-			 @Override
-			 public void drawingCompleted(DrawingCompleteEvent arg0) {
-		        graphicsLayer.addGraphic((Graphic) drawingOverlayu.getAndClearFeature());
-		      }
-		 });
-        
-		//ToolBar
-		JToolBar toolBar = new JToolBar();
-        toolBar.setLayout(new FlowLayout(FlowLayout.CENTER));
-        ToolTipManager.sharedInstance().setInitialDelay(100); 
-        
-        //Rectangle Button
-        JButton rectangleButton = new JButton(new ImageIcon(getClass().getResource("/com/esri/client/toolkit/images/EditingRectangleTool16.png")));
-        rectangleButton.setToolTipText("Herramienta Rectangulo");
-//        botones.BtnRectangle(drawingOverlayu, rectangleButton);
-        rectangleButton.addActionListener(new ActionListener() {
-        	@Override
-        	public void actionPerformed(ActionEvent e) {
-        		System.out.println("Pintar� un rectangulo");
-        		drawingOverlayu.setUp(DrawingMode.POLYGON_RECTANGLE,
-        				new SimpleFillSymbol(new Color(200, 0, 0, 180), new SimpleLineSymbol(new Color(200, 0, 0), 3)),null);
-	          }
-	    });
-        toolBar.add(rectangleButton);
-        
-        //Tool Polyline
-//        GraphicsLayer graphicsLayer1 = new GraphicsLayer();
-        final DrawingOverlay drawingOverlaya = new DrawingOverlay();
-        map.addMapOverlay(drawingOverlaya);
-        drawingOverlaya.setActive(true);
-        map.getLayers().add(graphicsLayer1);
-		map.getLayers().get(4).setName("Capa 2 (Polil�nea)");
-//		botones.graphicLayer(drawingOverlaya, graphicsLayer1);
-		drawingOverlaya.addDrawingCompleteListener(new DrawingCompleteListener() {
-			 @Override
-			 public void drawingCompleted(DrawingCompleteEvent arg0) {
-		        graphicsLayer1.addGraphic((Graphic) drawingOverlaya.getAndClearFeature());
-		      }
-		 });
-        
-        JButton polylineButton = new JButton(new ImageIcon(getClass().getResource("/com/esri/client/toolkit/images/EditingLineTool16.png")));
-        polylineButton.setToolTipText("Herramienta Polil�nea");
-//		botones.BtnPolyline(drawingOverlaya, polylineButton);
-        polylineButton.addActionListener(new ActionListener() {
-	          @Override
-	          public void actionPerformed(ActionEvent e) {
-	        	  System.out.println("Pintar� una polil�nea");
-	        	  drawingOverlaya.setUp(DrawingMode.POLYLINE,new SimpleLineSymbol(Color.BLUE, 3),null);
-	          }
-	    });
-        toolBar.add(polylineButton);
-        
-        //Tool FreeHandLine
-//        GraphicsLayer graphicsLayer2 = new GraphicsLayer();
-        final DrawingOverlay drawingOverFreehand = new DrawingOverlay();
-        map.addMapOverlay(drawingOverFreehand);
-        drawingOverFreehand.setActive(true);
-        map.getLayers().add(graphicsLayer2);
-		map.getLayers().get(6).setName("Capa 3 (Mano Alzada)");
-//		botones.graphicLayer(drawingOverFreehand, graphicsLayer2);
-		drawingOverFreehand.addDrawingCompleteListener(new DrawingCompleteListener() {
-			 @Override
-			 public void drawingCompleted(DrawingCompleteEvent arg0) {
-		        graphicsLayer2.addGraphic((Graphic) drawingOverFreehand.getAndClearFeature());
-		      }
-		 });
-        
-        JButton freehandLineButton = new JButton(new ImageIcon(getClass().getResource("/com/esri/client/toolkit/images/EditingFreehandTool16.png")));
-        freehandLineButton.setToolTipText("Herramienta Mano Alzada");
-//        botones.BtnFreehandLine(drawingOverFreehand, freehandLineButton);
-        freehandLineButton.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				drawingOverFreehand.setUp(DrawingMode.POLYLINE_FREEHAND,new SimpleLineSymbol(Color.GREEN, 2), null);
-			}
-		});
-        toolBar.add(freehandLineButton);
-        
-        //Tool Point
-//        GraphicsLayer graphicsLayer3 = new GraphicsLayer();
-        final DrawingOverlay drawingOverPoint = new DrawingOverlay();
-        map.addMapOverlay(drawingOverPoint);
-        drawingOverPoint.setActive(true);
-        map.getLayers().add(graphicsLayer3);
-		map.getLayers().get(8).setName("Capa 4 (Punto)");
-//		botones.graphicLayer(drawingOverPoint, graphicsLayer3);
-		drawingOverPoint.addDrawingCompleteListener(new DrawingCompleteListener() {
-			 @Override
-			 public void drawingCompleted(DrawingCompleteEvent arg0) {
-		        graphicsLayer3.addGraphic((Graphic) drawingOverPoint.getAndClearFeature());
-		      }
-		 });
-        
-        JButton pointButton = new JButton(new ImageIcon(getClass().getResource("/com/esri/client/toolkit/images/EditingPointTool16.png")));
-        pointButton.setToolTipText("Herramienta Punto");
-//        botones.BtnPoint(drawingOverPoint, pointButton);
-        pointButton.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				drawingOverPoint.setUp(DrawingMode.POINT,new SimpleMarkerSymbol(Color.cyan, 20, Style.CIRCLE), null);
-			}
-		});
-        toolBar.add(pointButton);
-        
-        //Tool MultiPoint
-//        GraphicsLayer graphicsLayer4 = new GraphicsLayer();
-        final DrawingOverlay drawingOverMultipoint = new DrawingOverlay();
-        map.addMapOverlay(drawingOverMultipoint);
-        drawingOverMultipoint.setActive(true);
-        map.getLayers().add(graphicsLayer4);
-		map.getLayers().get(10).setName("Capa 5 (Multipunto)");
-//		botones.graphicLayer(drawingOverMultipoint, graphicsLayer4);
-		drawingOverMultipoint.addDrawingCompleteListener(new DrawingCompleteListener() {
-			 @Override
-			 public void drawingCompleted(DrawingCompleteEvent arg0) {
-		        graphicsLayer4.addGraphic((Graphic) drawingOverMultipoint.getAndClearFeature());
-		      }
-		 });
-        
-        JButton multipointButton = new JButton(new ImageIcon(getClass().getResource("/com/esri/client/toolkit/images/EditingMultiPointTool16.png")));
-        multipointButton.setToolTipText("Herramienta Multipunto");
-//        botones.BtnMultipoint(drawingOverMultipoint, multipointButton);
-        multipointButton.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				drawingOverMultipoint.setUp(DrawingMode.MULTIPOINT, new SimpleMarkerSymbol(Color.DARK_GRAY, 20, Style.CIRCLE), null);
-			}
-		});
-        toolBar.add(multipointButton);
-        
-        //Tool Polygone
-//        GraphicsLayer graphicsLayer5 = new GraphicsLayer();
-        final DrawingOverlay drawingOverPolygon = new DrawingOverlay();
-        map.addMapOverlay(drawingOverPolygon);
-        drawingOverPolygon.setActive(true);
-        map.getLayers().add(graphicsLayer5);
-		map.getLayers().get(12).setName("Capa 6 (Pol�gono)");
-//		botones.graphicLayer(drawingOverPolygon, graphicsLayer5);
-		drawingOverPolygon.addDrawingCompleteListener(new DrawingCompleteListener() {
-			 @Override
-			 public void drawingCompleted(DrawingCompleteEvent arg0) {
-		        graphicsLayer5.addGraphic((Graphic) drawingOverPolygon.getAndClearFeature());
-		      }
-		 });
-        
-        final SimpleLineSymbol dottedLine = new SimpleLineSymbol(Color.BLACK, 2);
-        dottedLine.setStyle(SimpleLineSymbol.Style.DASH);
-        JButton polygonButton = new JButton(new ImageIcon(getClass().getResource("/com/esri/client/toolkit/images/EditingPolygonTool16.png")));
-        polygonButton.setToolTipText("Herramienta Pol�gono");
-//        botones.BtnPolygon(drawingOverPolygon, polygonButton, dottedLine);
-        polygonButton.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				drawingOverPolygon.setUp(DrawingMode.POLYGON, new SimpleFillSymbol(new Color(0, 0, 0, 80), dottedLine), null);
-			}
-		});
-        toolBar.add(polygonButton);
 
-		System.out.println("Map.getLayers()=====>"+map.getLayers());
-		return toolBar;
-	}
-	
 	public void crearMenuCapas (JMap map, JPanel panelMenuCapas) {
 		JLegend legend = new JLegend(map);
 	    legend.setPreferredSize(new Dimension(250, 700));
@@ -675,5 +504,204 @@ public class Menu {
 		menu.getAccessibleContext().setAccessibleDescription(decripcion);
 	}
 	
+	
+	public JToolBar drawToolBar(JMap map){
+		//Tool Rectangle  
+		 GraphicsLayer graphicsLayer = new GraphicsLayer();
+	     map.getLayers().add(graphicsLayer);
+	     final DrawingOverlay rectangle = new DrawingOverlay();
+		 map.addMapOverlay(rectangle);
+		 rectangle.setActive(true);
+		 rectangle.addDrawingCompleteListener(new DrawingCompleteListener() {
+			 @Override
+			 public void drawingCompleted(DrawingCompleteEvent arg0) {
+				 graphicsLayer.addGraphic((Graphic) rectangle.getAndClearFeature());
+			 }
+		 });
+		 
+		 //Tool PolyLine
+		 GraphicsLayer graphicsLayer1 = new GraphicsLayer();
+	     map.getLayers().add(graphicsLayer1);
+		 final DrawingOverlay polyline = new DrawingOverlay();
+	     map.addMapOverlay(polyline);
+	     polyline.setActive(true);
+	     polyline.addDrawingCompleteListener(new DrawingCompleteListener() {
+	    	 @Override
+	    	 public void drawingCompleted(DrawingCompleteEvent arg0) {
+	    		 graphicsLayer1.addGraphic((Graphic) polyline.getAndClearFeature());
+	    	 }
+	     });
+	     
+	     //Tool Free Hand Line
+		 GraphicsLayer graphicsLayer2 = new GraphicsLayer();
+		 map.getLayers().add(graphicsLayer2);
+		 final DrawingOverlay freeHandLine = new DrawingOverlay();
+		 map.addMapOverlay(freeHandLine);
+		 freeHandLine.setActive(true);
+		 freeHandLine.addDrawingCompleteListener(new DrawingCompleteListener() {
+	    	 @Override
+	    	 public void drawingCompleted(DrawingCompleteEvent arg0) {
+	    		 graphicsLayer2.addGraphic((Graphic) freeHandLine.getAndClearFeature());
+	    	 }
+	     });
+		 
+	     //Tool Point
+	     GraphicsLayer graphicsLayer3 = new GraphicsLayer();
+	     map.getLayers().add(graphicsLayer3);
+	     final DrawingOverlay point = new DrawingOverlay();
+	     map.addMapOverlay(point);
+	     point.setActive(true);
+	     point.addDrawingCompleteListener(new DrawingCompleteListener() {
+	    	 @Override
+	    	 public void drawingCompleted(DrawingCompleteEvent arg0) {
+	    		 graphicsLayer3.addGraphic((Graphic) point.getAndClearFeature());
+	    	 }
+	     });
+		 
+	     //Tool Multipoint
+	     GraphicsLayer graphicsLayer4 = new GraphicsLayer();
+	     map.getLayers().add(graphicsLayer4);
+	     final DrawingOverlay multipoint = new DrawingOverlay();
+	     map.addMapOverlay(multipoint);
+	     multipoint.setActive(true);
+	     multipoint.addDrawingCompleteListener(new DrawingCompleteListener() {
+	    	 @Override
+	    	 public void drawingCompleted(DrawingCompleteEvent arg0) {
+	    		 graphicsLayer4.addGraphic((Graphic) multipoint.getAndClearFeature());
+	    	 }
+	     });
+	     
+	     //Tool Polygon
+		 GraphicsLayer graphicsLayer5 = new GraphicsLayer();
+		 map.getLayers().add(graphicsLayer5);
+		 final DrawingOverlay polygon = new DrawingOverlay();
+		 map.addMapOverlay(polygon);
+		 polygon.setActive(true);
+		 polygon.addDrawingCompleteListener(new DrawingCompleteListener() {
+			 @Override
+			 public void drawingCompleted(DrawingCompleteEvent arg0) {
+				 graphicsLayer5.addGraphic((Graphic) polygon.getAndClearFeature());
+			 }
+		 });
+		 
+		 final JToolBar toolBar = createToolBar(map, rectangle, polyline, freeHandLine, point, multipoint, polygon);
+		 
+		 return toolBar;
+	 }
+	 
+	 public JToolBar createToolBar(JMap map, DrawingOverlay rectangle, DrawingOverlay polyline, DrawingOverlay freeHandLine,
+			DrawingOverlay point, DrawingOverlay multipoint, DrawingOverlay polygon) {
+
+		 JToolBar toolBar = new JToolBar();
+		 toolBar.setLayout(new FlowLayout(FlowLayout.CENTER));
+		 ToolTipManager.sharedInstance().setInitialDelay(100); 
+	        
+		 //Rectangle Button
+		 JButton rectangleButton = new JButton(new ImageIcon(getClass().getResource("/com/esri/client/toolkit/images/EditingRectangleTool16.png")));
+		 rectangleButton.setToolTipText("Herramienta Rectangulo");
+		 rectangleButton.addActionListener(new ActionListener() {
+			 @Override
+			 public void actionPerformed(ActionEvent e) {
+    			rectangle.setActive(true);
+    			polyline.setActive(false);
+    			freeHandLine.setActive(false);
+    			point.setActive(false);
+    			multipoint.setActive(false);
+    			polygon.setActive(false);
+    			rectangle.setUp(DrawingMode.POLYGON_RECTANGLE,
+        				new SimpleFillSymbol(new Color(200, 0, 0, 180), new SimpleLineSymbol(new Color(200, 0, 0), 3)),null);
+			 }
+		 });
+		 toolBar.add(rectangleButton);
+
+		 //Tool Polyline
+	     JButton polylineButton = new JButton(new ImageIcon(getClass().getResource("/com/esri/client/toolkit/images/EditingLineTool16.png")));
+	     polylineButton.setToolTipText("Herramienta Polilínea");
+	     polylineButton.addActionListener(new ActionListener() {
+	    	 @Override
+	    	 public void actionPerformed(ActionEvent e) {
+    			polyline.setActive(true);
+    			rectangle.setActive(false);
+    			freeHandLine.setActive(false);
+    			point.setActive(false);
+    			multipoint.setActive(false);
+    			polygon.setActive(false);
+    			polyline.setUp(DrawingMode.POLYLINE,new SimpleLineSymbol(Color.BLUE, 3),null);
+	    	 }
+	     });
+	     toolBar.add(polylineButton);
+	     
+	     //Tool FreeHandLine
+	     JButton freehandLineButton = new JButton(new ImageIcon(getClass().getResource("/com/esri/client/toolkit/images/EditingFreehandTool16.png")));
+	     freehandLineButton.setToolTipText("Herramienta Mano Alzada");
+	     freehandLineButton.addActionListener(new ActionListener() {
+	    	 @Override
+	    	 public void actionPerformed(ActionEvent e) {
+        		freeHandLine.setActive(true);
+        		polyline.setActive(false);
+    			rectangle.setActive(false);
+    			point.setActive(false);
+    			multipoint.setActive(false);
+    			polygon.setActive(false);
+        		freeHandLine.setUp(DrawingMode.POLYLINE_FREEHAND,new SimpleLineSymbol(Color.GREEN, 2), null);
+	    	 }
+	     });
+	     toolBar.add(freehandLineButton);
+	     
+	     //Tool Point
+	     JButton pointButton = new JButton(new ImageIcon(getClass().getResource("/com/esri/client/toolkit/images/EditingPointTool16.png")));
+	     pointButton.setToolTipText("Herramienta Punto");
+	     pointButton.addActionListener(new ActionListener() {
+	    	 @Override
+	    	 public void actionPerformed(ActionEvent e) {
+				point.setActive(true);
+        		freeHandLine.setActive(false);
+        		polyline.setActive(false);
+    			rectangle.setActive(false);
+    			multipoint.setActive(false);
+    			polygon.setActive(false);
+				point.setUp(DrawingMode.POINT,new SimpleMarkerSymbol(Color.cyan, 20, Style.CIRCLE), null);
+	    	 }
+	     });
+	     toolBar.add(pointButton);
+	     
+	     //Tool MultiPoint
+	     JButton multipointButton = new JButton(new ImageIcon(getClass().getResource("/com/esri/client/toolkit/images/EditingMultiPointTool16.png")));
+	     multipointButton.setToolTipText("Herramienta Multipunto");
+	     multipointButton.addActionListener(new ActionListener() {
+	    	 @Override
+	    	 public void actionPerformed(ActionEvent e) {
+        		multipoint.setActive(true);
+				point.setActive(false);
+        		freeHandLine.setActive(false);
+        		polyline.setActive(false);
+    			rectangle.setActive(false);
+    			polygon.setActive(false);
+        		multipoint.setUp(DrawingMode.MULTIPOINT, new SimpleMarkerSymbol(Color.DARK_GRAY, 20, Style.CIRCLE), null);
+	    	 }
+	     });
+	     toolBar.add(multipointButton);
+	        
+	     //Tool Polygone
+	     final SimpleLineSymbol dottedLine = new SimpleLineSymbol(Color.BLACK, 2);
+	     dottedLine.setStyle(SimpleLineSymbol.Style.DASH);
+	     JButton polygonButton = new JButton(new ImageIcon(getClass().getResource("/com/esri/client/toolkit/images/EditingPolygonTool16.png")));
+	     polygonButton.setToolTipText("Herramienta Polígono");
+	     polygonButton.addActionListener(new ActionListener() {
+	    	 @Override
+	    	 public void actionPerformed(ActionEvent e) {
+        		polygon.setActive(true);
+        		multipoint.setActive(false);
+				point.setActive(false);
+        		freeHandLine.setActive(false);
+        		polyline.setActive(false);
+    			rectangle.setActive(false);
+        		polygon.setUp(DrawingMode.POLYGON, new SimpleFillSymbol(new Color(0, 0, 0, 80), dottedLine), null);
+	    	 }
+	     });
+	     toolBar.add(polygonButton);
+
+	     return toolBar;
+	 }
 }
 

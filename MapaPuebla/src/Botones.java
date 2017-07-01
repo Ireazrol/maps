@@ -1,10 +1,7 @@
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
-
 import com.esri.core.map.Graphic;
 import com.esri.core.symbol.SimpleFillSymbol;
 import com.esri.core.symbol.SimpleLineSymbol;
@@ -32,11 +29,11 @@ public class Botones {
 	}
 	
 	public void BtnRectangle(DrawingOverlay drawingOverlayu,JButton rectangleButton){
-		System.out.println("Entré al método para pintar un rectangulo");
+		System.out.println("Entrï¿½ al mï¿½todo para pintar un rectangulo");
 		rectangleButton.addActionListener(new ActionListener() {
 	          @Override
 	          public void actionPerformed(ActionEvent e) {
-	        	  System.out.println("Pintaré un rectangulo");
+	        	  System.out.println("Pintarï¿½ un rectangulo");
 	        	  drawingOverlayu.setUp(DrawingMode.POLYGON_RECTANGLE, 
 	        			  new SimpleFillSymbol(new Color(200, 0, 0, 180), new SimpleLineSymbol(new Color(200, 0, 0), 3)),
 	        			  null);
@@ -45,11 +42,11 @@ public class Botones {
 	}
 	
 	public void BtnPolyline(DrawingOverlay drawingOverlaya, JButton polylineButton){
-		System.out.println("Entré al método para pintar una polilínea");
+		System.out.println("Entrï¿½ al mï¿½todo para pintar una polilï¿½nea");
 		polylineButton.addActionListener(new ActionListener() {
 	          @Override
 	          public void actionPerformed(ActionEvent e) {
-	        	  System.out.println("Pintaré una polilínea");
+	        	  System.out.println("Pintarï¿½ una polilï¿½nea");
 	        	  drawingOverlaya.setUp(
 	                DrawingMode.POLYLINE,
 	                new SimpleLineSymbol(Color.BLUE, 3),
