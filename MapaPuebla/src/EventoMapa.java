@@ -43,7 +43,6 @@ public class EventoMapa {
 	
 	  public void eventoMapa (JMap map) {
 		map.addMapEventListener(new MapEventListener() {
-			
 			@Override
 			public void mapReady(MapEvent event) {
 				SpatialReference mapSR = event.getMap().getSpatialReference();
@@ -51,8 +50,6 @@ public class EventoMapa {
 			}
 			@Override 
 			public void mapExtentChanged(MapEvent event) {
-				// System.out.println(" evento " +
-				// event.getMap().getGraphics());
 				event.getMap().getGraphics();
 			}
 			@Override
@@ -60,72 +57,12 @@ public class EventoMapa {
 				
 			}
 		});
-		
 	}
 
-	/*public void crearGrafico (JMap map) { 
-		try {
-			SimpleMarkerSymbol simpleMarker = new SimpleMarkerSymbol(java.awt.Color.BLUE,12,Style.CIRCLE);
-			Point pointGeometry = new Point(-10882400, 2156094);
-			Graphic pointGraphic = new Graphic(pointGeometry, simpleMarker);
-			GraphicsLayer myGraphicsLayer = new GraphicsLayer();
-			myGraphicsLayer.addGraphic(pointGraphic);
-			map.getLayers().add(myGraphicsLayer);
-		} catch (Exception e) {
-		}
-		
-	}*/
-	
-	
-	public void crearLinea (JMap map) {
-//		SimpleLineSymbol lineSymbol = new SimpleLineSymbol( Color.GREEN, 3, com.esri.core.symbol.SimpleLineSymbol.Style.DASH);
-//		
-//			//create the line geometry
-//			Polyline lineGeometry = new Polyline();
-//			lineGeometry.startPath(-902557,7570663);
-//			lineGeometry.lineTo(-902959,7570868);
-//			lineGeometry.lineTo(-903042,7571220);
-//			lineGeometry.lineTo(-902700,7571803);
-//			lineGeometry.lineTo(-904043,7576654);
-//			lineGeometry.lineTo(-900544,7585289);
-//			lineGeometry.lineTo(-794365,7592435);
-//			lineGeometry.lineTo(-790122,7594445);
-//			lineGeometry.lineTo(-785283,7595488);
-			 
-//			Graphic lineGraphic = new Graphic(lineGeometry, lineSymbol);
-//			GraphicsLayer myGraphicsLayer = new GraphicsLayer();
-//			myGraphicsLayer.addGraphic(lineGraphic);
-//			map.getLayers().add(myGraphicsLayer);
-			
-	}
-	
-	public void agregarNavegador (JMap map) {
-		
-//		SimpleMarkerSymbol simpleMarker = new SimpleMarkerSymbol(java.awt.Color.BLUE,12,Style.CIRCLE);
-//		Point pointGeometry = new Point(-20042400, 856094);
-//		Graphic pointGraphic = new Graphic(pointGeometry, simpleMarker);
-//		
-//		NavigatorOverlay navigator = new NavigatorOverlay();
-//		map.addMapOverlay(navigator);
-//		Envelope initialExtent = new Envelope(-20042400, 856094, -2783530, 11716267);
-//		double BUFFER_DISTANCE = 500000; // 500 km
-		
-		
-//		Geometry geometryForZoom = GeometryEngine.buffer(
-//				pointGraphic.getGeometry(), 
-//		   map.getSpatialReference(), 
-//		   BUFFER_DISTANCE, 
-//		   map.getSpatialReference().getUnit());
-		
-//		map.zoomTo(geometryForZoom);
-//		map.setExtent(initialExtent);
-	}
-	
 	public void crearGeometria (JMap map) {
 		String NEWLINE = System.getProperty("line.separator");
 		DecimalFormat decimalFormat = new DecimalFormat("##.##");
 	    map.addMapEventListener(new MapEventListenerAdapter() {
-
 	        @Override
 	        public void mapExtentChanged(MapEvent arg0) {
 	          if (map.isReady()) {
@@ -140,15 +77,12 @@ public class EventoMapa {
 	        }
 	      });
 	}
-
 	
 	public void addLayers(JMap map, int numLayer){
 		GraphicsLayer newLayer= new GraphicsLayer();
 		String nameLayer= "Capa "+numLayer;
 		newLayer.setName(nameLayer);
 		map.getLayers().add(newLayer);
-		
-		System.out.println("Layers List: "+ map.getLayers());
 	}
 
 	 public JMap createMap() throws Exception {
@@ -159,10 +93,16 @@ public class EventoMapa {
 		 LayerList layers = map.getLayers();
 		 baseLayer.setName("Mapa Base");
 		 layers.add(baseLayer);
-		 
 		 return map;
 	 }
 
+	/**
+	 * Descripcion: se limpa layer por nombre de layer
+	 * 
+	 * @param nameLayer
+	 * @param map
+	 * @return
+	 */
 	public int limpiarLayers(String nameLayer, JMap map) {
 		int remover = 0;
 		if (map.getLayers() != null) {
@@ -178,6 +118,11 @@ public class EventoMapa {
 		return remover;
 	}
 
+	/**
+	 * Descripción: se crea mapa base
+	 * 
+	 * @return
+	 */
 	public JMap crearMapaPuebla() {
 		final JMap jMap = new JMap();
 		jMap.setShowingEsriLogo(true);
@@ -187,10 +132,16 @@ public class EventoMapa {
 		baseLayer.setName("Mapa Base");
 		layers.add(baseLayer);
 		cargarMapasLayer(jMap, 0);
-
 		return jMap;
 	}
 
+	/**
+	 * Descrpción: se crea el mapa local u online de acuerdo al parametro que
+	 * reciba en la variable url.
+	 * 
+	 * @param map
+	 * @param url
+	 */
 	public void cargarMapasLayer(JMap map, int url) {
 		String urlMapa = urlMapOnline;
 		if (url == 1) {
@@ -219,7 +170,6 @@ public class EventoMapa {
 						SwingUtilities.invokeLater(new Runnable() {
 							@Override
 							public void run() {
-								System.out.println(" onlineDynamicLayer " + onlineDynamicLayer);
 							}
 						});
 					}
