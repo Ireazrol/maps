@@ -7,6 +7,7 @@ import java.text.DecimalFormat;
 
 import javax.swing.SwingUtilities;
 
+import com.esri.client.local.ArcGISLocalTiledLayer;
 //import javax.swing.JLayeredPane;
 //import javax.swing.JPanel;
 //import javax.swing.SwingUtilities;
@@ -22,6 +23,7 @@ import com.esri.map.ArcGISDynamicMapServiceLayer;
 import com.esri.map.ArcGISTiledMapServiceLayer;
 import com.esri.map.GraphicsLayer;
 import com.esri.map.JMap;
+import com.esri.map.Layer;
 import com.esri.map.Layer.LayerStatus;
 import com.esri.map.LayerInitializeCompleteEvent;
 import com.esri.map.LayerInitializeCompleteListener;
@@ -36,6 +38,8 @@ import com.esri.map.MapEventListenerAdapter;
 //import com.esri.toolkit.overlays.InfoPopupOverlay;
 
 public class EventoMapa {
+	String urlMapOnline = "http://192.168.116.124:6080/arcgis/rest/services/chignahuapanSDE/MapServer";
+	String urlMapLocal = "http://192.168.116.124:6080/arcgis/rest/services/chignahuapanSDE/FeatureServer";
 	
 	  public void eventoMapa (JMap map) {
 		map.addMapEventListener(new MapEventListener() {
@@ -47,7 +51,8 @@ public class EventoMapa {
 			}
 			@Override 
 			public void mapExtentChanged(MapEvent event) {
-				//System.out.println(" evento "+event.getMap().getGraphics());
+				// System.out.println(" evento " +
+				// event.getMap().getGraphics());
 				event.getMap().getGraphics();
 			}
 			@Override
@@ -158,35 +163,69 @@ public class EventoMapa {
 		 return map;
 	 }
 
+	public int limpiarLayers(String nameLayer, JMap map) {
+		int remover = 0;
+		if (map.getLayers() != null) {
+			for (Layer x : map.getLayers()) {
+				nameLayer = nameLayer.replace(" ", "").toLowerCase();
+				String nameLayerList = x.getName().replace(" ", "").toLowerCase();
+				if (nameLayer.equals(nameLayerList)) {
+					map.getLayers().remove(x);
+					remover = 1;
+				}
+			}
+		}
+		return remover;
+	}
+
 	public JMap crearMapaPuebla() {
 		final JMap jMap = new JMap();
 		jMap.setShowingEsriLogo(true);
 		jMap.setWrapAroundEnabled(false);
 		ArcGISTiledMapServiceLayer baseLayer = new ArcGISTiledMapServiceLayer("https://services.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer");
 		LayerList layers = jMap.getLayers();
-		jMap.setExtent(new Envelope(-1.0940152431473859E7, 2141928.6030414305, -1.0920958975257503E7,2170993.7721374366));
 		baseLayer.setName("Mapa Base");
 		layers.add(baseLayer);
-		
-	    final ArcGISDynamicMapServiceLayer onlineDynamicLayer = new ArcGISDynamicMapServiceLayer(
-	            "http://192.168.116.124:6080/arcgis/rest/services/PueVect2013_jun/MapServer/");
-	    	jMap.getLayers().add(onlineDynamicLayer);
-	        onlineDynamicLayer.addLayerInitializeCompleteListener(new LayerInitializeCompleteListener() {
-	          @Override
-	          public void layerInitializeComplete(LayerInitializeCompleteEvent e) {
-	            if (onlineDynamicLayer.getStatus() == LayerStatus.INITIALIZED) {
-	              SwingUtilities.invokeLater(new Runnable() {
-	                @Override
-	                public void run() {
-	                 System.out.println(" onlineDynamicLayer " + onlineDynamicLayer);
-	                }
-	              });
-	            }
-	          }
-		});
-		
+		cargarMapasLayer(jMap, 0);
+
 		return jMap;
 	}
 
+	public void cargarMapasLayer(JMap map, int url) {
+		String urlMapa = urlMapOnline;
+		if (url == 1) {
+			urlMapa = urlMapLocal;
+			final ArcGISLocalTiledLayer tiledLayer = new ArcGISLocalTiledLayer("C:\\Program Files (x86)\\ArcGIS SDKs\\java10.2.4\\sdk\\samples\\data\\tpks\\chignahuapanSDE.tpk");
+			tiledLayer.setName("Local");
+			map.getLayers().add(tiledLayer);
+	        tiledLayer.addLayerInitializeCompleteListener(new LayerInitializeCompleteListener() {
+	          @Override
+	          public void layerInitializeComplete(LayerInitializeCompleteEvent e) {
+	            if (e.getID() == LayerInitializeCompleteEvent.LOCALLAYERCREATE_ERROR) {
+	              System.out.println("no se pudo inicializar tiled " ); 
+	            }
+	          }
+	        });
+	        map.setExtent(new Envelope(-1.0914563461473859E7, 2251658.6830414305, -1.0909068825257503E7, 2255260.8421374366));
+		} else {
+			map.setExtent(new Envelope(-1.0914563461473859E7, 2251658.6830414305, -1.0909068825257503E7, 2255260.8421374366));
+			final ArcGISDynamicMapServiceLayer onlineDynamicLayer = new ArcGISDynamicMapServiceLayer(urlMapa);
+			onlineDynamicLayer.setName("Online");
+			map.getLayers().add(onlineDynamicLayer);
+			onlineDynamicLayer.addLayerInitializeCompleteListener(new LayerInitializeCompleteListener() {
+				@Override
+				public void layerInitializeComplete(LayerInitializeCompleteEvent e) {
+					if (onlineDynamicLayer.getStatus() == LayerStatus.INITIALIZED) {
+						SwingUtilities.invokeLater(new Runnable() {
+							@Override
+							public void run() {
+								System.out.println(" onlineDynamicLayer " + onlineDynamicLayer);
+							}
+						});
+					}
+				}
+			});
+		}
+	}
 
 }

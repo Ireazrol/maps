@@ -43,7 +43,7 @@ public class Menu {
 	PintarPredios pintarPredios = new PintarPredios();
 	
 	public void crearMenu (JPanel panelMenu, JMap map) {
-		pintarPredios.pintarPoligonos(map); 
+		// pintarPredios.pintarPoligonos(map);
 		JPanel jpanelHerramientas = new JPanel(new BorderLayout());
 		jpanelHerramientas.setBackground(Color.white);
 		jpanelHerramientas.setPreferredSize(new Dimension(1200, 20));
@@ -253,8 +253,8 @@ public class Menu {
         menuVentanas.add(agregarCaracteristicasItem(menuItemVentanas, "", "Catálogo", "Catálogo"));
         menuVentanas.add(agregarCaracteristicasItem(menuItemVentanas, "", "Buscar", "Buscar"));
                 
-//        JToolBar toolBar = createToolBar(map);
-        JToolBar toolBar = drawToolBar(map);
+		JToolBar toolBar = crearToolBarZoom();
+		// JToolBar toolBar = drawToolBar(map);
         toolBar.setBackground(Color.white);
         toolBar.setPreferredSize(new Dimension(300, 20));
         
@@ -295,6 +295,7 @@ public class Menu {
         
         JButton btnNuevo = new JButton(new ImageIcon(getClass().getResource("/imagenes/img/new.png")));
         btnNuevo.setToolTipText("Nuevo");
+		btnNuevo.setContentAreaFilled(false);
         btnNuevo.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -306,6 +307,7 @@ public class Menu {
         
         JButton btnAbrir = new JButton(new ImageIcon(getClass().getResource("/imagenes/img/open.png")));
         btnAbrir.setToolTipText("Abrir");
+		btnAbrir.setContentAreaFilled(false);
         btnAbrir.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -317,6 +319,7 @@ public class Menu {
         
         JButton btnGuardar = new JButton(new ImageIcon(getClass().getResource("/imagenes/img/save.png")));
         btnGuardar.setToolTipText("Guardar");
+		btnGuardar.setContentAreaFilled(false);
         btnGuardar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -328,6 +331,7 @@ public class Menu {
         
         JButton btnImprimir = new JButton(new ImageIcon(getClass().getResource("/imagenes/img/print.png")));
         btnImprimir.setToolTipText("Imprimir");
+		btnImprimir.setContentAreaFilled(false);
         btnImprimir.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -339,6 +343,7 @@ public class Menu {
         
         JButton btnCortar = new JButton(new ImageIcon(getClass().getResource("/imagenes/img/cut.png")));
         btnCortar.setToolTipText("Cortar");
+		btnCortar.setContentAreaFilled(false);
         btnCortar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -350,6 +355,7 @@ public class Menu {
         
         JButton btnCopiar = new JButton(new ImageIcon(getClass().getResource("/imagenes/img/copy.png")));
         btnCopiar.setToolTipText("Copiar");
+		btnCopiar.setContentAreaFilled(false);
         btnCopiar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -361,6 +367,7 @@ public class Menu {
         
         JButton btnPegar = new JButton(new ImageIcon(getClass().getResource("/imagenes/img/paste.png")));
         btnPegar.setToolTipText("Pegar");
+		btnPegar.setContentAreaFilled(false);
         btnPegar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -372,6 +379,7 @@ public class Menu {
         
         JButton btnEliminar = new JButton(new ImageIcon(getClass().getResource("/imagenes/img/delete.png")));
         btnEliminar.setToolTipText("Eliminar");
+		btnEliminar.setContentAreaFilled(false);
         btnEliminar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -383,6 +391,7 @@ public class Menu {
         
         JButton btnDeshacer = new JButton(new ImageIcon(getClass().getResource("/imagenes/img/undo.png")));
         btnDeshacer.setToolTipText("Deshacer");
+		btnDeshacer.setContentAreaFilled(false);
         btnDeshacer.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -394,6 +403,7 @@ public class Menu {
         
         JButton btnSiguiente = new JButton(new ImageIcon(getClass().getResource("/imagenes/img/redo.png")));
         btnSiguiente.setToolTipText("Siguiente");
+		btnSiguiente.setContentAreaFilled(false);
         btnSiguiente.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -405,6 +415,7 @@ public class Menu {
         
         JButton btnAgregarData = new JButton(new ImageIcon(getClass().getResource("/imagenes/img/add_Data.png")));
         btnAgregarData.setToolTipText("Agregar capa");
+		btnAgregarData.setContentAreaFilled(false);
         botones.BtnAddLayer(btnAgregarData, map);
         toolBar.add(btnAgregarData);
         
@@ -425,10 +436,12 @@ public class Menu {
         
         JButton btnEditor = new JButton(new ImageIcon(getClass().getResource("/imagenes/img/edit.png")));
         btnEditor.setToolTipText("Editor");
+		btnEditor.setContentAreaFilled(false);
         toolBar.add(btnEditor);
         
         JButton btnTable = new JButton(new ImageIcon(getClass().getResource("/imagenes/img/table.png")));
         btnTable.setToolTipText("Tabla de contenido");
+		btnTable.setContentAreaFilled(false);
         btnTable.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -440,6 +453,7 @@ public class Menu {
         
         JButton btnCatalogo = new JButton(new ImageIcon(getClass().getResource("/imagenes/img/catalogo.png")));
         btnCatalogo.setToolTipText("Editor");
+		btnCatalogo.setContentAreaFilled(false);
         btnCatalogo.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -450,6 +464,7 @@ public class Menu {
         
         JButton btnBuscar = new JButton(new ImageIcon(getClass().getResource("/imagenes/img/search.png")));
         btnBuscar.setToolTipText("Buscar");
+		btnBuscar.setContentAreaFilled(false);
         btnBuscar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -461,6 +476,7 @@ public class Menu {
         
         JButton btnHerramientas = new JButton(new ImageIcon(getClass().getResource("/imagenes/img/tools.png")));
         btnHerramientas.setToolTipText("Herramientas");
+		btnHerramientas.setContentAreaFilled(false);
         btnHerramientas.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -471,6 +487,7 @@ public class Menu {
         
         JButton btnBuilder = new JButton(new ImageIcon(getClass().getResource("/imagenes/img/grafico.png")));
         btnBuilder.setToolTipText("Builder");
+		btnBuilder.setContentAreaFilled(false);
         btnBuilder.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -480,6 +497,31 @@ public class Menu {
         });
         toolBar.add(btnBuilder);
         
+		JButton btnMapLine = new JButton(new ImageIcon(getClass().getResource("/imagenes/img/mapLine.png")));
+		btnMapLine.setContentAreaFilled(false);
+		btnMapLine.setToolTipText("Mapa online");
+		btnMapLine.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if (eventoMapa.limpiarLayers("local", map) == 1) {
+					eventoMapa.cargarMapasLayer(map, 0);
+				}
+			}
+		});
+		toolBar.add(btnMapLine);
+
+		JButton btnMapLocal = new JButton(new ImageIcon(getClass().getResource("/imagenes/img/mapLocal.png")));
+		btnMapLocal.setContentAreaFilled(false);
+		btnMapLocal.setToolTipText("Mapa Local");
+		btnMapLocal.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if (eventoMapa.limpiarLayers("online", map) == 1) {
+					eventoMapa.cargarMapasLayer(map, 1);
+				}
+			}
+		});
+		toolBar.add(btnMapLocal);
         
         return toolBar;
 	}
@@ -586,7 +628,7 @@ public class Menu {
 		 
 		 final JToolBar toolBar = createToolBar(map, rectangle, polyline, freeHandLine, point, multipoint, polygon);
 		 
-		 return toolBar;
+		return toolBar;
 	 }
 	 
 	 public JToolBar createToolBar(JMap map, DrawingOverlay rectangle, DrawingOverlay polyline, DrawingOverlay freeHandLine,

@@ -44,7 +44,7 @@ public class Principal {
   	  Menu menu = new Menu();
 	EventoMapa eventoMapa = new EventoMapa();
 		map = eventoMapa.crearMapaPuebla();
-	
+		// eventoMapa.crearGeometria(map);
 	
     window = new JFrame();
     window.setSize(1430, 850);
