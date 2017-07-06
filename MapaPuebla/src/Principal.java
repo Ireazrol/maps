@@ -42,9 +42,8 @@ public class Principal {
   	  JPanel panelMenuCapas = new JPanel(new BorderLayout());
   	  JPanel panelMapa = new JPanel(new BorderLayout());
   	  Menu menu = new Menu();
-	EventoMapa eventoMapa = new EventoMapa();
+		EventoMapa eventoMapa = new EventoMapa();
 		map = eventoMapa.crearMapaPuebla();
-		// eventoMapa.crearGeometria(map);
 	
     window = new JFrame();
     window.setSize(1430, 850);
