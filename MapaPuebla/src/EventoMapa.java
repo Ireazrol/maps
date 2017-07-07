@@ -31,6 +31,7 @@ import com.esri.map.ArcGISFeatureLayer;
 //import com.esri.map.ArcGISFeatureLayer;
 import com.esri.map.ArcGISTiledMapServiceLayer;
 import com.esri.map.GraphicsLayer;
+import com.esri.map.GroupLayer;
 import com.esri.map.JMap;
 import com.esri.map.Layer;
 import com.esri.map.Layer.LayerStatus;
@@ -176,7 +177,7 @@ public class EventoMapa {
 		} else {
 			map.setExtent(new Envelope(-1.0914563461473859E7, 2251658.6830414305, -1.0909068825257503E7, 2255260.8421374366));
 			final ArcGISDynamicMapServiceLayer onlineDynamicLayer = new ArcGISDynamicMapServiceLayer(urlMapa);
-			onlineDynamicLayer.setName("Online");
+			onlineDynamicLayer.setName("Onlinehgtythyt");
 			map.getLayers().add(onlineDynamicLayer);
 			onlineDynamicLayer.addLayerInitializeCompleteListener(new LayerInitializeCompleteListener() {
 				@Override
@@ -186,8 +187,9 @@ public class EventoMapa {
 						SwingUtilities.invokeLater(new Runnable() {
 							@Override
 							public void run() {
-								// seleccionarPredio(map, onlineDynamicLayer);
+								//seleccionarPredio(map, onlineDynamicLayer);
 								listaLayers = onlineDynamicLayer.getLayers();
+								GroupLayer groupLayer = new GroupLayer();
 								if (listaLayers != null) {
 									for (int i = 0; i < listaLayers.size(); i++) {
 										LayerInfo layerInfo = (LayerInfo) listaLayers.values().toArray()[i];
@@ -197,15 +199,22 @@ public class EventoMapa {
 											@Override
 											public void layerInitializeComplete(LayerInitializeCompleteEvent e) {
 												if (arcGISFeatureLayer.getStatus() == LayerStatus.INITIALIZED) {
-															System.out.println("estatus " + arcGISFeatureLayer.getStatus());
-															//arcGISFeatureLayer.
-															seleccionarPredio(map, arcGISFeatureLayer);
+													System.out.println("estatus x3 " + arcGISFeatureLayer.getStatus());
+													groupLayer.add(arcGISFeatureLayer);
+													seleccionarPredio(map, arcGISFeatureLayer);
 												}
 											}
 										});
 									}
 								}
-								map.getLayers().remove(onlineDynamicLayer);
+								
+								do{
+									map.getLayers().remove(map.getLayers().size()-1);
+								}while(map.getLayers().size() > 1);
+								
+								if(map.getLayers().size()==1){
+									map.getLayers().add(groupLayer);
+								}
 							}
 						});
 					}
@@ -227,7 +236,6 @@ public class EventoMapa {
 		HitTestListener listener = SeleccionarPredio();
 		final HitTestOverlay selectionOverlay = new HitTestOverlay(arcGISFeatureLayer, listener);
 		map.addMapOverlay(selectionOverlay);
-
 	}
 	
 	public void unionPredio (JMap map, ArcGISFeatureLayer arcGISFeatureLayer) {
@@ -276,5 +284,18 @@ public class EventoMapa {
 		};
 		return listener;
 	}
+	
+	public GroupLayer createSubLayers(JMap map, int numLayer){
+        GraphicsLayer graphicsLayer = new GraphicsLayer();
+        String nameLayer= "Subcapa "+numLayer;
+        graphicsLayer.setName(nameLayer);
+
+        GroupLayer groupLayer= new GroupLayer();
+        groupLayer.setName("Nueva Capa");
+        groupLayer.add(graphicsLayer);
+        
+        System.out.println("groupLayer===>"+groupLayer);
+        return groupLayer;
+    }
 
 }

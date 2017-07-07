@@ -1,6 +1,8 @@
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
+
 import javax.swing.JButton;
 import com.esri.core.map.Graphic;
 import com.esri.core.symbol.SimpleFillSymbol;
@@ -8,6 +10,7 @@ import com.esri.core.symbol.SimpleLineSymbol;
 import com.esri.core.symbol.SimpleMarkerSymbol;
 import com.esri.core.symbol.SimpleMarkerSymbol.Style;
 import com.esri.map.GraphicsLayer;
+import com.esri.map.GroupLayer;
 import com.esri.map.JMap;
 import com.esri.toolkit.overlays.DrawingCompleteEvent;
 import com.esri.toolkit.overlays.DrawingCompleteListener;
@@ -15,17 +18,22 @@ import com.esri.toolkit.overlays.DrawingOverlay;
 import com.esri.toolkit.overlays.DrawingOverlay.DrawingMode;
 
 public class Botones {
-	private int numLayer=7;    
+	private int numLayer=1;    
+	private GroupLayer groupLayer;
 	
-	public void BtnAddLayer(JButton btnAgregarData, JMap map){
+	public GroupLayer BtnAddLayer(JButton btnAgregarData, JMap map){
 		btnAgregarData.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
             	EventoMapa eventoMapa = new EventoMapa();
-            	eventoMapa.addLayers(map, numLayer);
+//            	eventoMapa.addLayers(map, numLayer);
+//            	eventoMapa.createNewLayer(map);
+            	groupLayer = eventoMapa.createSubLayers(map, numLayer);
+            	map.getLayers().add(groupLayer);
             	numLayer++;
             }
         });
+		return groupLayer;
 	}
 	
 	public void BtnRectangle(DrawingOverlay drawingOverlayu,JButton rectangleButton){
