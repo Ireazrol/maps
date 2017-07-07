@@ -5,6 +5,7 @@
 //import java.awt.event.ContainerListener;
 import java.awt.Color;
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -17,12 +18,8 @@ import com.esri.client.local.ArcGISLocalTiledLayer;
 //
 //import com.esri.client.toolkit.overlays.NavigatorOverlay;
 import com.esri.core.geometry.Envelope;
-import com.esri.core.geometry.Geometry;
-import com.esri.core.geometry.GeometryEngine;
 import com.esri.core.geometry.SpatialReference;
 import com.esri.core.map.Feature;
-import com.esri.core.map.Graphic;
-import com.esri.core.symbol.SimpleLineSymbol;
 import com.esri.map.ArcGISDynamicMapServiceLayer;
 import com.esri.map.ArcGISFeatureLayer;
 //import com.esri.core.symbol.SimpleMarkerSymbol;
@@ -55,7 +52,7 @@ public class EventoMapa {
 	String urlMapOnline = "http://192.168.116.124:6080/arcgis/rest/services/chignahuapanSDE/MapServer";
 	String urlMapLocal = "http://192.168.116.124:6080/arcgis/rest/services/chignahuapanSDE/FeatureServer";
 	HashMap<String, LayerInfo> listaLayers = new HashMap<String, LayerInfo>();
-	
+	List<ArcGISFeatureLayer> listaArcGisFeatureLayer = new ArrayList<ArcGISFeatureLayer>();
 	  public void eventoMapa (JMap map) {
 		map.addMapEventListener(new MapEventListener() {
 			@Override
@@ -199,15 +196,17 @@ public class EventoMapa {
 											@Override
 											public void layerInitializeComplete(LayerInitializeCompleteEvent e) {
 												if (arcGISFeatureLayer.getStatus() == LayerStatus.INITIALIZED) {
-													System.out.println("estatus x3 " + arcGISFeatureLayer.getStatus());
 													groupLayer.add(arcGISFeatureLayer);
-													seleccionarPredio(map, arcGISFeatureLayer);
+													listaArcGisFeatureLayer.add(arcGISFeatureLayer);
+													if (listaArcGisFeatureLayer.size() == listaLayers.size()) {
+														agregarEvento(map, listaArcGisFeatureLayer);
+													}
 												}
 											}
 										});
 									}
 								}
-								
+
 								do{
 									map.getLayers().remove(map.getLayers().size()-1);
 								}while(map.getLayers().size() > 1);
@@ -223,57 +222,33 @@ public class EventoMapa {
 		}
 	}
 
+	public void agregarEvento(JMap map, List<ArcGISFeatureLayer> lista) {
+		for (int i = 0; i < lista.size(); i++) {
+			seleccionarPredio(map, lista.get(i));
+		}
+	}
+
 	public void seleccionarPredio(JMap map, ArcGISFeatureLayer arcGISFeatureLayer) {
 		LayerList layerList = map.getLayers();
 		map.addMapEventListener(new MapEventListenerAdapter() {
 			@Override
 			public void mapReady(MapEvent mapEvent) {
-				unionPredio(map, arcGISFeatureLayer);
 				arcGISFeatureLayer.setSelectionColor(Color.YELLOW);
 			}
 		});
-		System.out.println("layerListddddd " + layerList);
 		HitTestListener listener = SeleccionarPredio();
 		final HitTestOverlay selectionOverlay = new HitTestOverlay(arcGISFeatureLayer, listener);
 		map.addMapOverlay(selectionOverlay);
 	}
-	
-	public void unionPredio (JMap map, ArcGISFeatureLayer arcGISFeatureLayer) {
-		int[] selectedIDs = arcGISFeatureLayer.getSelectionIDs();
-	    // if there are less than 2 selected graphics, there is no need to perform a union
-	    if (selectedIDs.length < 2) { 
-	      return;
-	    }
-	    Geometry[] selectedGeometries = new Geometry[selectedIDs.length];
-	    // get a list of selected geometries
-	    int i = 0;
-	    for (int id : selectedIDs) {
-	      // add it to the selected collection 
-	      selectedGeometries[i] = arcGISFeatureLayer.getGraphic(id).getGeometry();
-	      i++;
-	    }
-	    Geometry unionGeometry = GeometryEngine.union(selectedGeometries, map.getSpatialReference());
-	    SimpleLineSymbol lineSymbol = new SimpleLineSymbol(Color.red, 3, SimpleLineSymbol.Style.SOLID);
-	    Graphic unionGraphic = new Graphic(unionGeometry, lineSymbol);
-	    arcGISFeatureLayer.addGraphic(unionGraphic);
-	    for (int id : selectedIDs) { 
-	    	arcGISFeatureLayer.removeGraphic(id);
-	    }
-	}
 
 	public HitTestListener SeleccionarPredio() {
-		System.out.println("entro al evento eventTest ");
 		HitTestListener listener = new HitTestListener() {
 			@Override
 			public void featureHit(HitTestEvent event) {
 				HitTestOverlay overlay = (HitTestOverlay) event.getSource();
 				List<Feature> hitFeatures = overlay.getHitFeatures();
-				System.out.println(" overlay.getLayer() " + overlay.getLayer());
 				ArcGISFeatureLayer arcGISFeatureLayer = (ArcGISFeatureLayer) overlay.getLayer();
-				// GraphicsLayer graphicsLayer = (GraphicsLayer)  overlay.getLayer();
-				// select or de-select each hit graphic
 				for (Feature feature : hitFeatures) {
-					
 					if (arcGISFeatureLayer.isGraphicSelected((int) feature.getId())) {
 						arcGISFeatureLayer.unselect((int) feature.getId());
 					} else {
