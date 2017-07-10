@@ -28,7 +28,7 @@ public class Botones {
             	EventoMapa eventoMapa = new EventoMapa();
 //            	eventoMapa.addLayers(map, numLayer);
 //            	eventoMapa.createNewLayer(map);
-            	groupLayer = eventoMapa.createSubLayers(map, numLayer);
+//            	groupLayer = eventoMapa.createSubLayers(map, numLayer);
             	map.getLayers().add(groupLayer);
             	numLayer++;
             }

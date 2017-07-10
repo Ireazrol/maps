@@ -4,11 +4,14 @@
 //import java.awt.event.ContainerEvent;
 //import java.awt.event.ContainerListener;
 import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.swing.JButton;
 import javax.swing.SwingUtilities;
 
 import com.esri.client.local.ArcGISLocalTiledLayer;
@@ -27,6 +30,7 @@ import com.esri.map.ArcGISFeatureLayer;
 //import com.esri.map.ArcGISDynamicMapServiceLayer;
 //import com.esri.map.ArcGISFeatureLayer;
 import com.esri.map.ArcGISTiledMapServiceLayer;
+import com.esri.map.FeatureLayer;
 import com.esri.map.GraphicsLayer;
 import com.esri.map.GroupLayer;
 import com.esri.map.JMap;
@@ -53,7 +57,9 @@ public class EventoMapa {
 	String urlMapLocal = "http://192.168.116.124:6080/arcgis/rest/services/chignahuapanSDE/FeatureServer";
 	HashMap<String, LayerInfo> listaLayers = new HashMap<String, LayerInfo>();
 	List<ArcGISFeatureLayer> listaArcGisFeatureLayer = new ArrayList<ArcGISFeatureLayer>();
-	  public void eventoMapa (JMap map) {
+	int numLayer=1;
+	
+	public void eventoMapa (JMap map) {
 		map.addMapEventListener(new MapEventListener() {
 			@Override
 			public void mapReady(MapEvent event) {
@@ -135,7 +141,7 @@ public class EventoMapa {
 	 * 
 	 * @return
 	 */
-	public JMap crearMapaPuebla() {
+	public JMap crearMapaPuebla(GroupLayer groupLayer) {
 		final JMap jMap = new JMap();
 		jMap.setShowingEsriLogo(true);
 		jMap.setWrapAroundEnabled(false);
@@ -143,7 +149,7 @@ public class EventoMapa {
 		LayerList layers = jMap.getLayers();
 		baseLayer.setName("Mapa Base");
 		layers.add(baseLayer);
-		cargarMapasLayer(jMap, 0);
+		cargarMapasLayer(jMap, 0, groupLayer);
 		// eleccionarPredio(jMap);
 		return jMap;
 	}
@@ -155,7 +161,7 @@ public class EventoMapa {
 	 * @param map
 	 * @param url
 	 */
-	public void cargarMapasLayer(JMap map, int url) {
+	public void cargarMapasLayer(JMap map, int url, GroupLayer groupLayer) {
 		 String urlMapa = urlMapOnline;
 		if (url == 1) {
 			urlMapa = urlMapLocal;
@@ -186,7 +192,7 @@ public class EventoMapa {
 							public void run() {
 								//seleccionarPredio(map, onlineDynamicLayer);
 								listaLayers = onlineDynamicLayer.getLayers();
-								GroupLayer groupLayer = new GroupLayer();
+//								GroupLayer groupLayer = new GroupLayer();
 								if (listaLayers != null) {
 									for (int i = 0; i < listaLayers.size(); i++) {
 										LayerInfo layerInfo = (LayerInfo) listaLayers.values().toArray()[i];
@@ -260,17 +266,22 @@ public class EventoMapa {
 		return listener;
 	}
 	
-	public GroupLayer createSubLayers(JMap map, int numLayer){
-        GraphicsLayer graphicsLayer = new GraphicsLayer();
-        String nameLayer= "Subcapa "+numLayer;
-        graphicsLayer.setName(nameLayer);
-
-        GroupLayer groupLayer= new GroupLayer();
-        groupLayer.setName("Nueva Capa");
-        groupLayer.add(graphicsLayer);
-        
-        System.out.println("groupLayer===>"+groupLayer);
-        return groupLayer;
-    }
+	public void BtnAddLayer(JButton btnAgregarData, GroupLayer groupLayer, JMap map){
+		btnAgregarData.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				for(int i=1; i<map.getLayers().size(); i++){
+					map.getLayers().remove(i);
+				}
+				GraphicsLayer graphicsLayer = new GraphicsLayer();
+				String nameLayer="Subcapa "+numLayer;
+				graphicsLayer.setName(nameLayer);
+				groupLayer.add(graphicsLayer);
+				map.getLayers().add(groupLayer);
+				System.out.println("groupLayer:  "+groupLayer);
+				numLayer++;
+			}
+		});
+	}
 
 }

@@ -17,6 +17,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
 
+import com.esri.map.GroupLayer;
+
 //import com.esri.runtime.ArcGISRuntime;
 
 //import javafx.scene.layout.BorderPane;
@@ -35,6 +37,7 @@ public class Principal {
 
   private JFrame window;
   private JMap map;
+  private GroupLayer groupLayer = new GroupLayer();
   
   public Principal() throws Exception {
 	  JPanel panelPrincipal =new JPanel(new BorderLayout()); 
@@ -43,7 +46,7 @@ public class Principal {
   	  JPanel panelMapa = new JPanel(new BorderLayout());
   	  Menu menu = new Menu();
 		EventoMapa eventoMapa = new EventoMapa();
-		map = eventoMapa.crearMapaPuebla();
+		map = eventoMapa.crearMapaPuebla(groupLayer);
 	
     window = new JFrame();
     window.setSize(1430, 850);
@@ -76,7 +79,7 @@ public class Principal {
     });
 
 		menu.crearMenuCapas(map, panelMenuCapas);
-		menu.crearMenu(panelMenu, map);
+		menu.crearMenu(panelMenu, map, groupLayer);
     panelMapa.add(map, -1);
     panelPrincipal.add(panelMenu, BorderLayout.NORTH); 
     panelPrincipal.add(panelMenuCapas, BorderLayout.LINE_START);

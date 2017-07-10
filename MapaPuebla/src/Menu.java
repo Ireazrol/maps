@@ -17,12 +17,14 @@ import javax.swing.JToolBar;
 import javax.swing.ToolTipManager;
 import javax.swing.border.LineBorder;
 
+import com.esri.core.io.UserCredentials;
 import com.esri.core.map.Graphic;
 import com.esri.core.symbol.SimpleFillSymbol;
 import com.esri.core.symbol.SimpleLineSymbol;
 import com.esri.core.symbol.SimpleMarkerSymbol;
 import com.esri.core.symbol.SimpleMarkerSymbol.Style;
 import com.esri.map.GraphicsLayer;
+import com.esri.map.GroupLayer;
 import com.esri.map.JMap;
 import com.esri.toolkit.legend.JLegend;
 import com.esri.toolkit.overlays.DrawingCompleteEvent;
@@ -42,7 +44,7 @@ public class Menu {
 	GraphicsLayer graphicsLayer5 = new GraphicsLayer();
 	PintarPredios pintarPredios = new PintarPredios();
 	
-	public void crearMenu (JPanel panelMenu, JMap map) {
+	public void crearMenu (JPanel panelMenu, JMap map,GroupLayer groupLayer) {
 		// pintarPredios.pintarPoligonos(map);
 		JPanel jpanelHerramientas = new JPanel(new BorderLayout());
 		jpanelHerramientas.setBackground(Color.white);
@@ -258,7 +260,7 @@ public class Menu {
         toolBar.setBackground(Color.white);
         toolBar.setPreferredSize(new Dimension(300, 20));
         
-        JToolBar toolBarGuardar = crearToolBarGuardar( map);
+        JToolBar toolBarGuardar = crearToolBarGuardar( map, groupLayer);
         toolBarGuardar.setBackground(Color.white);
         toolBarGuardar.setPreferredSize(new Dimension(800, 20));
          
@@ -286,7 +288,7 @@ public class Menu {
         return toolBar;
 	}
 	
-	public JToolBar crearToolBarGuardar (JMap map) {
+	public JToolBar crearToolBarGuardar (JMap map, GroupLayer groupLayer) {
 		JToolBar toolBar = new JToolBar();  
 //		javax.swing.border.Border border= BorderFactory.createLineBorder(Color.RED, 1);
 //		toolBar.setBorder(border);		
@@ -416,7 +418,7 @@ public class Menu {
         JButton btnAgregarData = new JButton(new ImageIcon(getClass().getResource("/imagenes/img/add_Data.png")));
         btnAgregarData.setToolTipText("Agregar capa");
 		btnAgregarData.setContentAreaFilled(false);
-        botones.BtnAddLayer(btnAgregarData, map);
+		eventoMapa.BtnAddLayer(btnAgregarData, groupLayer, map);
         toolBar.add(btnAgregarData);
         
         JComboBox cmbScala = new JComboBox();
@@ -504,7 +506,7 @@ public class Menu {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (eventoMapa.limpiarLayers("local", map) == 1) {
-					eventoMapa.cargarMapasLayer(map, 0);
+					eventoMapa.cargarMapasLayer(map, 0, groupLayer);
 				}
 			}
 		});
@@ -517,7 +519,7 @@ public class Menu {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (eventoMapa.limpiarLayers("online", map) == 1) {
-					eventoMapa.cargarMapasLayer(map, 1);
+					eventoMapa.cargarMapasLayer(map, 1, groupLayer);
 				}
 			}
 		});
