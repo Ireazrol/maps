@@ -1,36 +1,92 @@
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
 
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JColorChooser;
 import javax.swing.JComboBox;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JToolBar;
+import javax.swing.JTree;
+import javax.swing.JViewport;
 import javax.swing.ToolTipManager;
 import javax.swing.border.LineBorder;
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.DefaultTreeModel;
+import javax.swing.tree.TreeNode;
+import javax.swing.tree.TreePath;
 
-import com.esri.core.io.UserCredentials;
+import org.codehaus.jackson.JsonNode;
+import org.codehaus.jackson.map.ObjectMapper;
+
+import com.esri.client.local.ArcGISLocalTiledLayer;
+import com.esri.core.geometry.Geometry;
+import com.esri.core.geometry.Polygon;
 import com.esri.core.map.Graphic;
+import com.esri.core.map.LayerLegendInfo;
+import com.esri.core.map.LayerLegendInfoCollection;
+import com.esri.core.map.LegendItemInfo;
+import com.esri.core.renderer.AlgorithmicColorRamp;
+import com.esri.core.renderer.ColorRamp;
+import com.esri.core.renderer.MultipartColorRamp;
+import com.esri.core.renderer.Renderer;
+import com.esri.core.renderer.SimpleRenderer;
+import com.esri.core.renderer.UniqueValueDefinition;
+import com.esri.core.renderer.UniqueValueRenderer;
 import com.esri.core.symbol.SimpleFillSymbol;
 import com.esri.core.symbol.SimpleLineSymbol;
 import com.esri.core.symbol.SimpleMarkerSymbol;
 import com.esri.core.symbol.SimpleMarkerSymbol.Style;
+import com.esri.core.symbol.Symbol;
+import com.esri.core.tasks.ags.GenerateRendererTask;
+import com.esri.core.tasks.ags.GenerateRendererTaskParameters;
+import com.esri.map.ArcGISFeatureLayer;
 import com.esri.map.GraphicsLayer;
 import com.esri.map.GroupLayer;
 import com.esri.map.JMap;
+import com.esri.map.Layer;
+import com.esri.map.Layer.LayerStatus;
+import com.esri.map.LayerEvent;
+import com.esri.map.LayerInfo;
+import com.esri.map.LayerList;
+import com.esri.toolkit.editing.JTemplatePicker;
 import com.esri.toolkit.legend.JLegend;
+import com.esri.toolkit.legend.LegendTreeCellRenderer;
 import com.esri.toolkit.overlays.DrawingCompleteEvent;
 import com.esri.toolkit.overlays.DrawingCompleteListener;
 import com.esri.toolkit.overlays.DrawingOverlay;
 import com.esri.toolkit.overlays.DrawingOverlay.DrawingMode;
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+import com.google.gson.JsonPrimitive;
+import com.sun.javafx.charts.Legend;
+
+import classes.StyleLayer;
+import classes.UniqueValueInfo;
+import classes.UniqueValueStyle;
 
 public class Menu {
 	EventoCombos eventoCombos = new EventoCombos();
@@ -530,11 +586,192 @@ public class Menu {
 
 	public void crearMenuCapas (JMap map, JPanel panelMenuCapas) {
 		JLegend legend = new JLegend(map);
-	    legend.setPreferredSize(new Dimension(250, 700));
-	    legend.setBorder(new LineBorder(new Color(205, 205, 255), 3));
-	    panelMenuCapas.add(legend);
+		for (Component component : legend.getComponents()) {
+			JScrollPane jScrollPane = (JScrollPane) component;
+			for (int i =0; i<jScrollPane.getComponents().length; i++) {
+				if (i==0) {
+					JViewport jViewport = (JViewport) jScrollPane.getComponent(i);
+					JTree jTree = (JTree) jViewport.getComponent(0); 
+					//jTree.setBackground(Color.CYAN);
+					jTree.addMouseListener(new MouseListener() {
+						@Override
+						public void mouseReleased(MouseEvent arg0) {
+//							System.out.println("mouseReleased ");
+						}
+						@Override
+						public void mousePressed(MouseEvent arg0) {
+//							System.out.println("mousePressed ");
+						}
+						
+						@Override
+						public void mouseExited(MouseEvent arg0) {
+//							System.out.println("mouseExited ");							
+						}
+						@Override
+						public void mouseEntered(MouseEvent arg0) {
+							//System.out.println("mouseEntered ");							
+						}
+						@Override
+						public void mouseClicked(MouseEvent arg0) {
+							DefaultTreeModel defaultTreeModel = (DefaultTreeModel) jTree.getModel();
+							if (jTree.getPathForLocation(arg0.getX(), arg0.getY()) != null) {
+								TreePath path = jTree.getPathForLocation(arg0.getX(), arg0.getY());
+								Object[] objects = path.getPath();
+								LayerLegendInfo layerLegendInfo = null;
+								LegendItemInfo legendItemInfo= null;
+								ArcGISFeatureLayer arcGISFeatureLayer = null;
+								if (objects.length > 3) {
+									for (int i=0; i<objects.length; i++) { 
+										System.out.println(" lenhgt " + objects[i]);
+										if (i==2 ) {
+											DefaultMutableTreeNode defaultMutableTreeNode  = (DefaultMutableTreeNode) objects[i];
+											arcGISFeatureLayer =  (ArcGISFeatureLayer) defaultMutableTreeNode.getUserObject();
+											//layerLegendInfo = (LayerLegendInfo) defaultMutableTreeNode.getUserObject();
+										}
+										//System.out.println("path " + objects[i]);
+										if ((i+1) == objects.length) {
+											//System.out.println(" i " + i + " objects[i] " +objects[i]);
+											DefaultMutableTreeNode arcGISLocalTiledLayer = (DefaultMutableTreeNode) objects[i];
+											legendItemInfo = (LegendItemInfo) arcGISLocalTiledLayer.getUserObject();
+										} 
+									}
+									seleccionarLayer(map, arcGISFeatureLayer, legendItemInfo);
+									if (defaultTreeModel != null) {
+										defaultTreeModel.reload();
+									}
+								}
+								
+							}
+						}
+					});
+				} 
+			}
+		}
+		legend.setPreferredSize(new Dimension(300, 100));
+		legend.setBorder(new LineBorder(new Color(205, 205, 255), 3));
+		panelMenuCapas.add(legend, BorderLayout.WEST);
 	}
 	
+	public void seleccionarLayer(JMap map, ArcGISFeatureLayer arcGISFeatureLayer, LegendItemInfo legendItemInfo) {
+		if (arcGISFeatureLayer != null && legendItemInfo != null) {
+			try {// SimpleRender, si marca error entra a catch
+				SimpleRenderer simpleRenderer = (SimpleRenderer) arcGISFeatureLayer.getRenderer();
+				System.out.println(" legendItemInfo simple: "+legendItemInfo);
+				cambiarColorLayerSimple(simpleRenderer.toJson(), map, arcGISFeatureLayer, legendItemInfo); 
+			} catch (Exception e) {
+				try {
+					UniqueValueRenderer uniqueValueRenderer = (UniqueValueRenderer) arcGISFeatureLayer.getRenderer();
+					System.out.println(" uniqueValueRenderer: "+ legendItemInfo );
+					cambiarColorLayerUnique(uniqueValueRenderer.toJson(), map, arcGISFeatureLayer, legendItemInfo);
+					
+				} catch (Exception e2) {
+					// se pondran objetos del local
+				}
+
+			}
+
+		}
+			//System.out.println(" arcGISFeatureLayer.getRenderer() " + arcGISFeatureLayer.getRenderer() +" arcGISFeatureLayer.getSelectionColor() "+arcGISFeatureLayer.getSelectionColor());
+			
+	}
+	
+	public void cambiarColorLayerUnique (String Json, JMap map, ArcGISFeatureLayer arcGISFeatureLayer, LegendItemInfo legendItemInfo) {
+		Gson gson = new Gson();
+		UniqueValueStyle uniqueValueStyle = (UniqueValueStyle) gson.fromJson(Json, UniqueValueStyle.class);
+		if (uniqueValueStyle != null) {
+			List<UniqueValueInfo> listaValues = uniqueValueStyle.getUniqueValueInfos();
+			if (listaValues != null) {
+				for (UniqueValueInfo uniqueValueInfo : listaValues) {
+					if (uniqueValueInfo.getLabel().equals(legendItemInfo.getLabel())) {
+						int[] colors = {};
+						colors = uniqueValueInfo.getSymbol().getColor();
+						uniqueValueInfo.getSymbol().setColor(obtenerColorNuevo(map, colors));
+						Gson nuevoJson = new Gson(); 
+						String jsonActual = nuevoJson.toJson(uniqueValueStyle); 
+						//System.out.println(" js " + jsonActual);
+						actualizarColorLayerUnique(jsonActual, arcGISFeatureLayer, legendItemInfo);
+						break;
+					}
+				}
+			}
+		}
+	}
+	
+	public void actualizarColorLayerUnique (String jsonActual, ArcGISFeatureLayer arcGISFeatureLayer, LegendItemInfo legendItemInfo) {
+		try {
+			ObjectMapper objectMapper = new ObjectMapper();
+			JsonNode jsonNode = objectMapper.readTree(jsonActual);
+			//System.out.println("nuevoJson " + jsonNode);
+			UniqueValueRenderer uniqueValueRenderer = new UniqueValueRenderer(jsonNode);
+			arcGISFeatureLayer.setRenderer(uniqueValueRenderer);
+			arcGISFeatureLayer.refresh();
+		} catch (Exception e) {
+			System.out.println("actualizarColorLayer e: "  +e);
+		}
+		
+	}
+	
+	public void cambiarColorLayerSimple (String Json,JMap map, ArcGISFeatureLayer arcGISFeatureLayer, LegendItemInfo legendItemInfo) {
+		try { 
+			Gson gson = new Gson();
+			StyleLayer styleLayer = gson.fromJson(Json, StyleLayer.class);
+			if (styleLayer != null) {
+				int[] colors = {};
+				if (styleLayer.getSymbol().getOutline() != null) {
+					colors =styleLayer.getSymbol().getOutline().getColor(); 
+					styleLayer.getSymbol().getOutline().setColor(obtenerColorNuevo(map, colors));
+				} else  {
+					colors =styleLayer.getSymbol().getColor(); 
+					styleLayer.getSymbol().setColor(obtenerColorNuevo(map, colors));
+				}
+				Gson nuevoJson = new Gson();
+				String jsonActual = nuevoJson.toJson(styleLayer); 
+				actualizarColorLayer(jsonActual, arcGISFeatureLayer, legendItemInfo);
+			} 
+			
+		} catch (Exception e) {
+			System.out.println("Exception " + e);
+			e.printStackTrace();
+		}
+	}
+	
+	
+	public void actualizarColorLayer (String jsonActual, ArcGISFeatureLayer arcGISFeatureLayer, LegendItemInfo legendItemInfo) {
+		try {
+			ObjectMapper objectMapper = new ObjectMapper();
+			JsonNode jsonNode = objectMapper.readTree(jsonActual);
+			//System.out.println("nuevoJson " + jsonNode);
+			SimpleRenderer simpleRenderer2 = new SimpleRenderer(jsonNode);
+			arcGISFeatureLayer.setRenderer(simpleRenderer2);
+			arcGISFeatureLayer.refresh();
+		} catch (Exception e) {
+			System.out.println("actualizarColorLayer e: "  +e);
+		}
+		
+	}
+
+	public int[] obtenerColorNuevo (JMap map, int[] colors) {
+		int r =0, g=0, b=0, a=0;
+		int[] colorNuevos = colors;
+		for (int i=0; i<colors.length; i++) { 
+			if (i==0) {
+				r =colors[i];
+			} else if (i==1) {
+				g =colors[i];
+			} else if (i==2) {
+				b =colors[i];
+			} else if (i==3) {
+				a =colors[i];
+			}
+		}
+		Color color = new Color(r, g, b, a);
+		Color fromColor = JColorChooser.showDialog(  map, "Choose 'from' color", color);
+		if (fromColor != null) {
+			int[] colorNuevoss = {fromColor.getRed(), fromColor.getGreen(), fromColor.getBlue(), fromColor.getAlpha()};
+			colorNuevos = colorNuevoss;
+		}
+		return colorNuevos;
+	}
 	
 	public JMenuItem agregarCaracteristicasItem (JMenuItem menuItem, String Imagen, String nombreItem, String decripcion) {
 		menuItem = new JMenuItem(nombreItem, new ImageIcon(Imagen));
@@ -633,6 +870,9 @@ public class Menu {
 		return toolBar;
 	 }
 	 
+	 /**
+	  * @wbp.parser.entryPoint
+	  */
 	 public JToolBar createToolBar(JMap map, DrawingOverlay rectangle, DrawingOverlay polyline, DrawingOverlay freeHandLine,
 			DrawingOverlay point, DrawingOverlay multipoint, DrawingOverlay polygon) {
 

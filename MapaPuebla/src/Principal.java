@@ -28,10 +28,6 @@ import com.esri.map.GroupLayer;
 //import com.esri.map.ArcGISTiledMapServiceLayer;
 //import com.esri.map.GraphicsLayer;
 import com.esri.map.JMap;
-//import com.esri.map.MapEvent;
-//import com.esri.map.MapEventListenerAdapter;
-//import com.esri.map.MapOptions;
-//import com.esri.map.MapOptions.MapType;
 
 public class Principal {
 
@@ -40,13 +36,14 @@ public class Principal {
   private GroupLayer groupLayer = new GroupLayer();
   
   public Principal() throws Exception {
+
 	  JPanel panelPrincipal =new JPanel(new BorderLayout()); 
   	  JPanel panelMenu = new JPanel(new BorderLayout());
   	  JPanel panelMenuCapas = new JPanel(new BorderLayout());
   	  JPanel panelMapa = new JPanel(new BorderLayout());
   	  Menu menu = new Menu();
 		EventoMapa eventoMapa = new EventoMapa();
-		map = eventoMapa.crearMapaPuebla(groupLayer);
+		
 	
     window = new JFrame();
     window.setSize(1430, 850);
@@ -70,6 +67,8 @@ public class Principal {
     panelMapa.setPreferredSize(new Dimension(1114, 200));
     panelMapa.setBackground(Color.WHITE); 
     
+	map = eventoMapa.crearMapaPuebla(groupLayer);
+    menu.crearMenuCapas(map, panelMenuCapas);
     window.addWindowListener(new WindowAdapter() {
       @Override
       public void windowClosing(WindowEvent windowEvent) {
@@ -78,8 +77,8 @@ public class Principal {
       }
     });
 
-		menu.crearMenuCapas(map, panelMenuCapas);
-		menu.crearMenu(panelMenu, map, groupLayer);
+		
+    menu.crearMenu(panelMenu, map, groupLayer);
     panelMapa.add(map, -1);
     panelPrincipal.add(panelMenu, BorderLayout.NORTH); 
     panelPrincipal.add(panelMenuCapas, BorderLayout.LINE_START);

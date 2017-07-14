@@ -2,6 +2,8 @@ import java.awt.Color;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.File;
+import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -43,17 +45,17 @@ public class PintarPredios {
 	 public void pintarPoligonos (JMap map) { 
 		System.out.println("map " + map.getLayers());
 		LayerList layers = map.getLayers();
-		graphicsLayer.setName("PREDIOS"); 
+		graphicsLayer.setName("PREDIOS");
 		layers.add(graphicsLayer);
 
 		map.addMapEventListener(new MapEventListenerAdapter() {
 			@Override
 			public void mapReady(MapEvent mapEvent) {
-				System.out.println("mapEvent " + initialExtent); 
+				System.out.println("mapEvent " + initialExtent);
 				mapEvent.getMap().setExtent(initialExtent);
 				System.out.println("xxxxxxx " + graphicsLayer);
 				initializeParcels(graphicsLayer);
-				
+
 			}
 		});
 		List<Polygon> listaPolygo = new ArrayList<Polygon>();
@@ -637,13 +639,25 @@ public class PintarPredios {
 
 
 			SimpleLineSymbol lineSymbol = new SimpleLineSymbol(Color.red, 3, SimpleLineSymbol.Style.SOLID);
+			File archivo = new File("C:\\Users\\UsuarioJAVA\\Documents\\pdftexto.txt");
+			FileWriter escribir = new FileWriter(archivo, true);
+			// -escribir.write(saludo);
 			
 			for (Polygon x: listaPolyline) {
 				Graphic disa = new Graphic(x, lineSymbol);
 				graphicsLayer.addGraphic(disa);
-			}
-			
 
+				for (int i = 0; i < x.getPointCount(); i++) {
+					// oint point = new Po
+					// System.out.println("s " + x.getPointCount() + " ddd " +
+					// x.getPoint(i));
+
+					escribir.write(x.getPoint(i).getX() + ", " + x.getPoint(i).getY() + "\n");
+				}
+
+			}
+			escribir.close();
+			
 			
 		} catch (Exception ex) {
 			ex.printStackTrace();

@@ -8,5 +8,6 @@
 			<attribute name="javadoc_location" value="jar:file:C:\Users\UsuarioJAVA\eclipse\jee-neon\eclipse\configuration\org.eclipse.osgi\1116\0\.cp\lib\/ArcGIS_Runtime_Java_Toolkit-javadoc.jar!/"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="Libraries/gson-2.2.2.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
